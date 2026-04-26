@@ -1,11 +1,16 @@
 import cv2
 import threading
 import numpy as np
+import os
+import sys
 from kivy.app import App
-from kivy.uix.boxlayout import BoxLayout
-from kivy.uix.image import Image
 from kivy.clock import Clock
 from kivy.graphics.texture import Texture
+from kivy.lang import Builder
+from kivy.properties import NumericProperty, StringProperty, BooleanProperty
+
+# Garantir que a raiz do projeto esteja no path para as importações do core
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
 # Importações do Core e Mobile
 from core.sensor_manager import SensorManager
@@ -14,18 +19,33 @@ from core.fusion_engine import FusionEngine
 from mobile.audio_manager import AudioManager
 from mobile.ui_tactical import TacticalOverlay
 
+
 class AnimalDetectorApp(App):
+    current_risk = NumericProperty(0.0)
+    target_count = NumericProperty(0)
+    menu_active = BooleanProperty(False)
+    conf_threshold = NumericProperty(0.85)
+
+    def on_conf_threshold(self, instance, value):
+        """Atualiza a sensibilidade do motor de detecção em tempo real."""
+        if hasattr(self, 'engine'):
+            self.engine.threshold = value
+
     def build(self):
-        # 1. Configuração da UI
-        self.layout = BoxLayout(orientation='vertical')
-        self.img_display = Image()
-        self.layout.add_widget(self.img_display)
-        
-        # 2. Inicialização dos Motores
-        self.detector = DetectionEngine(model_path="yolov8n.onnx")
+        # Carregar o Design Tático
+        self.root = Builder.load_file('mobile/style.kv')
+
+        # 1. Inicialização dos Motores (Sistema Híbrido Duplo)
+        self.detector = DetectionEngine(model_paths=[
+            "models/global_animal_detector.onnx",
+            "models/hybrid_animal_detector.onnx"
+        ])
         self.fusion = FusionEngine()
         self.audio = AudioManager()
         self.ui_tactical = TacticalOverlay()
+        
+        self.is_thermal_active = False
+        self.is_recording = False
         
         # Lógica de detecção de plataforma
         from kivy.utils import platform
@@ -33,8 +53,8 @@ class AnimalDetectorApp(App):
             print("--- AMBIENTE ANDROID DETECTADO: USANDO CAMERA REAL ---")
             self.cap = cv2.VideoCapture(0)
         else:
-            print("--- AMBIENTE DESKTOP: USANDO VIDEO DE SIMULACAO ---")
-            self.cap = cv2.VideoCapture("scripts/isolated_road.mp4")
+            print("--- AMBIENTE DESKTOP: INICIALIZANDO SENSORES ---")
+            # Nao abrimos a camera aqui para evitar conflito com o SensorManager
 
         # 3. Gerenciamento de Sensores
         self.rgb_manager = SensorManager(sensor_id=0) # Câmera Principal
@@ -55,7 +75,21 @@ class AnimalDetectorApp(App):
         self.ia_thread = threading.Thread(target=self.ia_processing_loop, daemon=True)
         self.ia_thread.start()
         
-        return self.layout
+        return self.root # O root agora é definido pelo style.kv
+
+    def toggle_thermal(self):
+        self.is_thermal_active = not self.is_thermal_active
+        self.ui_tactical.thermal_mode = self.is_thermal_active
+        print(f"Modo Térmico: {self.is_thermal_active}")
+
+    def capture_photo(self):
+        print("CAPTURANDO FOTO...")
+        # Lógica de salvar frame será implementada
+    
+    def toggle_recording(self):
+        self.is_recording = not self.is_recording
+        self.root.ids.rec_btn.text = "STOP" if self.is_recording else "REC"
+        print(f"Gravação: {self.is_recording}")
 
     def ia_processing_loop(self):
         """Loop de processamento pesado (IA + Cálculo de Risco)"""
@@ -67,11 +101,12 @@ class AnimalDetectorApp(App):
                 
                 # Cálculo de Risco Progressivo
                 if self.last_detections:
-                    # Risco baseado na confiança e tamanho da box (proximidade simulada)
                     max_conf = max([d['confidence'] for d in self.last_detections])
                     self.current_risk = max_conf
+                    self.target_count = len(self.last_detections)
                 else:
                     self.current_risk = 0.0
+                    self.target_count = 0
                 
                 # Atualizar Áudio
                 self.audio.set_risk_level(self.current_risk)
@@ -87,7 +122,7 @@ class AnimalDetectorApp(App):
             display_frame = frame_rgb.copy()
             
             # 1. Aplicar Fusão se houver sinal térmico
-            if frame_thermal is not None:
+            if self.is_thermal_active and frame_thermal is not None:
                 display_frame = self.fusion.apply_overlay(display_frame, frame_thermal)
             
             # 2. Aplicar HUD e Bounding Boxes Táticas
@@ -97,7 +132,10 @@ class AnimalDetectorApp(App):
             buf = cv2.flip(display_frame, 0).tobytes()
             texture = Texture.create(size=(display_frame.shape[1], display_frame.shape[0]), colorfmt='bgr')
             texture.blit_buffer(buf, colorfmt='bgr', bufferfmt='ubyte')
-            self.img_display.texture = texture
+            self.root.ids.main_feed.texture = texture
+            
+            # 4. Atualizar Labels dinâmicos
+            self.root.ids.status_footer.text = f"SCANNING REGION: ALPHA-01 | TARGETS: {self.target_count}"
 
     def on_stop(self):
         """Finalização Segura"""

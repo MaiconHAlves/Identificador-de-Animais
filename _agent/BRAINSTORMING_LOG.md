@@ -1,3 +1,17 @@
+# 🧠 Log de Brainstorming e Decisões - Identificador de Animais
+
+## [2026-04-26] Milestone: Modernização Tactical HUD V2
+- **Decisão**: Migrar a interface de uma estrutura estática (BoxLayout) para uma dinâmica e minimalista (FloatLayout + KV Style).
+- **Aesthetic**: Design "Industrial/Military-Grade" com foco em baixo ruído visual.
+- **Implementação**:
+    - Criado `mobile/style.kv` para centralizar a estética.
+    - Implementado `RiskMeter` reativo ao `current_risk` da IA.
+    - Adicionados botões de captura de mídia.
+    - Redesign das Bounding Boxes para estilo "Target Lock" fino.
+- **Resultado**: Interface estabilizada no Windows (Python 3.12) e preparada para o build Android via Claude.
+
+---
+
 # 📓 Decision Log: Identificador de Animais
 **Status: Phase 1 (Understanding)**
 

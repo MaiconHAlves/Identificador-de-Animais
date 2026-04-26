@@ -1,0 +1,236 @@
+﻿build	Build with Buildozer	﻿2026-04-26T16:33:14.0961586Z ##[group]Run export JAVA_HOME=$JAVA_HOME_17_X64
+build	Build with Buildozer	2026-04-26T16:33:14.0961925Z [36;1mexport JAVA_HOME=$JAVA_HOME_17_X64[0m
+build	Build with Buildozer	2026-04-26T16:33:14.0962213Z [36;1mexport ANDROID_SDK_PATH=$ANDROID_HOME[0m
+build	Build with Buildozer	2026-04-26T16:33:14.0962542Z [36;1mexport ANDROID_NDK_PATH=$ANDROID_HOME/ndk/25.1.8937393[0m
+build	Build with Buildozer	2026-04-26T16:33:14.0962896Z [36;1mpip install --user buildozer cython==0.29.33[0m
+build	Build with Buildozer	2026-04-26T16:33:14.0963199Z [36;1myes | buildozer -v android debug[0m
+build	Build with Buildozer	2026-04-26T16:33:14.1023253Z shell: /usr/bin/bash -e {0}
+build	Build with Buildozer	2026-04-26T16:33:14.1023494Z env:
+build	Build with Buildozer	2026-04-26T16:33:14.1023740Z   pythonLocation: /opt/hostedtoolcache/Python/3.11.15/x64
+build	Build with Buildozer	2026-04-26T16:33:14.1024156Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.11.15/x64/lib/pkgconfig
+build	Build with Buildozer	2026-04-26T16:33:14.1024555Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.15/x64
+build	Build with Buildozer	2026-04-26T16:33:14.1025057Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.15/x64
+build	Build with Buildozer	2026-04-26T16:33:14.1025408Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.15/x64
+build	Build with Buildozer	2026-04-26T16:33:14.1025787Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.11.15/x64/lib
+build	Build with Buildozer	2026-04-26T16:33:14.1026197Z   JAVA_HOME: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.18-8/x64
+build	Build with Buildozer	2026-04-26T16:33:14.1026629Z   JAVA_HOME_17_X64: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.18-8/x64
+build	Build with Buildozer	2026-04-26T16:33:14.1027000Z   ANDROID_HOME: /usr/local/lib/android/sdk
+build	Build with Buildozer	2026-04-26T16:33:14.1027273Z   ANDROID_SDK_ROOT: /usr/local/lib/android/sdk
+build	Build with Buildozer	2026-04-26T16:33:14.1027545Z   ANDROID_SDK_HOME: /usr/local/lib/android/sdk
+build	Build with Buildozer	2026-04-26T16:33:14.1027851Z   ANDROID_NDK_HOME: /usr/local/lib/android/sdk/ndk/25.1.8937393
+build	Build with Buildozer	2026-04-26T16:33:14.1028155Z ##[endgroup]
+build	Build with Buildozer	2026-04-26T16:33:16.6669372Z Collecting buildozer
+build	Build with Buildozer	2026-04-26T16:33:16.7513747Z   Downloading buildozer-1.5.0-py3-none-any.whl.metadata (139 kB)
+build	Build with Buildozer	2026-04-26T16:33:17.0140596Z Collecting cython==0.29.33
+build	Build with Buildozer	2026-04-26T16:33:17.0316317Z   Downloading Cython-0.29.33-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.manylinux_2_24_x86_64.whl.metadata (3.1 kB)
+build	Build with Buildozer	2026-04-26T16:33:17.0547626Z Collecting pexpect (from buildozer)
+build	Build with Buildozer	2026-04-26T16:33:17.0708562Z   Downloading pexpect-4.9.0-py2.py3-none-any.whl.metadata (2.5 kB)
+build	Build with Buildozer	2026-04-26T16:33:17.1176391Z Collecting virtualenv (from buildozer)
+build	Build with Buildozer	2026-04-26T16:33:17.1339908Z   Downloading virtualenv-21.2.4-py3-none-any.whl.metadata (3.5 kB)
+build	Build with Buildozer	2026-04-26T16:33:17.1611027Z Collecting sh (from buildozer)
+build	Build with Buildozer	2026-04-26T16:33:17.1785799Z   Downloading sh-2.2.2-py3-none-any.whl.metadata (3.7 kB)
+build	Build with Buildozer	2026-04-26T16:33:17.2000043Z Collecting ptyprocess>=0.5 (from pexpect->buildozer)
+build	Build with Buildozer	2026-04-26T16:33:17.2170390Z   Downloading ptyprocess-0.7.0-py2.py3-none-any.whl.metadata (1.3 kB)
+build	Build with Buildozer	2026-04-26T16:33:17.2395191Z Collecting distlib<1,>=0.3.7 (from virtualenv->buildozer)
+build	Build with Buildozer	2026-04-26T16:33:17.2555236Z   Downloading distlib-0.4.0-py2.py3-none-any.whl.metadata (5.2 kB)
+build	Build with Buildozer	2026-04-26T16:33:17.2838088Z Collecting filelock<4,>=3.24.2 (from virtualenv->buildozer)
+build	Build with Buildozer	2026-04-26T16:33:17.2998673Z   Downloading filelock-3.29.0-py3-none-any.whl.metadata (2.0 kB)
+build	Build with Buildozer	2026-04-26T16:33:17.3261461Z Collecting platformdirs<5,>=3.9.1 (from virtualenv->buildozer)
+build	Build with Buildozer	2026-04-26T16:33:17.3421170Z   Downloading platformdirs-4.9.6-py3-none-any.whl.metadata (4.7 kB)
+build	Build with Buildozer	2026-04-26T16:33:17.3630907Z Collecting python-discovery>=1.2.2 (from virtualenv->buildozer)
+build	Build with Buildozer	2026-04-26T16:33:17.3788884Z   Downloading python_discovery-1.2.2-py3-none-any.whl.metadata (5.4 kB)
+build	Build with Buildozer	2026-04-26T16:33:17.4040709Z Downloading Cython-0.29.33-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.manylinux_2_24_x86_64.whl (1.9 MB)
+build	Build with Buildozer	2026-04-26T16:33:17.4561758Z    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 1.9/1.9 MB 48.3 MB/s  0:00:00
+build	Build with Buildozer	2026-04-26T16:33:17.4741934Z Downloading buildozer-1.5.0-py3-none-any.whl (86 kB)
+build	Build with Buildozer	2026-04-26T16:33:17.4919878Z Downloading pexpect-4.9.0-py2.py3-none-any.whl (63 kB)
+build	Build with Buildozer	2026-04-26T16:33:17.5099089Z Downloading ptyprocess-0.7.0-py2.py3-none-any.whl (13 kB)
+build	Build with Buildozer	2026-04-26T16:33:17.5285266Z Downloading sh-2.2.2-py3-none-any.whl (38 kB)
+build	Build with Buildozer	2026-04-26T16:33:17.5462957Z Downloading virtualenv-21.2.4-py3-none-any.whl (5.8 MB)
+build	Build with Buildozer	2026-04-26T16:33:17.5809421Z    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 5.8/5.8 MB 173.6 MB/s  0:00:00
+build	Build with Buildozer	2026-04-26T16:33:17.5972756Z Downloading distlib-0.4.0-py2.py3-none-any.whl (469 kB)
+build	Build with Buildozer	2026-04-26T16:33:17.6167876Z Downloading filelock-3.29.0-py3-none-any.whl (39 kB)
+build	Build with Buildozer	2026-04-26T16:33:17.6343910Z Downloading platformdirs-4.9.6-py3-none-any.whl (21 kB)
+build	Build with Buildozer	2026-04-26T16:33:17.6593296Z Downloading python_discovery-1.2.2-py3-none-any.whl (31 kB)
+build	Build with Buildozer	2026-04-26T16:33:17.7139664Z Installing collected packages: ptyprocess, distlib, sh, platformdirs, pexpect, filelock, cython, python-discovery, virtualenv, buildozer
+build	Build with Buildozer	2026-04-26T16:33:18.6651138Z 
+build	Build with Buildozer	2026-04-26T16:33:18.6662453Z Successfully installed buildozer-1.5.0 cython-0.29.33 distlib-0.4.0 filelock-3.29.0 pexpect-4.9.0 platformdirs-4.9.6 ptyprocess-0.7.0 python-discovery-1.2.2 sh-2.2.2 virtualenv-21.2.4
+build	Build with Buildozer	2026-04-26T16:33:19.9341813Z Cloning into 'python-for-android'...
+build	Build with Buildozer	2026-04-26T16:33:19.9342831Z [0m[1;34m# Check configuration tokens[0m
+build	Build with Buildozer	2026-04-26T16:33:19.9343909Z [0m[1;31m# WARNING: Config token app android.sdk is deprecated and ignored, but you set value 33[0m
+build	Build with Buildozer	2026-04-26T16:33:19.9344616Z [0m[1;34m# Ensure build layout[0m
+build	Build with Buildozer	2026-04-26T16:33:19.9345274Z [0m[1;30m# Create directory /home/runner/.buildozer[0m
+build	Build with Buildozer	2026-04-26T16:33:19.9345756Z [0m[1;30m# Create directory /home/runner/.buildozer/cache[0m
+build	Build with Buildozer	2026-04-26T16:33:19.9346502Z [0m[1;30m# Create directory /home/runner/work/Identificador-de-Animais/Identificador-de-Animais/.buildozer[0m
+build	Build with Buildozer	2026-04-26T16:33:19.9347358Z [0m[1;30m# Create directory /home/runner/work/Identificador-de-Animais/Identificador-de-Animais/bin[0m
+build	Build with Buildozer	2026-04-26T16:33:19.9348247Z [0m[1;30m# Create directory /home/runner/work/Identificador-de-Animais/Identificador-de-Animais/.buildozer/applibs[0m
+build	Build with Buildozer	2026-04-26T16:33:19.9349044Z [0m[1;30m# Create directory /home/runner/.buildozer/android/platform/android/platform[0m
+build	Build with Buildozer	2026-04-26T16:33:19.9349922Z [0m[1;30m# Create directory /home/runner/work/Identificador-de-Animais/Identificador-de-Animais/.buildozer/android/platform[0m
+build	Build with Buildozer	2026-04-26T16:33:19.9350917Z [0m[1;30m# Create directory /home/runner/work/Identificador-de-Animais/Identificador-de-Animais/.buildozer/android/app[0m
+build	Build with Buildozer	2026-04-26T16:33:19.9351535Z [0m[1;34m# Check configuration tokens[0m
+build	Build with Buildozer	2026-04-26T16:33:19.9351922Z [0m[1;34m# Preparing build[0m
+build	Build with Buildozer	2026-04-26T16:33:19.9352414Z [0m[1;34m# Check requirements for android[0m
+build	Build with Buildozer	2026-04-26T16:33:19.9352755Z [0m[1;30m# Search for Git (git)[0m
+build	Build with Buildozer	2026-04-26T16:33:19.9353251Z [0m[1;30m#  -> found at /usr/bin/git[0m
+build	Build with Buildozer	2026-04-26T16:33:19.9353609Z [0m[1;30m# Search for Cython (cython)[0m
+build	Build with Buildozer	2026-04-26T16:33:19.9354029Z [0m[1;30m#  -> found at /home/runner/.local/bin/cython[0m
+build	Build with Buildozer	2026-04-26T16:33:19.9354522Z [0m[1;30m# Search for Java compiler (javac)[0m
+build	Build with Buildozer	2026-04-26T16:33:19.9355214Z [0m[1;30m#  -> found at /usr/lib/jvm/temurin-17-jdk-amd64/bin/javac[0m
+build	Build with Buildozer	2026-04-26T16:33:19.9355693Z [0m[1;30m# Search for Java keytool (keytool)[0m
+build	Build with Buildozer	2026-04-26T16:33:19.9356164Z [0m[1;30m#  -> found at /usr/lib/jvm/temurin-17-jdk-amd64/bin/keytool[0m
+build	Build with Buildozer	2026-04-26T16:33:19.9356564Z [0m[1;34m# Install platform[0m
+build	Build with Buildozer	2026-04-26T16:33:19.9357566Z [0m[1;30m# Run ['git', 'clone', '-b', 'master', '--single-branch', 'https://github.com/kivy/python-for-android.git', 'python-for-android'][0m
+build	Build with Buildozer	2026-04-26T16:33:19.9358643Z [0m[1;30m# Cwd /home/runner/work/Identificador-de-Animais/Identificador-de-Animais/.buildozer/android/platform[0m
+build	Build with Buildozer	2026-04-26T16:33:22.0318981Z [0m[1;30m# Run ['/opt/hostedtoolcache/Python/3.11.15/x64/bin/python', '-m', 'pip', 'install', '-q', '--user', 'appdirs', 'colorama>=0.3.3', 'jinja2', 'sh>=1.10, <2.0; sys_platform!="win32"', 'build', 'toml', 'packaging', 'setuptools'][0m
+build	Build with Buildozer	2026-04-26T16:33:22.0319991Z [0m[1;30m# Cwd None[0m
+build	Build with Buildozer	2026-04-26T16:33:28.6706263Z ##[error]Exception in thread "main" java.lang.NoClassDefFoundError: javax/xml/bind/annotation/XmlSchema
+build	Build with Buildozer	2026-04-26T16:33:28.6715533Z [0m[1;34m# Android ANT is missing, downloading[0m
+build	Build with Buildozer	2026-04-26T16:33:28.6716689Z [0m[1;30m# Downloading https://archive.apache.org/dist/ant/binaries/apache-ant-1.9.4-bin.tar.gz[0m
+build	Build with Buildozer	2026-04-26T16:33:28.6718140Z [0m[1;30m# Run ['tar', 'xzf', 'apache-ant-1.9.4-bin.tar.gz'][0m
+build	Build with Buildozer	2026-04-26T16:33:28.6719050Z [0m[1;30m# Cwd /home/runner/.buildozer/android/platform/apache-ant-1.9.4[0m
+build	Build with Buildozer	2026-04-26T16:33:28.6719807Z [0m[1;34m# Apache ANT installation done.[0m
+build	Build with Buildozer	2026-04-26T16:33:28.6720510Z [0m[1;34m# Android SDK found at /usr/local/lib/android/sdk[0m
+build	Build with Buildozer	2026-04-26T16:33:28.6721425Z [0m[1;34m# Android NDK found at /usr/local/lib/android/sdk/ndk/25.1.8937393[0m
+build	Build with Buildozer	2026-04-26T16:33:28.6722320Z [0m[1;34m# Recommended android's NDK version by p4a is: 25b[0m
+build	Build with Buildozer	2026-04-26T16:33:28.6723168Z [0m[1;34m# Installing/updating SDK platform tools if necessary[0m
+build	Build with Buildozer	2026-04-26T16:33:28.6724529Z [0m[1;30m# Run ['/usr/local/lib/android/sdk/tools/bin/sdkmanager', '--sdk_root=/usr/local/lib/android/sdk', 'platform-tools'][0m
+build	Build with Buildozer	2026-04-26T16:33:28.6725764Z [0m[1;30m# Cwd /usr/local/lib/android/sdk[0m
+build	Build with Buildozer	2026-04-26T16:33:28.6726730Z 	at com.android.repository.api.SchemaModule$SchemaModuleVersion.<init>(SchemaModule.java:156)
+build	Build with Buildozer	2026-04-26T16:33:28.6727888Z 	at com.android.repository.api.SchemaModule.<init>(SchemaModule.java:75)
+build	Build with Buildozer	2026-04-26T16:33:28.6728965Z 	at com.android.sdklib.repository.AndroidSdkHandler.<clinit>(AndroidSdkHandler.java:81)
+build	Build with Buildozer	2026-04-26T16:33:28.6730068Z 	at com.android.sdklib.tool.sdkmanager.SdkManagerCli.main(SdkManagerCli.java:73)
+build	Build with Buildozer	2026-04-26T16:33:28.6731107Z 	at com.android.sdklib.tool.sdkmanager.SdkManagerCli.main(SdkManagerCli.java:48)
+build	Build with Buildozer	2026-04-26T16:33:28.6732163Z Caused by: java.lang.ClassNotFoundException: javax.xml.bind.annotation.XmlSchema
+build	Build with Buildozer	2026-04-26T16:33:28.6733307Z 	at java.base/jdk.internal.loader.BuiltinClassLoader.loadClass(BuiltinClassLoader.java:641)
+build	Build with Buildozer	2026-04-26T16:33:28.6734527Z 	at java.base/jdk.internal.loader.ClassLoaders$AppClassLoader.loadClass(ClassLoaders.java:188)
+build	Build with Buildozer	2026-04-26T16:33:28.6735687Z 	at java.base/java.lang.ClassLoader.loadClass(ClassLoader.java:525)
+build	Build with Buildozer	2026-04-26T16:33:28.6736224Z 	... 5 more
+build	Build with Buildozer	2026-04-26T16:33:28.6754482Z [0m[1;31m# Command failed: ['/usr/local/lib/android/sdk/tools/bin/sdkmanager', '--sdk_root=/usr/local/lib/android/sdk', 'platform-tools'][0m
+build	Build with Buildozer	2026-04-26T16:33:28.6755744Z [0m[1;31m# ENVIRONMENT:[0m
+build	Build with Buildozer	2026-04-26T16:33:28.6756253Z [0m[1;31m#     SHELL = '/bin/bash'[0m
+build	Build with Buildozer	2026-04-26T16:33:28.6756998Z [0m[1;31m#     SELENIUM_JAR_PATH = '/usr/share/java/selenium-server.jar'[0m
+build	Build with Buildozer	2026-04-26T16:33:28.6757759Z [0m[1;31m#     CONDA = '/usr/share/miniconda'[0m
+build	Build with Buildozer	2026-04-26T16:33:28.6758840Z [0m[1;31m#     GITHUB_WORKSPACE = '/home/runner/work/Identificador-de-Animais/Identificador-de-Animais'[0m
+build	Build with Buildozer	2026-04-26T16:33:28.6759771Z [0m[1;31m#     JAVA_HOME_11_X64 = '/usr/lib/jvm/temurin-11-jdk-amd64'[0m
+build	Build with Buildozer	2026-04-26T16:33:28.6760308Z [0m[1;31m#     JAVA_HOME_25_X64 = '/usr/lib/jvm/temurin-25-jdk-amd64'[0m
+build	Build with Buildozer	2026-04-26T16:33:28.6760928Z [0m[1;31m#     PKG_CONFIG_PATH = '/opt/hostedtoolcache/Python/3.11.15/x64/lib/pkgconfig'[0m
+build	Build with Buildozer	2026-04-26T16:33:28.6761767Z [0m[1;31m#     GITHUB_PATH = '/home/runner/work/_temp/_runner_file_commands/add_path_9e9fd195-63ae-4952-a831-492ddf2a522e'[0m
+build	Build with Buildozer	2026-04-26T16:33:28.6762895Z [0m[1;31m#     GITHUB_ACTION = '__run_4'[0m
+build	Build with Buildozer	2026-04-26T16:33:28.6763497Z [0m[1;31m#     JAVA_HOME = '/opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.18-8/x64'[0m
+build	Build with Buildozer	2026-04-26T16:33:28.6764019Z [0m[1;31m#     GITHUB_RUN_NUMBER = '15'[0m
+build	Build with Buildozer	2026-04-26T16:33:28.6764450Z [0m[1;31m#     RUNNER_NAME = 'GitHub Actions 1000000015'[0m
+build	Build with Buildozer	2026-04-26T16:33:28.6765147Z [0m[1;31m#     GRADLE_HOME = '/usr/share/gradle-9.4.1'[0m
+build	Build with Buildozer	2026-04-26T16:33:28.6765683Z [0m[1;31m#     GITHUB_REPOSITORY_OWNER_ID = '16207088'[0m
+build	Build with Buildozer	2026-04-26T16:33:28.6766259Z [0m[1;31m#     ACTIONS_RUNNER_ACTION_ARCHIVE_CACHE = '/opt/actionarchivecache'[0m
+build	Build with Buildozer	2026-04-26T16:33:28.6766783Z [0m[1;31m#     XDG_CONFIG_HOME = '/home/runner/.config'[0m
+build	Build with Buildozer	2026-04-26T16:33:28.6767312Z [0m[1;31m#     Python_ROOT_DIR = '/opt/hostedtoolcache/Python/3.11.15/x64'[0m
+build	Build with Buildozer	2026-04-26T16:33:28.6767813Z [0m[1;31m#     DOTNET_SKIP_FIRST_TIME_EXPERIENCE = '1'[0m
+build	Build with Buildozer	2026-04-26T16:33:28.6768376Z [0m[1;31m#     ANT_HOME = '/usr/share/ant'[0m
+build	Build with Buildozer	2026-04-26T16:33:28.6768817Z [0m[1;31m#     ANDROID_SDK_HOME = '/usr/local/lib/android/sdk'[0m
+build	Build with Buildozer	2026-04-26T16:33:28.6769321Z [0m[1;31m#     JAVA_HOME_8_X64 = '/usr/lib/jvm/temurin-8-jdk-amd64'[0m
+build	Build with Buildozer	2026-04-26T16:33:28.6769791Z [0m[1;31m#     GITHUB_TRIGGERING_ACTOR = 'MaiconHAlves'[0m
+build	Build with Buildozer	2026-04-26T16:33:28.6770306Z [0m[1;31m#     pythonLocation = '/opt/hostedtoolcache/Python/3.11.15/x64'[0m
+build	Build with Buildozer	2026-04-26T16:33:28.6770757Z [0m[1;31m#     GITHUB_REF_TYPE = 'branch'[0m
+build	Build with Buildozer	2026-04-26T16:33:28.6771182Z [0m[1;31m#     HOMEBREW_CLEANUP_PERIODIC_FULL_DAYS = '3650'[0m
+build	Build with Buildozer	2026-04-26T16:33:28.6771705Z [0m[1;31m#     ANDROID_NDK = '/usr/local/lib/android/sdk/ndk/27.3.13750724'[0m
+build	Build with Buildozer	2026-04-26T16:33:28.6772191Z [0m[1;31m#     BOOTSTRAP_HASKELL_NONINTERACTIVE = '1'[0m
+build	Build with Buildozer	2026-04-26T16:33:28.6772809Z [0m[1;31m#     PWD = '/home/runner/work/Identificador-de-Animais/Identificador-de-Animais'[0m
+build	Build with Buildozer	2026-04-26T16:33:28.6773344Z [0m[1;31m#     PIPX_BIN_DIR = '/opt/pipx_bin'[0m
+build	Build with Buildozer	2026-04-26T16:33:28.6773711Z [0m[1;31m#     LOGNAME = 'runner'[0m
+build	Build with Buildozer	2026-04-26T16:33:28.6774106Z [0m[1;31m#     GITHUB_REPOSITORY_ID = '1221687852'[0m
+build	Build with Buildozer	2026-04-26T16:33:28.6774480Z [0m[1;31m#     GITHUB_ACTIONS = 'true'[0m
+build	Build with Buildozer	2026-04-26T16:33:28.6775068Z [0m[1;31m#     USE_BAZEL_FALLBACK_VERSION = 'silent:'[0m
+build	Build with Buildozer	2026-04-26T16:33:28.6775642Z [0m[1;31m#     ANDROID_NDK_LATEST_HOME = '/usr/local/lib/android/sdk/ndk/29.0.14206865'[0m
+build	Build with Buildozer	2026-04-26T16:33:28.6776129Z [0m[1;31m#     SYSTEMD_EXEC_PID = '1824'[0m
+build	Build with Buildozer	2026-04-26T16:33:28.6776594Z [0m[1;31m#     GITHUB_SHA = 'c5156c54e63a96ca7830f0e64e00826759fd48f7'[0m
+build	Build with Buildozer	2026-04-26T16:33:28.6777409Z [0m[1;31m#     GITHUB_WORKFLOW_REF = 'MaiconHAlves/Identificador-de-Animais/.github/workflows/android.yml@refs/heads/master'[0m
+build	Build with Buildozer	2026-04-26T16:33:28.6778180Z [0m[1;31m#     POWERSHELL_DISTRIBUTION_CHANNEL = 'GitHub-Actions-ubuntu22'[0m
+build	Build with Buildozer	2026-04-26T16:33:28.6778673Z [0m[1;31m#     RUNNER_ENVIRONMENT = 'github-hosted'[0m
+build	Build with Buildozer	2026-04-26T16:33:28.6779089Z [0m[1;31m#     DOTNET_MULTILEVEL_LOOKUP = '0'[0m
+build	Build with Buildozer	2026-04-26T16:33:28.6779486Z [0m[1;31m#     GITHUB_REF = 'refs/heads/master'[0m
+build	Build with Buildozer	2026-04-26T16:33:28.6779842Z [0m[1;31m#     RUNNER_OS = 'Linux'[0m
+build	Build with Buildozer	2026-04-26T16:33:28.6780328Z [0m[1;31m#     ANDROID_NDK_PATH = '/usr/local/lib/android/sdk/ndk/25.1.8937393'[0m
+build	Build with Buildozer	2026-04-26T16:33:28.6780791Z [0m[1;31m#     GITHUB_REF_PROTECTED = 'false'[0m
+build	Build with Buildozer	2026-04-26T16:33:28.6781143Z [0m[1;31m#     HOME = '/home/runner'[0m
+build	Build with Buildozer	2026-04-26T16:33:28.6781560Z [0m[1;31m#     GITHUB_API_URL = 'https://api.github.com'[0m
+build	Build with Buildozer	2026-04-26T16:33:28.6781957Z [0m[1;31m#     LANG = 'C.UTF-8'[0m
+build	Build with Buildozer	2026-04-26T16:33:28.6782398Z [0m[1;31m#     GOROOT_1_25_X64 = '/opt/hostedtoolcache/go/1.25.9/x64'[0m
+build	Build with Buildozer	2026-04-26T16:33:28.6782988Z [0m[1;31m#     RUNNER_TRACKING_ID = 'github_64f7c174-837a-4a58-86fb-3bffa7405916'[0m
+build	Build with Buildozer	2026-04-26T16:33:28.6783435Z [0m[1;31m#     RUNNER_ARCH = 'X64'[0m
+build	Build with Buildozer	2026-04-26T16:33:28.6783828Z [0m[1;31m#     RUNNER_TEMP = '/home/runner/work/_temp'[0m
+build	Build with Buildozer	2026-04-26T16:33:28.6784599Z [0m[1;31m#     GITHUB_STATE = '/home/runner/work/_temp/_runner_file_commands/save_state_9e9fd195-63ae-4952-a831-492ddf2a522e'[0m
+build	Build with Buildozer	2026-04-26T16:33:28.6785624Z [0m[1;31m#     EDGEWEBDRIVER = '/usr/local/share/edge_driver'[0m
+build	Build with Buildozer	2026-04-26T16:33:28.6786145Z [0m[1;31m#     JAVA_HOME_21_X64 = '/usr/lib/jvm/temurin-21-jdk-amd64'[0m
+build	Build with Buildozer	2026-04-26T16:33:28.6786906Z [0m[1;31m#     GITHUB_ENV = '/home/runner/work/_temp/_runner_file_commands/set_env_9e9fd195-63ae-4952-a831-492ddf2a522e'[0m
+build	Build with Buildozer	2026-04-26T16:33:28.6787668Z [0m[1;31m#     GITHUB_EVENT_PATH = '/home/runner/work/_temp/_github_workflow/event.json'[0m
+build	Build with Buildozer	2026-04-26T16:33:28.6788247Z [0m[1;31m#     INVOCATION_ID = 'aa83b214f6744dfb93fea573e085a943'[0m
+build	Build with Buildozer	2026-04-26T16:33:28.6788689Z [0m[1;31m#     GITHUB_EVENT_NAME = 'push'[0m
+build	Build with Buildozer	2026-04-26T16:33:28.6789059Z [0m[1;31m#     GITHUB_RUN_ID = '24961533039'[0m
+build	Build with Buildozer	2026-04-26T16:33:28.6789651Z [0m[1;31m#     JAVA_HOME_17_X64 = '/opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.18-8/x64'[0m
+build	Build with Buildozer	2026-04-26T16:33:28.6790476Z [0m[1;31m#     ANDROID_NDK_HOME = '/usr/local/lib/android/sdk/ndk/25.1.8937393'[0m
+build	Build with Buildozer	2026-04-26T16:33:28.6791334Z [0m[1;31m#     GITHUB_STEP_SUMMARY = '/home/runner/work/_temp/_runner_file_commands/step_summary_9e9fd195-63ae-4952-a831-492ddf2a522e'[0m
+build	Build with Buildozer	2026-04-26T16:33:28.6791985Z [0m[1;31m#     HOMEBREW_NO_AUTO_UPDATE = '1'[0m
+build	Build with Buildozer	2026-04-26T16:33:28.6792369Z [0m[1;31m#     GITHUB_ACTOR = 'MaiconHAlves'[0m
+build	Build with Buildozer	2026-04-26T16:33:28.6792730Z [0m[1;31m#     NVM_DIR = '/home/runner/.nvm'[0m
+build	Build with Buildozer	2026-04-26T16:33:28.6793069Z [0m[1;31m#     SGX_AESM_ADDR = '1'[0m
+build	Build with Buildozer	2026-04-26T16:33:28.6793410Z [0m[1;31m#     GITHUB_RUN_ATTEMPT = '1'[0m
+build	Build with Buildozer	2026-04-26T16:33:28.6793837Z [0m[1;31m#     ANDROID_HOME = '/usr/local/lib/android/sdk'[0m
+build	Build with Buildozer	2026-04-26T16:33:28.6794343Z [0m[1;31m#     GITHUB_GRAPHQL_URL = 'https://api.github.com/graphql'[0m
+build	Build with Buildozer	2026-04-26T16:33:28.6794760Z [0m[1;31m#     ACCEPT_EULA = 'Y'[0m
+build	Build with Buildozer	2026-04-26T16:33:28.6795361Z [0m[1;31m#     USER = 'runner'[0m
+build	Build with Buildozer	2026-04-26T16:33:28.6796281Z [0m[1;31m#     PSModulePath = '/root/.local/share/powershell/Modules:/usr/local/share/powershell/Modules:/opt/microsoft/powershell/7/Modules:/usr/share/az_14.6.0'[0m
+build	Build with Buildozer	2026-04-26T16:33:28.6797106Z [0m[1;31m#     GITHUB_SERVER_URL = 'https://github.com'[0m
+build	Build with Buildozer	2026-04-26T16:33:28.6797500Z [0m[1;31m#     PIPX_HOME = '/opt/pipx'[0m
+build	Build with Buildozer	2026-04-26T16:33:28.6797940Z [0m[1;31m#     GECKOWEBDRIVER = '/usr/local/share/gecko_driver'[0m
+build	Build with Buildozer	2026-04-26T16:33:28.6798489Z [0m[1;31m#     CHROMEWEBDRIVER = '/usr/local/share/chromedriver-linux64'[0m
+build	Build with Buildozer	2026-04-26T16:33:28.6798897Z [0m[1;31m#     SHLVL = '0'[0m
+build	Build with Buildozer	2026-04-26T16:33:28.6799292Z [0m[1;31m#     ANDROID_SDK_ROOT = '/usr/local/lib/android/sdk'[0m
+build	Build with Buildozer	2026-04-26T16:33:28.6799782Z [0m[1;31m#     VCPKG_INSTALLATION_ROOT = '/usr/local/share/vcpkg'[0m
+build	Build with Buildozer	2026-04-26T16:33:28.6800216Z [0m[1;31m#     GITHUB_ACTOR_ID = '16207088'[0m
+build	Build with Buildozer	2026-04-26T16:33:28.6800812Z [0m[1;31m#     ACTIONS_ORCHESTRATION_ID = '86e6c395-9d22-4742-99c2-1174f114b7c5.build.__default'[0m
+build	Build with Buildozer	2026-04-26T16:33:28.6801391Z [0m[1;31m#     RUNNER_TOOL_CACHE = '/opt/hostedtoolcache'[0m
+build	Build with Buildozer	2026-04-26T16:33:28.6801812Z [0m[1;31m#     ImageVersion = '20260413.88.1'[0m
+build	Build with Buildozer	2026-04-26T16:33:28.6802301Z [0m[1;31m#     Python3_ROOT_DIR = '/opt/hostedtoolcache/Python/3.11.15/x64'[0m
+build	Build with Buildozer	2026-04-26T16:33:28.6802730Z [0m[1;31m#     DOTNET_NOLOGO = '1'[0m
+build	Build with Buildozer	2026-04-26T16:33:28.6803176Z [0m[1;31m#     GOROOT_1_23_X64 = '/opt/hostedtoolcache/go/1.23.12/x64'[0m
+build	Build with Buildozer	2026-04-26T16:33:28.6803749Z [0m[1;31m#     GITHUB_WORKFLOW_SHA = 'c5156c54e63a96ca7830f0e64e00826759fd48f7'[0m
+build	Build with Buildozer	2026-04-26T16:33:28.6804300Z [0m[1;31m#     GOROOT_1_24_X64 = '/opt/hostedtoolcache/go/1.24.13/x64'[0m
+build	Build with Buildozer	2026-04-26T16:33:28.6804712Z [0m[1;31m#     GITHUB_REF_NAME = 'master'[0m
+build	Build with Buildozer	2026-04-26T16:33:28.6805247Z [0m[1;31m#     GITHUB_JOB = 'build'[0m
+build	Build with Buildozer	2026-04-26T16:33:28.6805735Z [0m[1;31m#     LD_LIBRARY_PATH = '/opt/hostedtoolcache/Python/3.11.15/x64/lib'[0m
+build	Build with Buildozer	2026-04-26T16:33:28.6806211Z [0m[1;31m#     XDG_RUNTIME_DIR = '/run/user/1001'[0m
+build	Build with Buildozer	2026-04-26T16:33:28.6806671Z [0m[1;31m#     AZURE_EXTENSION_DIR = '/opt/az/azcliextensions'[0m
+build	Build with Buildozer	2026-04-26T16:33:28.6807363Z [0m[1;31m#     GITHUB_REPOSITORY = 'MaiconHAlves/Identificador-de-Animais'[0m
+build	Build with Buildozer	2026-04-26T16:33:28.6807955Z [0m[1;31m#     Python2_ROOT_DIR = '/opt/hostedtoolcache/Python/3.11.15/x64'[0m
+build	Build with Buildozer	2026-04-26T16:33:28.6808443Z [0m[1;31m#     CHROME_BIN = '/usr/bin/google-chrome'[0m
+build	Build with Buildozer	2026-04-26T16:33:28.6808917Z [0m[1;31m#     GOROOT_1_22_X64 = '/opt/hostedtoolcache/go/1.22.12/x64'[0m
+build	Build with Buildozer	2026-04-26T16:33:28.6809483Z [0m[1;31m#     ANDROID_NDK_ROOT = '/usr/local/lib/android/sdk/ndk/27.3.13750724'[0m
+build	Build with Buildozer	2026-04-26T16:33:28.6810009Z [0m[1;31m#     ANDROID_SDK_PATH = '/usr/local/lib/android/sdk'[0m
+build	Build with Buildozer	2026-04-26T16:33:28.6810420Z [0m[1;31m#     GITHUB_RETENTION_DAYS = '90'[0m
+build	Build with Buildozer	2026-04-26T16:33:28.6810809Z [0m[1;31m#     JOURNAL_STREAM = '8:11791'[0m
+build	Build with Buildozer	2026-04-26T16:33:28.6811327Z [0m[1;31m#     RUNNER_WORKSPACE = '/home/runner/work/Identificador-de-Animais'[0m
+build	Build with Buildozer	2026-04-26T16:33:28.6811947Z [0m[1;31m#     LEIN_HOME = '/usr/local/lib/lein'[0m
+build	Build with Buildozer	2026-04-26T16:33:28.6812534Z [0m[1;31m#     LEIN_JAR = '/usr/local/lib/lein/self-installs/leiningen-2.12.0-standalone.jar'[0m
+build	Build with Buildozer	2026-04-26T16:33:28.6813065Z [0m[1;31m#     GITHUB_ACTION_REPOSITORY = ''[0m
+build	Build with Buildozer	2026-04-26T16:33:28.6816299Z [0m[1;31m#     PATH = '/home/runner/.buildozer/android/platform/apache-ant-1.9.4/bin:/usr/local/lib/android/sdk/platform-tools:/usr/local/lib/android/sdk/cmdline-tools/16.0/bin:/opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.18-8/x64/bin:/opt/hostedtoolcache/Python/3.11.15/x64/bin:/opt/hostedtoolcache/Python/3.11.15/x64:/snap/bin:/home/runner/.local/bin:/opt/pipx_bin:/home/runner/.cargo/bin:/home/runner/.config/composer/vendor/bin:/usr/local/.ghcup/bin:/home/runner/.dotnet/tools:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin'[0m
+build	Build with Buildozer	2026-04-26T16:33:28.6818340Z [0m[1;31m#     GITHUB_BASE_REF = ''[0m
+build	Build with Buildozer	2026-04-26T16:33:28.6818745Z [0m[1;31m#     GHCUP_INSTALL_BASE_PREFIX = '/usr/local'[0m
+build	Build with Buildozer	2026-04-26T16:33:28.6819116Z [0m[1;31m#     CI = 'true'[0m
+build	Build with Buildozer	2026-04-26T16:33:28.6819499Z [0m[1;31m#     SWIFT_PATH = '/usr/share/swift/usr/bin'[0m
+build	Build with Buildozer	2026-04-26T16:33:28.6819863Z [0m[1;31m#     ImageOS = 'ubuntu22'[0m
+build	Build with Buildozer	2026-04-26T16:33:28.6820260Z [0m[1;31m#     GITHUB_REPOSITORY_OWNER = 'MaiconHAlves'[0m
+build	Build with Buildozer	2026-04-26T16:33:28.6820619Z [0m[1;31m#     GITHUB_HEAD_REF = ''[0m
+build	Build with Buildozer	2026-04-26T16:33:28.6820947Z [0m[1;31m#     GITHUB_ACTION_REF = ''[0m
+build	Build with Buildozer	2026-04-26T16:33:28.6821313Z [0m[1;31m#     ENABLE_RUNNER_TRACING = 'true'[0m
+build	Build with Buildozer	2026-04-26T16:33:28.6821721Z [0m[1;31m#     GITHUB_WORKFLOW = 'Build Android APK'[0m
+build	Build with Buildozer	2026-04-26T16:33:28.6822135Z [0m[1;31m#     DEBIAN_FRONTEND = 'noninteractive'[0m
+build	Build with Buildozer	2026-04-26T16:33:28.6822885Z [0m[1;31m#     GITHUB_OUTPUT = '/home/runner/work/_temp/_runner_file_commands/set_output_9e9fd195-63ae-4952-a831-492ddf2a522e'[0m
+build	Build with Buildozer	2026-04-26T16:33:28.6823563Z [0m[1;31m#     AGENT_TOOLSDIRECTORY = '/opt/hostedtoolcache'[0m
+build	Build with Buildozer	2026-04-26T16:33:28.6824018Z [0m[1;31m#     _ = '/home/runner/.local/bin/buildozer'[0m
+build	Build with Buildozer	2026-04-26T16:33:28.6824333Z [0m[1;31m# [0m
+build	Build with Buildozer	2026-04-26T16:33:28.6824685Z [0m[1;31m# Buildozer failed to execute the last command[0m
+build	Build with Buildozer	2026-04-26T16:33:28.6825456Z [0m[1;31m# The error might be hidden in the log above this error[0m
+build	Build with Buildozer	2026-04-26T16:33:28.6825971Z [0m[1;31m# Please read the full log, and search for it before[0m
+build	Build with Buildozer	2026-04-26T16:33:28.6826421Z [0m[1;31m# raising an issue with buildozer itself.[0m
+build	Build with Buildozer	2026-04-26T16:33:28.6826932Z [0m[1;31m# In case of a bug report, please add a full log with log_level = 2[0m
+build	Build with Buildozer	2026-04-26T16:33:28.6975955Z yes: standard output: Broken pipe
+build	Build with Buildozer	2026-04-26T16:33:28.6983547Z ##[error]Process completed with exit code 1.

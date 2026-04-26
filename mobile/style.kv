@@ -1,0 +1,192 @@
+# DESIGN SYSTEM: TACTICAL GLASSMORPHISM 2.0 (Retractable Menu + Calibration)
+
+<TacticalButton@Button>:
+    background_color: (0, 0, 0, 0)
+    background_normal: ''
+    canvas.before:
+        Color:
+            rgba: (0.02, 0.05, 0.1, 0.65) if self.state == 'normal' else (0, 0.8, 1, 0.6)
+        RoundedRectangle:
+            pos: self.pos
+            size: self.size
+            radius: [8,]
+        Color:
+            rgba: (0, 0.9, 1, 0.5) if self.state == 'normal' else (1, 1, 1, 0.8)
+        Line:
+            width: 1.1
+            rounded_rectangle: (self.x, self.y, self.width, self.height, 8)
+    font_name: 'Roboto'
+    font_size: '13sp'
+    bold: True
+    color: (1, 1, 1, 1)
+    letter_spacing: 1.5
+
+<RiskMeter@Widget>:
+    risk_level: 0
+    canvas.before:
+        Color:
+            rgba: (0.1, 0.1, 0.1, 0.3)
+        RoundedRectangle:
+            pos: self.pos
+            size: self.size
+            radius: [4,]
+        Color:
+            rgba: (1, 0, 0, 0.8) if self.risk_level > 0.7 else (1, 0.7, 0, 0.8) if self.risk_level > 0.4 else (0, 1, 0.4, 0.8)
+        RoundedRectangle:
+            pos: (self.x, self.y)
+            size: (self.width * self.risk_level, self.height)
+            radius: [4,]
+
+FloatLayout:
+    canvas.before:
+        Color:
+            rgba: (0, 0, 0, 1)
+        Rectangle:
+            pos: self.pos
+            size: self.size
+
+    # 1. Feed da Câmera
+    Image:
+        id: main_feed
+        allow_stretch: True
+        keep_ratio: False
+
+    # 2. HUD SUPERIOR
+    BoxLayout:
+        orientation: 'horizontal'
+        size_hint: (0.95, 0.06)
+        pos_hint: {'center_x': 0.5, 'top': 0.98}
+        padding: [15, 5]
+        spacing: 15
+        canvas.before:
+            Color:
+                rgba: (0, 0.05, 0.1, 0.3)
+            RoundedRectangle:
+                pos: self.pos
+                size: self.size
+                radius: [0, 0, 15, 15]
+
+        Label:
+            text: "IDENTIFICADOR [ACTIVE]"
+            size_hint_x: 0.25
+            color: (0, 0.9, 1, 1)
+            font_size: '11sp'
+            bold: True
+            halign: 'left'
+
+        RiskMeter:
+            id: risk_meter
+            risk_level: app.current_risk
+            size_hint_x: 0.5
+
+        Label:
+            id: fps_label
+            text: "30 FPS | GPU: 3090"
+            size_hint_x: 0.25
+            color: (0.7, 0.7, 0.7, 1)
+            font_size: '10sp'
+
+    # 3. BOTÃO DE ENGRENAGEM (MASTER CONTROL)
+    Button:
+        size_hint: (None, None)
+        size: ("50dp", "50dp")
+        pos_hint: {'right': 0.98, 'top': 0.90}
+        background_color: (0, 0, 0, 0)
+        on_release: app.menu_active = not app.menu_active
+        canvas.before:
+            Color:
+                rgba: (0, 0.1, 0.2, 0.4)
+            Ellipse:
+                pos: self.pos
+                size: self.size
+            Color:
+                rgba: (0, 0.9, 1, 0.5)
+            Line:
+                width: 1.2
+                circle: (self.center_x, self.center_y, self.width/2)
+        
+        Image:
+            source: 'C:/Users/alves/.gemini/antigravity/brain/dab58379-1302-48d2-89d0-8a38d15295f8/simple_gear_icon_1777241549433.png'
+            center: self.parent.center
+            size: self.parent.width * 0.65, self.parent.height * 0.65
+            allow_stretch: True
+
+    # 4. PAINEL LATERAL RETRÁTIL (GLASSMORPHISM)
+    BoxLayout:
+        orientation: 'vertical'
+        size_hint: (None, 0.55)
+        width: '120dp'
+        pos_hint: {'right': 0.98 if app.menu_active else 1.5, 'center_y': 0.5}
+        spacing: 10
+        padding: 10
+        opacity: 1 if app.menu_active else 0
+        
+        canvas.before:
+            Color:
+                rgba: (0, 0.05, 0.1, 0.75)
+            RoundedRectangle:
+                pos: self.pos
+                size: self.size
+                radius: [15, 0, 0, 15]
+            Color:
+                rgba: (0, 0.9, 1, 0.4)
+            Line:
+                width: 1
+                rounded_rectangle: (self.x, self.y, self.width, self.height, 15, 0, 0, 15)
+
+        # SEÇÃO DE CALIBRAÇÃO
+        Label:
+            text: "ACCURACY"
+            font_size: '10sp'
+            color: (0, 0.9, 1, 1)
+            bold: True
+            size_hint_y: None
+            height: '20dp'
+
+        Label:
+            text: str(int(app.conf_threshold * 100)) + "%"
+            font_size: '14sp'
+            color: (1, 1, 1, 1)
+            bold: True
+            size_hint_y: None
+            height: '20dp'
+
+        Slider:
+            min: 0.1
+            max: 0.99
+            value: app.conf_threshold
+            on_value: app.conf_threshold = self.value
+            cursor_size: ('20dp', '20dp')
+            background_width: '15dp'
+
+        Widget:
+            size_hint_y: None
+            height: '10dp' # Spacer
+
+        # BOTÕES DE AÇÃO
+        TacticalButton:
+            text: "PHOTO"
+            on_release: app.capture_photo()
+
+        TacticalButton:
+            text: "REC"
+            id: rec_btn
+            on_release: app.toggle_recording()
+
+        TacticalButton:
+            text: "THERM"
+            on_release: app.toggle_thermal()
+
+    # 5. RODAPÉ DE METADADOS
+    BoxLayout:
+        orientation: 'horizontal'
+        size_hint: (1, 0.04)
+        pos_hint: {'x': 0, 'y': 0.02}
+        padding: [20, 0]
+        Label:
+            id: status_footer
+            text: "SCANNING: BRAZIL-SOUTH-01 | DETECTIONS: 0 | SIG: NONE"
+            color: (0, 0.9, 1, 0.6)
+            font_size: '10sp'
+            halign: 'left'
+            text_size: self.size

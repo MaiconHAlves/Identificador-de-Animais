@@ -3,81 +3,111 @@ import numpy as np
 
 class TacticalOverlay:
     def __init__(self):
-        self.color_danger = (0, 0, 255)    # Vermelho
-        self.color_warning = (0, 255, 255) # Amarelo
-        self.color_safe = (0, 255, 0)      # Verde
+        self.color_neon_cyan = (255, 230, 0) # Ciano/Azul Neon (BGR)
+        self.color_danger = (0, 0, 255)      # Vermelho
+        self.color_safe = (0, 255, 65)       # Verde Tático
+        self.thermal_mode = False
         self.scan_line_y = 0
+        # Mapeamento de Classes (Baseado no Treinamento Híbrido)
+        self.class_names = {
+            0: "ANIMAL",
+            1: "CACHORRO",
+            2: "GATO",
+            3: "VACA/BOI",
+            4: "CAVALO",
+            5: "CAPIVARA",
+            6: "ONCA_PARDA",
+            7: "LOBO_GUARA",
+            8: "OUTRO_ANIMAL"
+        }
+
+    def apply_thermal_filter(self, frame):
+        """Simulação de Visão Térmica Dinâmica (Overlay de 30%)."""
+        gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+        thermal = cv2.applyColorMap(gray, cv2.COLORMAP_JET)
+        
+        # 4. Ajuste de saturação para parecer menos 'desenho' e mais 'sensor'
+        hsv = cv2.cvtColor(thermal, cv2.COLOR_BGR2HSV)
+        hsv[:,:,1] = hsv[:,:,1] * 0.8 # Reduz saturação
+        thermal = cv2.cvtColor(hsv, cv2.COLOR_HSV2BGR)
+        
+        return thermal
 
     def draw_tactical_box(self, frame, x, y, w, h, color, label):
-        """Desenha uma bounding box estilizada com cantos reforçados e label com fundo."""
-        thickness = 2
-        corner_len = min(w, h) // 4
+        """Bounding box 'Premium Target Lock' com linhas finas e cantos agressivos."""
         
-        # 1. Cantos Reforçados (Glow Effect Simulado com Linha Dupla)
-        # Top-Left
-        cv2.line(frame, (x, y), (x + corner_len, y), color, thickness + 1)
-        cv2.line(frame, (x, y), (x, y + corner_len), color, thickness + 1)
+        # Cor dinâmica para modo térmico
+        base_color = (255, 255, 255) if self.thermal_mode else color
         
-        # Top-Right
-        cv2.line(frame, (x + w, y), (x + w - corner_len, y), color, thickness + 1)
-        cv2.line(frame, (x + w, y), (x + w, y + corner_len), color, thickness + 1)
-        
-        # Bottom-Left
-        cv2.line(frame, (x, y + h), (x + corner_len, y + h), color, thickness + 1)
-        cv2.line(frame, (x, y + h), (x, y + h - corner_len), color, thickness + 1)
-        
-        # Bottom-Right
-        cv2.line(frame, (x + w, y + h), (x + w - corner_len, y + h), color, thickness + 1)
-        cv2.line(frame, (x + w, y + h), (x + w, y + h - corner_len), color, thickness + 1)
+        t = 1 # Espessura ultra-fina para visual premium
+        l = int(min(w, h) * 0.15) # Comprimento do canto (15%)
+        gap = 2 # Pequeno espaço entre o objeto e a mira
 
-        # 2. Label com Fundo Semi-transparente
-        font = cv2.FONT_HERSHEY_DUPLEX
-        font_scale = 0.5
-        (text_w, text_h), _ = cv2.getTextSize(label, font, font_scale, 1)
-        
-        cv2.rectangle(frame, (x, y - text_h - 10), (x + text_w + 10, y), color, -1)
-        cv2.putText(frame, label, (x + 5, y - 5), font, font_scale, (255, 255, 255), 1)
+        # Desenhar cantos com anti-aliasing manual (usando polylines)
+        # Top-Left
+        cv2.line(frame, (x-gap, y-gap), (x-gap+l, y-gap), base_color, t, cv2.LINE_AA)
+        cv2.line(frame, (x-gap, y-gap), (x-gap, y-gap+l), base_color, t, cv2.LINE_AA)
+        # Top-Right
+        cv2.line(frame, (x+w+gap, y-gap), (x+w+gap-l, y-gap), base_color, t, cv2.LINE_AA)
+        cv2.line(frame, (x+w+gap, y-gap), (x+w+gap, y-gap+l), base_color, t, cv2.LINE_AA)
+        # Bottom-Left
+        cv2.line(frame, (x-gap, y+h+gap), (x-gap+l, y+h+gap), base_color, t, cv2.LINE_AA)
+        cv2.line(frame, (x-gap, y+h+gap), (x-gap, y+h+gap-l), base_color, t, cv2.LINE_AA)
+        # Bottom-Right
+        cv2.line(frame, (x+w+gap, y+h+gap), (x+w+gap-l, y+h+gap), base_color, t, cv2.LINE_AA)
+        cv2.line(frame, (x+w+gap, y+h+gap), (x+w+gap, y+h+gap-l), base_color, t, cv2.LINE_AA)
+
+        # Texto Tático
+        font = cv2.FONT_HERSHEY_SIMPLEX
+        fs = 0.35 # Font scale menor
+        # Sombra/Outline preto para legibilidade
+        cv2.putText(frame, label, (x, y - 8), font, fs, (0, 0, 0), 2, cv2.LINE_AA)
+        cv2.putText(frame, label, (x, y - 8), font, fs, base_color, 1, cv2.LINE_AA)
 
     def draw_hud_elements(self, frame):
-        """Adiciona elementos de scanner e moldura tática."""
+        """Elementos de HUD minimalistas."""
         h, w = frame.shape[:2]
-        color = (0, 255, 0) # HUD Verde
+        color = (255, 255, 255) if self.thermal_mode else (65, 255, 0)
         
-        # Moldura nos cantos da tela
-        m = 40 # margem
-        l = 60 # comprimento da linha
-        
-        # Top-Left
-        cv2.line(frame, (m, m), (m + l, m), color, 1)
-        cv2.line(frame, (m, m), (m, m + l), color, 1)
-        
-        # Bottom-Right
-        cv2.line(frame, (w - m, h - m), (w - m - l, h - m), color, 1)
-        cv2.line(frame, (w - m, h - m), (w - m, h - m - l), color, 1)
-
-        # Scanning Line (Efeito visual)
-        self.scan_line_y = (self.scan_line_y + 10) % h
-        cv2.line(frame, (0, self.scan_line_y), (w, self.scan_line_y), color, 1)
-        
-        # Texto de Status
-        cv2.putText(frame, "AI SYSTEM: ACTIVE", (w - 180, 30), cv2.FONT_HERSHEY_SIMPLEX, 0.6, color, 1)
-        cv2.putText(frame, "FUSION MODE: THERMAL+RGB", (w - 240, 50), cv2.FONT_HERSHEY_SIMPLEX, 0.5, color, 1)
+        # Center Crosshair sutil - Removido (Mantendo apenas a estrutura da função se necessário)
+        pass
 
     def process_frame(self, frame, detections):
-        """Pipeline principal de desenho"""
+        # 1. Aplicar Filtro Térmico se ativo (Overlay Suave)
+        if self.thermal_mode:
+            frame = self.apply_thermal_filter(frame)
+
+        # 2. Mapeamento de Classes (Híbrido)
+        # IDs Globais COCO -> IDs Táticas HUD
+        global_map = {
+            16: 4, # Dog -> CACHORRO
+            15: 5, # Cat -> GATO
+            19: 6, # Cow -> BOI
+            17: 7, # CAVALO
+            0: 8   # Person/Vehicle (Simplificado)
+        }
+
+        # 3. Desenhar HUD e Bounding Boxes
         self.draw_hud_elements(frame)
         
         for det in detections:
-            x, y, w, h = det['box']
+            label_id = det["label_id"]
+            
+            # Se a fonte for o motor global, traduzir a ID
+            if det.get("source") == "global":
+                label_id = global_map.get(label_id, 8) # 8 como padrão (Outros)
+
             conf = det['confidence']
-            label = f"ANIMAL {conf:.0%}"
+            x, y, w, h = det['box']
             
-            # Escolha de cor por risco
-            color = self.color_danger if conf > 0.7 else self.color_warning
+            # Busca o nome da classe ou usa um genérico
+            class_name = self.class_names.get(label_id, "OBJECT")
+            label = f"{class_name}: {conf:.1%}"
             
+            color = self.color_danger if conf > 0.7 else self.color_safe
             self.draw_tactical_box(frame, x, y, w, h, color, label)
             
         return frame
 
 if __name__ == "__main__":
-    print("Módulo UI Tática carregado.")
+    print("Módulo UI Tática Premium carregado.")

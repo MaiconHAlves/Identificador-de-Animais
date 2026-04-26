@@ -3,30 +3,41 @@ import numpy as np
 import onnxruntime as ort
 
 class DetectionEngine:
-    def __init__(self, model_path="yolov8n.onnx", conf_threshold=0.4, iou_threshold=0.5):
+    def __init__(self, model_paths=["yolo11s.onnx"], conf_threshold=0.85, iou_threshold=0.5):
         self.conf_threshold = conf_threshold
         self.iou_threshold = iou_threshold
+        self.sessions = []
         
         # Configura Provedores (Prioridade para CUDA/RTX 3090)
         providers = [
             ('CUDAExecutionProvider', {
                 'device_id': 0,
                 'arena_extend_strategy': 'kSameAsRequested',
-                'gpu_mem_limit': 2 * 1024 * 1024 * 1024, # Limite de 2GB para a Engine
+                'gpu_mem_limit': 1 * 1024 * 1024 * 1024, # 1GB por modelo
                 'cudnn_conv_algo_search': 'EXHAUSTIVE',
                 'do_copy_in_default_stream': True,
             }),
             'CPUExecutionProvider'
         ]
         
-        try:
-            self.session = ort.InferenceSession(model_path, providers=providers)
-            print(f"Engine iniciada com sucesso: {self.session.get_providers()[0]}")
-        except Exception as e:
-            print(f"Aviso: Falha ao carregar CUDA. Usando CPU. Erro: {e}")
-            self.session = ort.InferenceSession(model_path, providers=['CPUExecutionProvider'])
+        for path in model_paths:
+            try:
+                session = ort.InferenceSession(path, providers=providers)
+                print(f"Engine [{path}] iniciada: {session.get_providers()[0]}")
+                self.sessions.append({
+                    "session": session,
+                    "input_name": session.get_inputs()[0].name,
+                    "name": "custom" if "hybrid" in path.lower() or "road" in path.lower() else "global"
+                })
+            except Exception as e:
+                print(f"Aviso: Falha ao carregar {path} em CUDA. Usando CPU. Erro: {e}")
+                session = ort.InferenceSession(path, providers=['CPUExecutionProvider'])
+                self.sessions.append({
+                    "session": session,
+                    "input_name": session.get_inputs()[0].name,
+                    "name": "custom" if "hybrid" in path.lower() or "road" in path.lower() else "global"
+                })
 
-        self.input_name = self.session.get_inputs()[0].name
         self.input_width = 640
         self.input_height = 640
 
@@ -39,53 +50,49 @@ class DetectionEngine:
         return img
 
     def detect(self, frame):
-        h, w = frame.shape[:2]
+        h_orig, w_orig = frame.shape[:2]
         input_tensor = self.preprocess(frame)
         
-        # Inferência
-        outputs = self.session.run(None, {self.input_name: input_tensor})
+        all_results = []
         
-        # Pós-processamento YOLOv8 (Output: [1, 84, 8400])
-        output = np.squeeze(outputs[0])
-        output = output.transpose() # [8400, 84]
-        
-        boxes = []
-        confidences = []
-        class_ids = []
-
-        for row in output:
-            classes_scores = row[4:]
-            max_score = np.amax(classes_scores)
+        for engine in self.sessions:
+            # Inferência
+            outputs = engine["session"].run(None, {engine["input_name"]: input_tensor})
             
-            if max_score >= self.conf_threshold:
-                class_id = np.argmax(classes_scores)
-                
-                # YOLOv8 boxes são [x_center, y_center, width, height]
-                x, y, w_box, h_box = row[:4]
-                
-                # Converter para [x1, y1, w, h] para o NMS do OpenCV
-                left = int((x - w_box/2) * (w / self.input_width))
-                top = int((y - h_box/2) * (h / self.input_height))
-                width = int(w_box * (w / self.input_width))
-                height = int(h_box * (h / self.input_height))
-                
-                boxes.append([left, top, width, height])
-                confidences.append(float(max_score))
-                class_ids.append(class_id)
+            # Pós-processamento YOLOv8/11 (Output: [1, XX, 8400])
+            output = np.squeeze(outputs[0])
+            output = output.transpose() # [8400, XX]
+            
+            boxes = []
+            confidences = []
+            class_ids = []
 
-        # Non-Maximum Suppression (NMS)
-        indices = cv2.dnn.NMSBoxes(boxes, confidences, self.conf_threshold, self.iou_threshold)
-        
-        results = []
-        if len(indices) > 0:
-            for i in indices.flatten():
-                results.append({
-                    "label_id": class_ids[i],
-                    "confidence": confidences[i],
-                    "box": boxes[i] # [x, y, w, h]
-                })
+            for row in output:
+                classes_scores = row[4:]
+                max_score = np.amax(classes_scores)
                 
-        return results
+                if max_score >= self.conf_threshold:
+                    class_id = np.argmax(classes_scores)
+                    x, y, w_box, h_box = row[:4]
+                    
+                    left = int((x - w_box/2) * (w_orig / self.input_width))
+                    top = int((y - h_box/2) * (h_orig / self.input_height))
+                    width = int(w_box * (w_orig / self.input_width))
+                    height = int(h_box * (h_orig / self.input_height))
+                    
+                    boxes.append([left, top, width, height])
+                    confidences.append(float(max_score))
+                    class_ids.append(class_id)
 
-if __name__ == "__main__":
-    print("Módulo de Detecção pronto.")
+            indices = cv2.dnn.NMSBoxes(boxes, confidences, self.conf_threshold, self.iou_threshold)
+            
+            if len(indices) > 0:
+                for i in indices.flatten():
+                    all_results.append({
+                        "label_id": class_ids[i],
+                        "confidence": confidences[i],
+                        "box": boxes[i],
+                        "source": engine["name"]
+                    })
+                    
+        return all_results

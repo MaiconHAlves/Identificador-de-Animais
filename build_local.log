@@ -1,0 +1,1819 @@
+[18:23:29] ==========================================
+[18:23:29]  BUILD LOCAL — Identificador de Animais
+[18:23:29] ==========================================
+[18:23:29] [1/6] Instalando dependências do sistema...
+[18:23:35]   Python 3.11: Python 3.11.15
+[18:23:35] Java: openjdk version "17.0.18" 2026-01-20 | JAVA_HOME=/usr/lib/jvm/java-17-openjdk-amd64
+[18:23:35] [2/6] Configurando Android SDK...
+[18:23:35]   cmdline-tools já existe.
+[18:23:35] [3/6] Instalando NDK + platforms...
+Loading package information...                                                  Loading local repository...                                                     [                                       ] 3% Loading local repository...        [                                       ] 3% Fetch remote repository...         [=                                      ] 3% Fetch remote repository...         [=                                      ] 4% Fetch remote repository...         [=                                      ] 5% Fetch remote repository...         [==                                     ] 5% Fetch remote repository...         [==                                     ] 6% Fetch remote repository...         [==                                     ] 7% Fetch remote repository...         [==                                     ] 7% Computing updates...               [===                                    ] 8% Computing updates...               [===                                    ] 10% Computing updates...              [=======================================] 100% Computing updates...             
+[18:23:39]   Symlinks legados OK.
+[18:23:39] [4/6] Instalando buildozer + cython globalmente (python3.11)...
+WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv
+[18:23:40]   buildozer em: /usr/local/bin/buildozer
+[18:23:40]   buildozer: # Check configuration tokens
+Buildozer 1.5.0
+[18:23:40] [5/6] Copiando projeto para /root/build-animais...
+[18:24:27]   buildozer.spec patcheado: sdk=/root/android-sdk
+[18:24:27]   Cópia concluída.
+[18:24:27] [6/6] Rodando buildozer android debug...
+[18:24:28]   (isso pode levar 10-40 minutos)
+# Check configuration tokens
+# Ensure build layout
+# Create directory /root/build-animais/bin
+# Check configuration tokens
+# Preparing build
+# Check requirements for android
+# Search for Git (git)
+#  -> found at /usr/bin/git
+# Search for Cython (cython)
+#  -> found at /usr/local/bin/cython
+# Search for Java compiler (javac)
+#  -> found at /usr/lib/jvm/java-17-openjdk-amd64/bin/javac
+# Search for Java keytool (keytool)
+#  -> found at /usr/lib/jvm/java-17-openjdk-amd64/bin/keytool
+# Install platform
+# Run ['git', 'config', '--get', 'remote.origin.url']
+# Cwd /root/build-animais/.buildozer/android/platform/python-for-android
+https://github.com/kivy/python-for-android.git
+# Run ['git', 'branch', '-vv']
+# Cwd /root/build-animais/.buildozer/android/platform/python-for-android
+* master 957a3e5f [origin/master] Merge pull request #2959 from kivy/release-2024.01.21
+# Run ['/usr/bin/python3.11', '-m', 'pip', 'install', '-q', '--user', 'appdirs', 'colorama>=0.3.3', 'jinja2', 'sh>=1.10, <2.0; sys_platform!="win32"', 'build', 'toml', 'packaging', 'setuptools']
+# Cwd None
+WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv
+# Apache ANT found at /root/.buildozer/android/platform/apache-ant-1.9.4
+# Android SDK found at /root/android-sdk
+# Android NDK found at /root/android-sdk/ndk/25.1.8937393
+# Recommended android's NDK version by p4a is: 25b
+# Run ['/usr/bin/python3.11', '-m', 'pythonforandroid.toolchain', 'aab', '-h', '--color=always', '--storage-dir=/root/build-animais/.buildozer/android/platform/build-arm64-v8a', '--ndk-api=21', '--ignore-setup-py', '--debug']
+# Cwd /root/build-animais/.buildozer/android/platform/python-for-android
+[WARNING]: prerequisites.py is experimental and does not support all prerequisites yet.
+[WARNING]: Please report any issues to the python-for-android issue tracker.
+[WARNING]: prerequisites.py is experimental and does not support all prerequisites yet.
+[WARNING]: Please report any issues to the python-for-android issue tracker.
+usage: toolchain.py aab [-h] [--debug] [--color {always,never,auto}]
+                        [--sdk-dir SDK_DIR] [--ndk-dir NDK_DIR]
+                        [--android-api ANDROID_API]
+                        [--ndk-version NDK_VERSION] [--ndk-api NDK_API]
+                        [--symlink-bootstrap-files]
+                        [--storage-dir STORAGE_DIR] [--arch ARCH]
+                        [--dist-name DIST_NAME] [--requirements REQUIREMENTS]
+                        [--recipe-blacklist RECIPE_BLACKLIST]
+                        [--blacklist-requirements BLACKLIST_REQUIREMENTS]
+                        [--bootstrap BOOTSTRAP] [--hook HOOK] [--force-build]
+                        [--no-force-build] [--require-perfect-match]
+                        [--no-require-perfect-match] [--allow-replace-dist]
+                        [--no-allow-replace-dist]
+                        [--local-recipes LOCAL_RECIPES]
+                        [--activity-class-name ACTIVITY_CLASS_NAME]
+                        [--service-class-name SERVICE_CLASS_NAME]
+                        [--java-build-tool {auto,ant,gradle}] [--copy-libs]
+                        [--no-copy-libs] [--add-asset ASSETS]
+                        [--add-resource RESOURCES] [--private PRIVATE]
+                        [--use-setup-py] [--ignore-setup-py] [--release]
+                        [--with-debug-symbols] [--keystore KEYSTORE]
+                        [--signkey SIGNKEY] [--keystorepw KEYSTOREPW]
+                        [--signkeypw SIGNKEYPW]
+
+options:
+  -h, --help            show this help message and exit
+  --debug               Display debug output and all build info
+  --color {always,never,auto}
+                        Enable or disable color output (default enabled on
+                        tty)
+  --sdk-dir SDK_DIR, --sdk_dir SDK_DIR
+                        The filepath where the Android SDK is installed
+  --ndk-dir NDK_DIR, --ndk_dir NDK_DIR
+                        The filepath where the Android NDK is installed
+  --android-api ANDROID_API, --android_api ANDROID_API
+                        The Android API level to build against defaults to 33
+                        if not specified.
+  --ndk-version NDK_VERSION, --ndk_version NDK_VERSION
+                        DEPRECATED: the NDK version is now found automatically
+                        or not at all.
+  --ndk-api NDK_API     The Android API level to compile against. This should
+                        be your *minimal supported* API, not normally the same
+                        as your --android-api. Defaults to min(ANDROID_API,
+                        21) if not specified.
+  --symlink-bootstrap-files, --ssymlink_bootstrap_files
+                        If True, symlinks the bootstrap files creation. This
+                        is useful for development only, it could also cause
+                        weird problems.
+  --storage-dir STORAGE_DIR
+                        Primary storage directory for downloads and builds
+                        (default: /root/.local/share/python-for-android)
+  --arch ARCH           The archs to build for.
+  --dist-name DIST_NAME, --dist_name DIST_NAME
+                        The name of the distribution to use or create
+  --requirements REQUIREMENTS
+                        Dependencies of your app, should be recipe names or
+                        Python modules. NOT NECESSARY if you are using Python
+                        3 with --use-setup-py
+  --recipe-blacklist RECIPE_BLACKLIST
+                        Blacklist an internal recipe from use. Allows
+                        disabling Python 3 core modules to save size
+  --blacklist-requirements BLACKLIST_REQUIREMENTS
+                        Blacklist an internal recipe from use. Allows
+                        disabling Python 3 core modules to save size
+  --bootstrap BOOTSTRAP
+                        The bootstrap to build with. Leave unset to choose
+                        automatically.
+  --hook HOOK           Filename to a module that contains python-for-android
+                        hooks
+  --local-recipes LOCAL_RECIPES, --local_recipes LOCAL_RECIPES
+                        Directory to look for local recipes
+  --activity-class-name ACTIVITY_CLASS_NAME
+                        The full java class name of the main activity
+  --service-class-name SERVICE_CLASS_NAME
+                        Full java package name of the PythonService class
+  --java-build-tool {auto,ant,gradle}
+                        The java build tool to use when packaging the APK,
+                        defaults to automatically selecting an appropriate
+                        tool.
+  --add-asset ASSETS    Put this in the assets folder in the apk.
+  --add-resource RESOURCES
+                        Put this in the res folder in the apk.
+  --private PRIVATE     the directory with the app source code files
+                        (containing your main.py entrypoint)
+  --use-setup-py        Process the setup.py of a project if present.
+                        (Experimental!
+  --ignore-setup-py     Don't run the setup.py of a project if present. This
+                        may be required if the setup.py is not designed to
+                        work inside p4a (e.g. by installing dependencies that
+                        won't work or aren't desired on Android
+  --release             Build your app as a non-debug release build. (Disables
+                        gdb debugging among other things)
+  --with-debug-symbols  Will keep debug symbols from `.so` files.
+  --keystore KEYSTORE   Keystore for JAR signing key, will use jarsigner
+                        default if not specified (release build only)
+  --signkey SIGNKEY     Key alias to sign PARSER_APK. with (release build
+                        only)
+  --keystorepw KEYSTOREPW
+                        Password for keystore
+  --signkeypw SIGNKEYPW
+                        Password for key alias
+
+  Whether to force compilation of a new distribution
+
+  --force-build
+  --no-force-build      (this is the default)
+  --require-perfect-match
+  --no-require-perfect-match
+                        (this is the default)
+  --allow-replace-dist  (this is the default)
+  --no-allow-replace-dist
+  --copy-libs
+  --no-copy-libs        (this is the default)
+# Check application requirements
+# Compile platform
+# Run ['/usr/bin/python3.11', '-m', 'pythonforandroid.toolchain', 'create', '--dist_name=animaldetector', '--bootstrap=sdl2', '--requirements=python3,kivy==2.3.0,opencv,numpy==1.26.4,pillow', '--arch=arm64-v8a', '--copy-libs', '--local-recipes', '/root/build-animais/p4a-recipes', '--color=always', '--storage-dir=/root/build-animais/.buildozer/android/platform/build-arm64-v8a', '--ndk-api=21', '--ignore-setup-py', '--debug']
+# Cwd /root/build-animais/.buildozer/android/platform/python-for-android
+[WARNING]: prerequisites.py is experimental and does not support all prerequisites yet.
+[WARNING]: Please report any issues to the python-for-android issue tracker.
+[WARNING]: prerequisites.py is experimental and does not support all prerequisites yet.
+[WARNING]: Please report any issues to the python-for-android issue tracker.
+[1m[INFO][0m:    Recipe kivy: version "2.3.0" requested
+[1m[INFO][0m:    Recipe numpy: version "1.26.4" requested
+[1m[INFO][0m:    Will compile for the following archs: arm64-v8a
+[1m[INFO][0m:    Found Android API target in $ANDROIDAPI: 33
+[1m[INFO][0m:    Available Android APIs are (33)
+[1m[INFO][0m:    Requested API target 33 is available, continuing.
+[1m[INFO][0m:    Found NDK dir in $ANDROIDNDK: /root/android-sdk/ndk/25.1.8937393
+[1m[INFO][0m:    Found NDK version 25b
+[1m[INFO][0m:    Getting NDK API version (i.e. minimum supported API) from user argument
+[1m[INFO][0m:    ccache is missing, the build will not be optimized in the future.
+[1m[90m[DEBUG][39m[0m:   All possible dists: []
+[1m[90m[DEBUG][39m[0m:   Dist matching name and arch: []
+[1m[90m[DEBUG][39m[0m:   Dist matching ndk_api and recipe: []
+[1m[INFO][0m:    No existing dists meet the given requirements!
+[1m[90m[DEBUG][39m[0m:   Remove directory and subdirectory /root/build-animais/.buildozer/android/platform/build-arm64-v8a/dists/animaldetector
+[1m[INFO][0m:    [1m[94mNo dist exists that meets your requirements, so one will be built.[0m
+[1m[INFO][0m:    Found a single valid recipe set: ['freetype', 'hostpython3', 'jpeg', 'libffi', 'openssl', 'png', 'sdl2_image', 'sdl2_mixer', 'sdl2_ttf', 'sqlite3', 'python3', 'sdl2', 'setuptools', 'cython', 'pillow', 'six', 'numpy', 'pyjnius', 'android', 'kivy', 'opencv']
+[1m[INFO][0m:    The selected bootstrap is sdl2
+[1m[INFO][0m:    [1m[32m# Creating dist with sdl2 bootstrap[0m[39m
+[1m[INFO][0m:    [1m[94mDist will have name animaldetector and requirements (python3, kivy, opencv, numpy, pillow)[0m
+[1m[INFO][0m:    Dist contains the following requirements as recipes: ['freetype', 'hostpython3', 'jpeg', 'libffi', 'openssl', 'png', 'sdl2_image', 'sdl2_mixer', 'sdl2_ttf', 'sqlite3', 'python3', 'sdl2', 'setuptools', 'cython', 'pillow', 'six', 'numpy', 'pyjnius', 'android', 'kivy', 'opencv']
+[1m[INFO][0m:    Dist will also contain modules (requests, certifi, idna, chardet, urllib3) installed from pip
+[1m[INFO][0m:    Dist will be build in mode debug
+[1m[INFO][0m:    [36m-> directory context /root/build-animais/.buildozer/android/platform/build-arm64-v8a/build/bootstrap_builds/sdl2[39m
+[1m[INFO][0m:    [36m<- directory context /root/build-animais/.buildozer/android/platform/python-for-android[39m
+[1m[90m[DEBUG][39m[0m:   Create directory /root/build-animais/.buildozer/android/platform/build-arm64-v8a/dists/animaldetector
+[1m[INFO][0m:    [1m[94mRecipe build order is ['freetype', 'hostpython3', 'jpeg', 'libffi', 'openssl', 'png', 'sdl2_image', 'sdl2_mixer', 'sdl2_ttf', 'sqlite3', 'python3', 'sdl2', 'setuptools', 'cython', 'pillow', 'six', 'numpy', 'pyjnius', 'android', 'kivy', 'opencv'][0m
+[1m[INFO][0m:    [1m[94mThe requirements (certifi, chardet, idna, requests, urllib3) were not found as recipes, they will be installed with pip.[0m
+[1m[INFO][0m:    [1m[32m# Downloading recipes [0m[39m
+[1m[INFO][0m:    [1m[32mDownloading freetype[0m[39m
+[1m[INFO][0m:    [36m-> directory context /root/build-animais/.buildozer/android/platform/build-arm64-v8a/packages/freetype[39m
+stty: 'standard input': Inappropriate ioctl for device
+[1m[90m[DEBUG][39m[0m:   [90m->[0m running basename https://download.savannah.gnu.org/releases/freetype/freetype-2.10.1.tar.gz[0m
+[1m[90m[DEBUG][39m[0m:   	freetype-2.10.1.tar.gz
+[1m[INFO][0m:    freetype download already cached, skipping
+[1m[INFO][0m:    [36m<- directory context /root/build-animais/.buildozer/android/platform/python-for-android[39m
+[1m[INFO][0m:    [1m[32mDownloading hostpython3[0m[39m
+[1m[INFO][0m:    [36m-> directory context /root/build-animais/.buildozer/android/platform/build-arm64-v8a/packages/hostpython3[39m
+stty: 'standard input': Inappropriate ioctl for device
+[1m[90m[DEBUG][39m[0m:   [90m->[0m running basename https://www.python.org/ftp/python/3.11.5/Python-3.11.5.tgz[0m
+[1m[90m[DEBUG][39m[0m:   	Python-3.11.5.tgz
+[1m[INFO][0m:    hostpython3 download already cached, skipping
+[1m[INFO][0m:    [36m<- directory context /root/build-animais/.buildozer/android/platform/python-for-android[39m
+[1m[INFO][0m:    [1m[32mDownloading jpeg[0m[39m
+[1m[INFO][0m:    [36m-> directory context /root/build-animais/.buildozer/android/platform/build-arm64-v8a/packages/jpeg[39m
+stty: 'standard input': Inappropriate ioctl for device
+[1m[90m[DEBUG][39m[0m:   [90m->[0m running basename https://github.com/libjpeg-turbo/libjpeg-turbo/archive/2.0.1.tar.gz[0m
+[1m[90m[DEBUG][39m[0m:   	2.0.1.tar.gz
+[1m[INFO][0m:    jpeg download already cached, skipping
+[1m[INFO][0m:    [36m<- directory context /root/build-animais/.buildozer/android/platform/python-for-android[39m
+[1m[INFO][0m:    [1m[32mDownloading libffi[0m[39m
+[1m[INFO][0m:    [36m-> directory context /root/build-animais/.buildozer/android/platform/build-arm64-v8a/packages/libffi[39m
+stty: 'standard input': Inappropriate ioctl for device
+[1m[90m[DEBUG][39m[0m:   [90m->[0m running basename https://github.com/libffi/libffi/archive/v3.4.2.tar.gz[0m
+[1m[90m[DEBUG][39m[0m:   	v3.4.2.tar.gz
+[1m[INFO][0m:    libffi download already cached, skipping
+[1m[INFO][0m:    [36m<- directory context /root/build-animais/.buildozer/android/platform/python-for-android[39m
+[1m[INFO][0m:    [1m[32mDownloading openssl[0m[39m
+[1m[INFO][0m:    [36m-> directory context /root/build-animais/.buildozer/android/platform/build-arm64-v8a/packages/openssl[39m
+stty: 'standard input': Inappropriate ioctl for device
+[1m[90m[DEBUG][39m[0m:   [90m->[0m running basename https://www.openssl.org/source/openssl-1.1.1w.tar.gz[0m
+[1m[90m[DEBUG][39m[0m:   	openssl-1.1.1w.tar.gz
+[1m[INFO][0m:    openssl download already cached, skipping
+[1m[INFO][0m:    [36m<- directory context /root/build-animais/.buildozer/android/platform/python-for-android[39m
+[1m[INFO][0m:    [1m[32mDownloading png[0m[39m
+[1m[INFO][0m:    [36m-> directory context /root/build-animais/.buildozer/android/platform/build-arm64-v8a/packages/png[39m
+stty: 'standard input': Inappropriate ioctl for device
+[1m[90m[DEBUG][39m[0m:   [90m->[0m running basename https://github.com/glennrp/libpng/archive/v1.6.37.zip[0m
+[1m[90m[DEBUG][39m[0m:   	v1.6.37.zip
+[1m[INFO][0m:    png download already cached, skipping
+[1m[INFO][0m:    [36m<- directory context /root/build-animais/.buildozer/android/platform/python-for-android[39m
+[1m[INFO][0m:    [1m[32mDownloading sdl2_image[0m[39m
+[1m[INFO][0m:    [36m-> directory context /root/build-animais/.buildozer/android/platform/build-arm64-v8a/packages/sdl2_image[39m
+stty: 'standard input': Inappropriate ioctl for device
+[1m[90m[DEBUG][39m[0m:   [90m->[0m running basename https://github.com/libsdl-org/SDL_image/releases/download/release-2.8.0/SDL2_image-2.8.0.tar.gz[0m
+[1m[90m[DEBUG][39m[0m:   	SDL2_image-2.8.0.tar.gz
+[1m[INFO][0m:    sdl2_image download already cached, skipping
+[1m[INFO][0m:    [36m<- directory context /root/build-animais/.buildozer/android/platform/python-for-android[39m
+[1m[INFO][0m:    [1m[32mDownloading sdl2_mixer[0m[39m
+[1m[INFO][0m:    [36m-> directory context /root/build-animais/.buildozer/android/platform/build-arm64-v8a/packages/sdl2_mixer[39m
+stty: 'standard input': Inappropriate ioctl for device
+[1m[90m[DEBUG][39m[0m:   [90m->[0m running basename https://github.com/libsdl-org/SDL_mixer/releases/download/release-2.6.3/SDL2_mixer-2.6.3.tar.gz[0m
+[1m[90m[DEBUG][39m[0m:   	SDL2_mixer-2.6.3.tar.gz
+[1m[INFO][0m:    sdl2_mixer download already cached, skipping
+[1m[INFO][0m:    [36m<- directory context /root/build-animais/.buildozer/android/platform/python-for-android[39m
+[1m[INFO][0m:    [1m[32mDownloading sdl2_ttf[0m[39m
+[1m[INFO][0m:    [36m-> directory context /root/build-animais/.buildozer/android/platform/build-arm64-v8a/packages/sdl2_ttf[39m
+stty: 'standard input': Inappropriate ioctl for device
+[1m[90m[DEBUG][39m[0m:   [90m->[0m running basename https://github.com/libsdl-org/SDL_ttf/releases/download/release-2.20.2/SDL2_ttf-2.20.2.tar.gz[0m
+[1m[90m[DEBUG][39m[0m:   	SDL2_ttf-2.20.2.tar.gz
+[1m[INFO][0m:    sdl2_ttf download already cached, skipping
+[1m[INFO][0m:    [36m<- directory context /root/build-animais/.buildozer/android/platform/python-for-android[39m
+[1m[INFO][0m:    [1m[32mDownloading sqlite3[0m[39m
+[1m[INFO][0m:    [36m-> directory context /root/build-animais/.buildozer/android/platform/build-arm64-v8a/packages/sqlite3[39m
+stty: 'standard input': Inappropriate ioctl for device
+[1m[90m[DEBUG][39m[0m:   [90m->[0m running basename https://www.sqlite.org/2021/sqlite-amalgamation-3350500.zip[0m
+[1m[90m[DEBUG][39m[0m:   	sqlite-amalgamation-3350500.zip
+[1m[INFO][0m:    sqlite3 download already cached, skipping
+[1m[INFO][0m:    [36m<- directory context /root/build-animais/.buildozer/android/platform/python-for-android[39m
+[1m[INFO][0m:    [1m[32mDownloading python3[0m[39m
+[1m[INFO][0m:    [36m-> directory context /root/build-animais/.buildozer/android/platform/build-arm64-v8a/packages/python3[39m
+stty: 'standard input': Inappropriate ioctl for device
+[1m[90m[DEBUG][39m[0m:   [90m->[0m running basename https://www.python.org/ftp/python/3.11.5/Python-3.11.5.tgz[0m
+[1m[90m[DEBUG][39m[0m:   	Python-3.11.5.tgz
+[1m[INFO][0m:    python3 download already cached, skipping
+[1m[INFO][0m:    [36m<- directory context /root/build-animais/.buildozer/android/platform/python-for-android[39m
+[1m[INFO][0m:    [1m[32mDownloading sdl2[0m[39m
+[1m[INFO][0m:    [36m-> directory context /root/build-animais/.buildozer/android/platform/build-arm64-v8a/packages/sdl2[39m
+stty: 'standard input': Inappropriate ioctl for device
+[1m[90m[DEBUG][39m[0m:   [90m->[0m running basename https://github.com/libsdl-org/SDL/releases/download/release-2.28.5/SDL2-2.28.5.tar.gz[0m
+[1m[90m[DEBUG][39m[0m:   	SDL2-2.28.5.tar.gz
+[1m[INFO][0m:    sdl2 download already cached, skipping
+[1m[INFO][0m:    [36m<- directory context /root/build-animais/.buildozer/android/platform/python-for-android[39m
+[1m[INFO][0m:    [1m[32mDownloading setuptools[0m[39m
+[1m[INFO][0m:    [36m-> directory context /root/build-animais/.buildozer/android/platform/build-arm64-v8a/packages/setuptools[39m
+stty: 'standard input': Inappropriate ioctl for device
+[1m[90m[DEBUG][39m[0m:   [90m->[0m running basename https://pypi.python.org/packages/source/s/setuptools/setuptools-51.3.3.tar.gz[0m
+[1m[90m[DEBUG][39m[0m:   	setuptools-51.3.3.tar.gz
+[1m[INFO][0m:    setuptools download already cached, skipping
+[1m[INFO][0m:    [36m<- directory context /root/build-animais/.buildozer/android/platform/python-for-android[39m
+[1m[INFO][0m:    [1m[32mDownloading cython[0m[39m
+[1m[INFO][0m:    [36m-> directory context /root/build-animais/.buildozer/android/platform/build-arm64-v8a/packages/cython[39m
+stty: 'standard input': Inappropriate ioctl for device
+[1m[90m[DEBUG][39m[0m:   [90m->[0m running basename https://github.com/cython/cython/archive/0.29.36.tar.gz[0m
+[1m[90m[DEBUG][39m[0m:   	0.29.36.tar.gz
+[1m[INFO][0m:    cython download already cached, skipping
+[1m[INFO][0m:    [36m<- directory context /root/build-animais/.buildozer/android/platform/python-for-android[39m
+[1m[INFO][0m:    [1m[32mDownloading Pillow[0m[39m
+[1m[INFO][0m:    [36m-> directory context /root/build-animais/.buildozer/android/platform/build-arm64-v8a/packages/Pillow[39m
+stty: 'standard input': Inappropriate ioctl for device
+[1m[90m[DEBUG][39m[0m:   [90m->[0m running basename https://github.com/python-pillow/Pillow/archive/8.4.0.tar.gz[0m
+[1m[90m[DEBUG][39m[0m:   	8.4.0.tar.gz
+[1m[INFO][0m:    Pillow download already cached, skipping
+[1m[INFO][0m:    [36m<- directory context /root/build-animais/.buildozer/android/platform/python-for-android[39m
+[1m[INFO][0m:    [1m[32mDownloading six[0m[39m
+[1m[INFO][0m:    [36m-> directory context /root/build-animais/.buildozer/android/platform/build-arm64-v8a/packages/six[39m
+stty: 'standard input': Inappropriate ioctl for device
+[1m[90m[DEBUG][39m[0m:   [90m->[0m running basename https://pypi.python.org/packages/source/s/six/six-1.15.0.tar.gz[0m
+[1m[90m[DEBUG][39m[0m:   	six-1.15.0.tar.gz
+[1m[INFO][0m:    six download already cached, skipping
+[1m[INFO][0m:    [36m<- directory context /root/build-animais/.buildozer/android/platform/python-for-android[39m
+[1m[INFO][0m:    [1m[32mDownloading numpy[0m[39m
+[1m[INFO][0m:    [36m-> directory context /root/build-animais/.buildozer/android/platform/build-arm64-v8a/packages/numpy[39m
+stty: 'standard input': Inappropriate ioctl for device
+[1m[90m[DEBUG][39m[0m:   [90m->[0m running basename https://github.com/numpy/numpy/archive/v1.26.4.tar.gz[0m
+[1m[90m[DEBUG][39m[0m:   	v1.26.4.tar.gz
+[1m[INFO][0m:    numpy download already cached, skipping
+[1m[INFO][0m:    [36m<- directory context /root/build-animais/.buildozer/android/platform/python-for-android[39m
+[1m[INFO][0m:    [1m[32mDownloading pyjnius[0m[39m
+[1m[INFO][0m:    [36m-> directory context /root/build-animais/.buildozer/android/platform/build-arm64-v8a/packages/pyjnius[39m
+stty: 'standard input': Inappropriate ioctl for device
+[1m[90m[DEBUG][39m[0m:   [90m->[0m running basename https://github.com/kivy/pyjnius/archive/1.6.1.zip[0m
+[1m[90m[DEBUG][39m[0m:   	1.6.1.zip
+[1m[INFO][0m:    pyjnius download already cached, skipping
+[1m[INFO][0m:    [36m<- directory context /root/build-animais/.buildozer/android/platform/python-for-android[39m
+[1m[INFO][0m:    [1m[32mDownloading android[0m[39m
+[1m[INFO][0m:    Skipping android download as no URL is set
+[1m[INFO][0m:    [1m[32mDownloading kivy[0m[39m
+[1m[INFO][0m:    [36m-> directory context /root/build-animais/.buildozer/android/platform/build-arm64-v8a/packages/kivy[39m
+stty: 'standard input': Inappropriate ioctl for device
+[1m[90m[DEBUG][39m[0m:   [90m->[0m running basename https://github.com/kivy/kivy/archive/2.3.0.zip[0m
+[1m[90m[DEBUG][39m[0m:   	2.3.0.zip
+[1m[INFO][0m:    kivy download already cached, skipping
+[1m[INFO][0m:    [36m<- directory context /root/build-animais/.buildozer/android/platform/python-for-android[39m
+[1m[INFO][0m:    [1m[32mDownloading opencv[0m[39m
+[1m[INFO][0m:    [36m-> directory context /root/build-animais/.buildozer/android/platform/build-arm64-v8a/packages/opencv[39m
+stty: 'standard input': Inappropriate ioctl for device
+[1m[90m[DEBUG][39m[0m:   [90m->[0m running basename https://github.com/opencv/opencv/archive/4.5.1.zip[0m
+[1m[90m[DEBUG][39m[0m:   	4.5.1.zip
+[1m[INFO][0m:    opencv download already cached, skipping
+[1m[INFO][0m:    [36m<- directory context /root/build-animais/.buildozer/android/platform/python-for-android[39m
+[1m[INFO][0m:    [1m[32m# Building all recipes for arch arm64-v8a[0m[39m
+[1m[INFO][0m:    [1m[32m# Unpacking recipes[0m[39m
+[1m[INFO][0m:    [1m[32mUnpacking freetype for arm64-v8a[0m[39m
+stty: 'standard input': Inappropriate ioctl for device
+[1m[90m[DEBUG][39m[0m:   [90m->[0m running basename https://download.savannah.gnu.org/releases/freetype/freetype-2.10.1.tar.gz[0m
+[1m[90m[DEBUG][39m[0m:   	freetype-2.10.1.tar.gz
+[1m[INFO][0m:    [36m-> directory context /root/build-animais/.buildozer/android/platform/build-arm64-v8a/build/other_builds/freetype/arm64-v8a__ndk_target_21[39m
+[1m[INFO][0m:    freetype is already unpacked, skipping
+[1m[INFO][0m:    [36m<- directory context /root/build-animais/.buildozer/android/platform/python-for-android[39m
+[1m[INFO][0m:    [1m[32mUnpacking hostpython3 for arm64-v8a[0m[39m
+stty: 'standard input': Inappropriate ioctl for device
+[1m[90m[DEBUG][39m[0m:   [90m->[0m running basename https://www.python.org/ftp/python/3.11.5/Python-3.11.5.tgz[0m
+[1m[90m[DEBUG][39m[0m:   	Python-3.11.5.tgz
+[1m[INFO][0m:    [36m-> directory context /root/build-animais/.buildozer/android/platform/build-arm64-v8a/build/other_builds/hostpython3/desktop[39m
+[1m[INFO][0m:    hostpython3 is already unpacked, skipping
+[1m[INFO][0m:    [36m<- directory context /root/build-animais/.buildozer/android/platform/python-for-android[39m
+[1m[INFO][0m:    [1m[32mUnpacking jpeg for arm64-v8a[0m[39m
+stty: 'standard input': Inappropriate ioctl for device
+[1m[90m[DEBUG][39m[0m:   [90m->[0m running basename https://github.com/libjpeg-turbo/libjpeg-turbo/archive/2.0.1.tar.gz[0m
+[1m[90m[DEBUG][39m[0m:   	2.0.1.tar.gz
+[1m[INFO][0m:    [36m-> directory context /root/build-animais/.buildozer/android/platform/build-arm64-v8a/build/other_builds/jpeg/arm64-v8a__ndk_target_21[39m
+[1m[INFO][0m:    jpeg is already unpacked, skipping
+[1m[INFO][0m:    [36m<- directory context /root/build-animais/.buildozer/android/platform/python-for-android[39m
+[1m[INFO][0m:    [1m[32mUnpacking libffi for arm64-v8a[0m[39m
+stty: 'standard input': Inappropriate ioctl for device
+[1m[90m[DEBUG][39m[0m:   [90m->[0m running basename https://github.com/libffi/libffi/archive/v3.4.2.tar.gz[0m
+[1m[90m[DEBUG][39m[0m:   	v3.4.2.tar.gz
+[1m[INFO][0m:    [36m-> directory context /root/build-animais/.buildozer/android/platform/build-arm64-v8a/build/other_builds/libffi/arm64-v8a__ndk_target_21[39m
+[1m[INFO][0m:    libffi is already unpacked, skipping
+[1m[INFO][0m:    [36m<- directory context /root/build-animais/.buildozer/android/platform/python-for-android[39m
+[1m[INFO][0m:    [1m[32mUnpacking openssl for arm64-v8a[0m[39m
+stty: 'standard input': Inappropriate ioctl for device
+[1m[90m[DEBUG][39m[0m:   [90m->[0m running basename https://www.openssl.org/source/openssl-1.1.1w.tar.gz[0m
+[1m[90m[DEBUG][39m[0m:   	openssl-1.1.1w.tar.gz
+[1m[INFO][0m:    [36m-> directory context /root/build-animais/.buildozer/android/platform/build-arm64-v8a/build/other_builds/openssl/arm64-v8a__ndk_target_21[39m
+[1m[INFO][0m:    openssl is already unpacked, skipping
+[1m[INFO][0m:    [36m<- directory context /root/build-animais/.buildozer/android/platform/python-for-android[39m
+[1m[INFO][0m:    [1m[32mUnpacking png for arm64-v8a[0m[39m
+stty: 'standard input': Inappropriate ioctl for device
+[1m[90m[DEBUG][39m[0m:   [90m->[0m running basename https://github.com/glennrp/libpng/archive/v1.6.37.zip[0m
+[1m[90m[DEBUG][39m[0m:   	v1.6.37.zip
+[1m[INFO][0m:    [36m-> directory context /root/build-animais/.buildozer/android/platform/build-arm64-v8a/build/other_builds/png/arm64-v8a__ndk_target_21[39m
+[1m[INFO][0m:    png is already unpacked, skipping
+[1m[INFO][0m:    [36m<- directory context /root/build-animais/.buildozer/android/platform/python-for-android[39m
+[1m[INFO][0m:    [1m[32mUnpacking sdl2_image for arm64-v8a[0m[39m
+stty: 'standard input': Inappropriate ioctl for device
+[1m[90m[DEBUG][39m[0m:   [90m->[0m running basename https://github.com/libsdl-org/SDL_image/releases/download/release-2.8.0/SDL2_image-2.8.0.tar.gz[0m
+[1m[90m[DEBUG][39m[0m:   	SDL2_image-2.8.0.tar.gz
+[1m[INFO][0m:    [36m-> directory context /root/build-animais/.buildozer/android/platform/build-arm64-v8a/build/bootstrap_builds/sdl2/jni[39m
+[1m[INFO][0m:    sdl2_image is already unpacked, skipping
+[1m[INFO][0m:    [36m<- directory context /root/build-animais/.buildozer/android/platform/python-for-android[39m
+[1m[INFO][0m:    [1m[32mUnpacking sdl2_mixer for arm64-v8a[0m[39m
+stty: 'standard input': Inappropriate ioctl for device
+[1m[90m[DEBUG][39m[0m:   [90m->[0m running basename https://github.com/libsdl-org/SDL_mixer/releases/download/release-2.6.3/SDL2_mixer-2.6.3.tar.gz[0m
+[1m[90m[DEBUG][39m[0m:   	SDL2_mixer-2.6.3.tar.gz
+[1m[INFO][0m:    [36m-> directory context /root/build-animais/.buildozer/android/platform/build-arm64-v8a/build/bootstrap_builds/sdl2/jni[39m
+[1m[INFO][0m:    sdl2_mixer is already unpacked, skipping
+[1m[INFO][0m:    [36m<- directory context /root/build-animais/.buildozer/android/platform/python-for-android[39m
+[1m[INFO][0m:    [1m[32mUnpacking sdl2_ttf for arm64-v8a[0m[39m
+stty: 'standard input': Inappropriate ioctl for device
+[1m[90m[DEBUG][39m[0m:   [90m->[0m running basename https://github.com/libsdl-org/SDL_ttf/releases/download/release-2.20.2/SDL2_ttf-2.20.2.tar.gz[0m
+[1m[90m[DEBUG][39m[0m:   	SDL2_ttf-2.20.2.tar.gz
+[1m[INFO][0m:    [36m-> directory context /root/build-animais/.buildozer/android/platform/build-arm64-v8a/build/bootstrap_builds/sdl2/jni[39m
+[1m[INFO][0m:    sdl2_ttf is already unpacked, skipping
+[1m[INFO][0m:    [36m<- directory context /root/build-animais/.buildozer/android/platform/python-for-android[39m
+[1m[INFO][0m:    [1m[32mUnpacking sqlite3 for arm64-v8a[0m[39m
+stty: 'standard input': Inappropriate ioctl for device
+[1m[90m[DEBUG][39m[0m:   [90m->[0m running basename https://www.sqlite.org/2021/sqlite-amalgamation-3350500.zip[0m
+[1m[90m[DEBUG][39m[0m:   	sqlite-amalgamation-3350500.zip
+[1m[INFO][0m:    [36m-> directory context /root/build-animais/.buildozer/android/platform/build-arm64-v8a/build/other_builds/sqlite3/arm64-v8a__ndk_target_21[39m
+[1m[INFO][0m:    sqlite3 is already unpacked, skipping
+[1m[INFO][0m:    [36m<- directory context /root/build-animais/.buildozer/android/platform/python-for-android[39m
+[1m[INFO][0m:    [1m[32mUnpacking python3 for arm64-v8a[0m[39m
+stty: 'standard input': Inappropriate ioctl for device
+[1m[90m[DEBUG][39m[0m:   [90m->[0m running basename https://www.python.org/ftp/python/3.11.5/Python-3.11.5.tgz[0m
+[1m[90m[DEBUG][39m[0m:   	Python-3.11.5.tgz
+[1m[INFO][0m:    [36m-> directory context /root/build-animais/.buildozer/android/platform/build-arm64-v8a/build/other_builds/python3/arm64-v8a__ndk_target_21[39m
+[1m[INFO][0m:    python3 is already unpacked, skipping
+[1m[INFO][0m:    [36m<- directory context /root/build-animais/.buildozer/android/platform/python-for-android[39m
+[1m[INFO][0m:    [1m[32mUnpacking sdl2 for arm64-v8a[0m[39m
+stty: 'standard input': Inappropriate ioctl for device
+[1m[90m[DEBUG][39m[0m:   [90m->[0m running basename https://github.com/libsdl-org/SDL/releases/download/release-2.28.5/SDL2-2.28.5.tar.gz[0m
+[1m[90m[DEBUG][39m[0m:   	SDL2-2.28.5.tar.gz
+[1m[INFO][0m:    [36m-> directory context /root/build-animais/.buildozer/android/platform/build-arm64-v8a/build/bootstrap_builds/sdl2/jni[39m
+[1m[INFO][0m:    sdl2 is already unpacked, skipping
+[1m[INFO][0m:    [36m<- directory context /root/build-animais/.buildozer/android/platform/python-for-android[39m
+[1m[INFO][0m:    [1m[32mUnpacking setuptools for arm64-v8a[0m[39m
+stty: 'standard input': Inappropriate ioctl for device
+[1m[90m[DEBUG][39m[0m:   [90m->[0m running basename https://pypi.python.org/packages/source/s/setuptools/setuptools-51.3.3.tar.gz[0m
+[1m[90m[DEBUG][39m[0m:   	setuptools-51.3.3.tar.gz
+[1m[INFO][0m:    [36m-> directory context /root/build-animais/.buildozer/android/platform/build-arm64-v8a/build/other_builds/setuptools/arm64-v8a__ndk_target_21[39m
+[1m[INFO][0m:    setuptools is already unpacked, skipping
+[1m[INFO][0m:    [36m<- directory context /root/build-animais/.buildozer/android/platform/python-for-android[39m
+[1m[INFO][0m:    [1m[32mUnpacking cython for arm64-v8a[0m[39m
+stty: 'standard input': Inappropriate ioctl for device
+[1m[90m[DEBUG][39m[0m:   [90m->[0m running basename https://github.com/cython/cython/archive/0.29.36.tar.gz[0m
+[1m[90m[DEBUG][39m[0m:   	0.29.36.tar.gz
+[1m[INFO][0m:    [36m-> directory context /root/build-animais/.buildozer/android/platform/build-arm64-v8a/build/other_builds/cython/arm64-v8a__ndk_target_21[39m
+[1m[INFO][0m:    cython is already unpacked, skipping
+[1m[INFO][0m:    [36m<- directory context /root/build-animais/.buildozer/android/platform/python-for-android[39m
+[1m[INFO][0m:    [1m[32mUnpacking Pillow for arm64-v8a[0m[39m
+stty: 'standard input': Inappropriate ioctl for device
+[1m[90m[DEBUG][39m[0m:   [90m->[0m running basename https://github.com/python-pillow/Pillow/archive/8.4.0.tar.gz[0m
+[1m[90m[DEBUG][39m[0m:   	8.4.0.tar.gz
+[1m[INFO][0m:    [36m-> directory context /root/build-animais/.buildozer/android/platform/build-arm64-v8a/build/other_builds/Pillow/arm64-v8a__ndk_target_21[39m
+[1m[INFO][0m:    Pillow is already unpacked, skipping
+[1m[INFO][0m:    [36m<- directory context /root/build-animais/.buildozer/android/platform/python-for-android[39m
+[1m[INFO][0m:    [1m[32mUnpacking six for arm64-v8a[0m[39m
+stty: 'standard input': Inappropriate ioctl for device
+[1m[90m[DEBUG][39m[0m:   [90m->[0m running basename https://pypi.python.org/packages/source/s/six/six-1.15.0.tar.gz[0m
+[1m[90m[DEBUG][39m[0m:   	six-1.15.0.tar.gz
+[1m[INFO][0m:    [36m-> directory context /root/build-animais/.buildozer/android/platform/build-arm64-v8a/build/other_builds/six/arm64-v8a__ndk_target_21[39m
+[1m[INFO][0m:    six is already unpacked, skipping
+[1m[INFO][0m:    [36m<- directory context /root/build-animais/.buildozer/android/platform/python-for-android[39m
+[1m[INFO][0m:    [1m[32mUnpacking numpy for arm64-v8a[0m[39m
+stty: 'standard input': Inappropriate ioctl for device
+[1m[90m[DEBUG][39m[0m:   [90m->[0m running basename https://github.com/numpy/numpy/archive/v1.26.4.tar.gz[0m
+[1m[90m[DEBUG][39m[0m:   	v1.26.4.tar.gz
+[1m[INFO][0m:    [36m-> directory context /root/build-animais/.buildozer/android/platform/build-arm64-v8a/build/other_builds/numpy/arm64-v8a__ndk_target_21[39m
+[1m[INFO][0m:    numpy is already unpacked, skipping
+[1m[INFO][0m:    [36m<- directory context /root/build-animais/.buildozer/android/platform/python-for-android[39m
+[1m[INFO][0m:    [1m[32mUnpacking pyjnius for arm64-v8a[0m[39m
+stty: 'standard input': Inappropriate ioctl for device
+[1m[90m[DEBUG][39m[0m:   [90m->[0m running basename https://github.com/kivy/pyjnius/archive/1.6.1.zip[0m
+[1m[90m[DEBUG][39m[0m:   	1.6.1.zip
+[1m[INFO][0m:    [36m-> directory context /root/build-animais/.buildozer/android/platform/build-arm64-v8a/build/other_builds/pyjnius-sdl2/arm64-v8a__ndk_target_21[39m
+[1m[INFO][0m:    pyjnius is already unpacked, skipping
+[1m[INFO][0m:    [36m<- directory context /root/build-animais/.buildozer/android/platform/python-for-android[39m
+[1m[90m[DEBUG][39m[0m:   Remove directory and subdirectory /root/build-animais/.buildozer/android/platform/build-arm64-v8a/build/other_builds/android-sdl2/arm64-v8a__ndk_target_21/android
+stty: 'standard input': Inappropriate ioctl for device
+[1m[90m[DEBUG][39m[0m:   [90m->[0m running cp -a /root/build-animais/.buildozer/android/platform/python-for-android/pythonforandroid/recipes/android/src /root/build-animais/.buildozer/android/platform/build-arm64-v8a/build/other_builds/android-sdl2/arm64-v8a__ndk_target_21/android[0m
+[1m[INFO][0m:    [1m[32mUnpacking kivy for arm64-v8a[0m[39m
+stty: 'standard input': Inappropriate ioctl for device
+[1m[90m[DEBUG][39m[0m:   [90m->[0m running basename https://github.com/kivy/kivy/archive/2.3.0.zip[0m
+[1m[90m[DEBUG][39m[0m:   	2.3.0.zip
+[1m[INFO][0m:    [36m-> directory context /root/build-animais/.buildozer/android/platform/build-arm64-v8a/build/other_builds/kivy/arm64-v8a__ndk_target_21[39m
+[1m[INFO][0m:    kivy is already unpacked, skipping
+[1m[INFO][0m:    [36m<- directory context /root/build-animais/.buildozer/android/platform/python-for-android[39m
+[1m[INFO][0m:    [1m[32mUnpacking opencv for arm64-v8a[0m[39m
+stty: 'standard input': Inappropriate ioctl for device
+[1m[90m[DEBUG][39m[0m:   [90m->[0m running basename https://github.com/opencv/opencv/archive/4.5.1.zip[0m
+[1m[90m[DEBUG][39m[0m:   	4.5.1.zip
+[1m[INFO][0m:    [36m-> directory context /root/build-animais/.buildozer/android/platform/build-arm64-v8a/build/other_builds/opencv/arm64-v8a__ndk_target_21[39m
+[1m[INFO][0m:    opencv is already unpacked, skipping
+[1m[INFO][0m:    [36m<- directory context /root/build-animais/.buildozer/android/platform/python-for-android[39m
+[1m[INFO][0m:    [1m[32m# Prebuilding recipes[0m[39m
+[1m[INFO][0m:    [1m[32mPrebuilding freetype for arm64-v8a[0m[39m
+[1m[INFO][0m:    freetype has no prebuild_arm64_v8a, skipping
+[1m[INFO][0m:    [1m[32mPrebuilding hostpython3 for arm64-v8a[0m[39m
+[1m[INFO][0m:    hostpython3 has no prebuild_arm64_v8a, skipping
+[1m[INFO][0m:    [1m[32mApplying patches for hostpython3[arm64-v8a][0m[39m
+[1m[INFO][0m:    [1m[32mhostpython3 already patched, skipping[0m[39m
+[1m[INFO][0m:    [1m[32mPrebuilding jpeg for arm64-v8a[0m[39m
+[1m[INFO][0m:    jpeg has no prebuild_arm64_v8a, skipping
+[1m[INFO][0m:    [1m[32mPrebuilding libffi for arm64-v8a[0m[39m
+[1m[INFO][0m:    libffi has no prebuild_arm64_v8a, skipping
+[1m[INFO][0m:    [1m[32mApplying patches for libffi[arm64-v8a][0m[39m
+[1m[INFO][0m:    [1m[32mlibffi already patched, skipping[0m[39m
+[1m[INFO][0m:    [1m[32mPrebuilding openssl for arm64-v8a[0m[39m
+[1m[INFO][0m:    openssl has no prebuild_arm64_v8a, skipping
+[1m[INFO][0m:    [1m[32mPrebuilding png for arm64-v8a[0m[39m
+[1m[INFO][0m:    png has no prebuild_arm64_v8a, skipping
+[1m[INFO][0m:    [1m[32mPrebuilding sdl2_image for arm64-v8a[0m[39m
+[1m[INFO][0m:    sdl2_image has no prebuild_arm64_v8a, skipping
+[1m[INFO][0m:    [1m[32mApplying patches for sdl2_image[arm64-v8a][0m[39m
+[1m[INFO][0m:    [1m[32msdl2_image already patched, skipping[0m[39m
+[1m[INFO][0m:    [1m[32mPrebuilding sdl2_mixer for arm64-v8a[0m[39m
+[1m[INFO][0m:    sdl2_mixer has no prebuild_arm64_v8a, skipping
+[1m[INFO][0m:    [1m[32mPrebuilding sdl2_ttf for arm64-v8a[0m[39m
+[1m[INFO][0m:    sdl2_ttf has no prebuild_arm64_v8a, skipping
+[1m[INFO][0m:    [1m[32mPrebuilding sqlite3 for arm64-v8a[0m[39m
+[1m[INFO][0m:    sqlite3 has no prebuild_arm64_v8a, skipping
+[1m[INFO][0m:    [1m[32mPrebuilding python3 for arm64-v8a[0m[39m
+[1m[INFO][0m:    python3 has no prebuild_arm64_v8a, skipping
+[1m[INFO][0m:    [1m[32mApplying patches for python3[arm64-v8a][0m[39m
+[1m[INFO][0m:    [1m[32mpython3 already patched, skipping[0m[39m
+[1m[INFO][0m:    [1m[32mPrebuilding sdl2 for arm64-v8a[0m[39m
+[1m[INFO][0m:    sdl2 has no prebuild_arm64_v8a, skipping
+[1m[INFO][0m:    [1m[32mPrebuilding setuptools for arm64-v8a[0m[39m
+[1m[INFO][0m:    setuptools has no prebuild_arm64_v8a, skipping
+[1m[INFO][0m:    [1m[32mPrebuilding cython for arm64-v8a[0m[39m
+[1m[INFO][0m:    cython has no prebuild_arm64_v8a, skipping
+[1m[INFO][0m:    [1m[32mPrebuilding Pillow for arm64-v8a[0m[39m
+[1m[INFO][0m:    Pillow has no prebuild_arm64_v8a, skipping
+[1m[INFO][0m:    [1m[32mApplying patches for Pillow[arm64-v8a][0m[39m
+[1m[INFO][0m:    [1m[32mPillow already patched, skipping[0m[39m
+[1m[INFO][0m:    [1m[32mPrebuilding six for arm64-v8a[0m[39m
+[1m[INFO][0m:    six has no prebuild_arm64_v8a, skipping
+[1m[INFO][0m:    [1m[32mPrebuilding numpy for arm64-v8a[0m[39m
+[1m[INFO][0m:    numpy has no prebuild_arm64_v8a, skipping
+[1m[INFO][0m:    [1m[32mApplying patches for numpy[arm64-v8a][0m[39m
+[1m[INFO][0m:    [1m[32mnumpy already patched, skipping[0m[39m
+[1m[INFO][0m:    [1m[32mPrebuilding pyjnius for arm64-v8a[0m[39m
+[1m[INFO][0m:    pyjnius has no prebuild_arm64_v8a, skipping
+[1m[INFO][0m:    [1m[32mApplying patches for pyjnius[arm64-v8a][0m[39m
+[1m[INFO][0m:    [1m[32mpyjnius already patched, skipping[0m[39m
+[1m[INFO][0m:    [1m[32mPrebuilding android for arm64-v8a[0m[39m
+[1m[INFO][0m:    android has no prebuild_arm64_v8a, skipping
+[1m[INFO][0m:    [36m-> directory context /root/build-animais/.buildozer/android/platform/build-arm64-v8a/build/other_builds/android-sdl2/arm64-v8a__ndk_target_21/android[39m
+[1m[INFO][0m:    [36m<- directory context /root/build-animais/.buildozer/android/platform/python-for-android[39m
+[1m[INFO][0m:    [1m[32mPrebuilding kivy for arm64-v8a[0m[39m
+[1m[INFO][0m:    kivy has no prebuild_arm64_v8a, skipping
+[1m[INFO][0m:    [1m[32mApplying patches for kivy[arm64-v8a][0m[39m
+[1m[INFO][0m:    [1m[32mkivy already patched, skipping[0m[39m
+[1m[INFO][0m:    [1m[32mPrebuilding opencv for arm64-v8a[0m[39m
+[1m[INFO][0m:    opencv has no prebuild_arm64_v8a, skipping
+[1m[INFO][0m:    [1m[32mApplying patches for opencv[arm64-v8a][0m[39m
+[1m[INFO][0m:    [1m[32mopencv already patched, skipping[0m[39m
+[1m[INFO][0m:    [1m[32m# Building recipes[0m[39m
+[1m[INFO][0m:    [1m[32mBuilding freetype for arm64-v8a[0m[39m
+[1m[INFO][0m:    freetype said it is already built, skipping
+stty: 'standard input': Inappropriate ioctl for device
+[1m[90m[DEBUG][39m[0m:   [90m->[0m running cp /root/build-animais/.buildozer/android/platform/build-arm64-v8a/build/other_builds/freetype/arm64-v8a__ndk_target_21/freetype/objs/.libs/libfreetype.so /root/build-animais/.buildozer/android/platform/build-arm64-v8a/build/libs_collections/animaldetector/arm64-v8a[0m
+[1m[INFO][0m:    [1m[32mBuilding hostpython3 for arm64-v8a[0m[39m
+[1m[INFO][0m:    hostpython3 said it is already built, skipping
+[1m[INFO][0m:    [1m[32mBuilding jpeg for arm64-v8a[0m[39m
+[1m[INFO][0m:    jpeg said it is already built, skipping
+[1m[31m[WARNING][39m[0m: install_libs called with no libraries to install!
+[1m[INFO][0m:    [1m[32mBuilding libffi for arm64-v8a[0m[39m
+[1m[INFO][0m:    libffi said it is already built, skipping
+stty: 'standard input': Inappropriate ioctl for device
+[1m[90m[DEBUG][39m[0m:   [90m->[0m running cp /root/build-animais/.buildozer/android/platform/build-arm64-v8a/build/other_builds/libffi/arm64-v8a__ndk_target_21/libffi/.libs/libffi.so /root/build-animais/.buildozer/android/platform/build-arm64-v8a/build/libs_collections/animaldetector/arm64-v8a[0m
+[1m[INFO][0m:    [1m[32mBuilding openssl for arm64-v8a[0m[39m
+[1m[INFO][0m:    openssl said it is already built, skipping
+stty: 'standard input': Inappropriate ioctl for device
+[1m[90m[DEBUG][39m[0m:   [90m->[0m running cp /root/build-animais/.buildozer/android/platform/build-arm64-v8a/build/other_builds/openssl/arm64-v8a__ndk_target_21/openssl1.1/libssl1.1.so /root/build-animais/.buildozer/android/platform/build-arm64-v8a/build/other_builds/openssl/arm64-v8a__ndk_target_21/openssl1.1/libcrypto1.1.so /root/build-animais/.buildozer/android/platform/build-arm64-v8a/build/libs_collections/animaldetector/arm64-v8a[0m
+[1m[INFO][0m:    [1m[32mBuilding png for arm64-v8a[0m[39m
+[1m[INFO][0m:    png said it is already built, skipping
+stty: 'standard input': Inappropriate ioctl for device
+[1m[90m[DEBUG][39m[0m:   [90m->[0m running cp /root/build-animais/.buildozer/android/platform/build-arm64-v8a/build/other_builds/png/arm64-v8a__ndk_target_21/png/.libs/libpng16.so /root/build-animais/.buildozer/android/platform/build-arm64-v8a/build/libs_collections/animaldetector/arm64-v8a[0m
+[1m[INFO][0m:    [1m[32mBuilding sdl2_image for arm64-v8a[0m[39m
+[1m[INFO][0m:    [1m[32mBuilding sdl2_mixer for arm64-v8a[0m[39m
+[1m[INFO][0m:    [1m[32mBuilding sdl2_ttf for arm64-v8a[0m[39m
+[1m[INFO][0m:    [1m[32mBuilding sqlite3 for arm64-v8a[0m[39m
+[1m[INFO][0m:    sqlite3 said it is already built, skipping
+[1m[INFO][0m:    [1m[32mBuilding python3 for arm64-v8a[0m[39m
+[1m[INFO][0m:    python3 said it is already built, skipping
+[1m[INFO][0m:    [1m[32mBuilding sdl2 for arm64-v8a[0m[39m
+[1m[INFO][0m:    sdl2 said it is already built, skipping
+[1m[INFO][0m:    [1m[32mBuilding setuptools for arm64-v8a[0m[39m
+[1m[INFO][0m:    Python package already exists in site-packages
+[1m[INFO][0m:    setuptools said it is already built, skipping
+[1m[INFO][0m:    [1m[32mBuilding cython for arm64-v8a[0m[39m
+[1m[INFO][0m:    Python package already exists in site-packages
+[1m[INFO][0m:    cython said it is already built, skipping
+[1m[INFO][0m:    [1m[32mBuilding Pillow for arm64-v8a[0m[39m
+[1m[INFO][0m:    Pillow apparently isn't already in site-packages
+[1m[INFO][0m:    Building compiled components in Pillow
+[1m[INFO][0m:    [36m-> directory context /root/build-animais/.buildozer/android/platform/build-arm64-v8a/build/other_builds/Pillow/arm64-v8a__ndk_target_21/Pillow[39m
+stty: 'standard input': Inappropriate ioctl for device
+[1m[90m[DEBUG][39m[0m:   [90m->[0m running python3 setup.py build_ext -v[0m
+[1m[90m[DEBUG][39m[0m:   	running build_ext
+[1m[90m[DEBUG][39m[0m:   	Appending path /root/build-animais/.buildozer/android/platform/build-arm64-v8a/build/other_builds/python3/arm64-v8a__ndk_target_21/python3/Include
+[1m[90m[DEBUG][39m[0m:   	Appending path /root/build-animais/.buildozer/android/platform/build-arm64-v8a/build/other_builds/png/arm64-v8a__ndk_target_21/png
+[1m[90m[DEBUG][39m[0m:   	Appending path /root/build-animais/.buildozer/android/platform/build-arm64-v8a/build/other_builds/freetype/arm64-v8a__ndk_target_21/freetype/include
+[1m[90m[DEBUG][39m[0m:   	Appending path /root/build-animais/.buildozer/android/platform/build-arm64-v8a/build/other_builds/jpeg/arm64-v8a__ndk_target_21/jpeg
+[1m[90m[DEBUG][39m[0m:   	Appending path /root/android-sdk/ndk/25.1.8937393/toolchains/llvm/prebuilt/linux-x86_64/sysroot/usr/include
+[1m[90m[DEBUG][39m[0m:   	Appending path /root/build-animais/.buildozer/android/platform/build-arm64-v8a/build/libs_collections/animaldetector/arm64-v8a
+[1m[90m[DEBUG][39m[0m:   	Appending path /root/build-animais/.buildozer/android/platform/build-arm64-v8a/build/other_builds/python3/arm64-v8a__ndk_target_21/python3/android-build
+[1m[90m[DEBUG][39m[0m:   	Appending path /root/build-animais/.buildozer/android/platform/build-arm64-v8a/build/other_builds/png/arm64-v8a__ndk_target_21/png/.libs
+[1m[90m[DEBUG][39m[0m:   	Appending path /root/build-animais/.buildozer/android/platform/build-arm64-v8a/build/other_builds/freetype/arm64-v8a__ndk_target_21/freetype/objs/.libs
+[1m[90m[DEBUG][39m[0m:   	Appending path /root/build-animais/.buildozer/android/platform/build-arm64-v8a/build/other_builds/jpeg/arm64-v8a__ndk_target_21/jpeg
+[1m[90m[DEBUG][39m[0m:   	Appending path /root/android-sdk/ndk/25.1.8937393/toolchains/llvm/prebuilt/linux-x86_64/sysroot/usr/lib/aarch64-linux-android/21
+[1m[90m[DEBUG][39m[0m:   	Looking for zlib
+[1m[90m[DEBUG][39m[0m:   	Checking for include file zlib.h in /root/build-animais/.buildozer/android/platform/build-arm64-v8a/build/other_builds/python3/arm64-v8a__ndk_target_21/python3/Include
+[1m[90m[DEBUG][39m[0m:   	Checking for include file zlib.h in /root/build-animais/.buildozer/android/platform/build-arm64-v8a/build/other_builds/png/arm64-v8a__ndk_target_21/png
+[1m[90m[DEBUG][39m[0m:   	Checking for include file zlib.h in /root/build-animais/.buildozer/android/platform/build-arm64-v8a/build/other_builds/freetype/arm64-v8a__ndk_target_21/freetype/include
+[1m[90m[DEBUG][39m[0m:   	Checking for include file zlib.h in /root/build-animais/.buildozer/android/platform/build-arm64-v8a/build/other_builds/jpeg/arm64-v8a__ndk_target_21/jpeg
+[1m[90m[DEBUG][39m[0m:   	Checking for include file zlib.h in /root/android-sdk/ndk/25.1.8937393/toolchains/llvm/prebuilt/linux-x86_64/sysroot/usr/include
+[1m[90m[DEBUG][39m[0m:   	Found zlib.h
+[1m[90m[DEBUG][39m[0m:   	Found library z at /root/android-sdk/ndk/25.1.8937393/toolchains/llvm/prebuilt/linux-x86_64/sysroot/usr/lib/aarch64-linux-android/21/libz.so
+[1m[90m[DEBUG][39m[0m:   	Looking for jpeg
+[1m[90m[DEBUG][39m[0m:   	Checking for include file jpeglib.h in /root/build-animais/.buildozer/android/platform/build-arm64-v8a/build/other_builds/python3/arm64-v8a__ndk_target_21/python3/Include
+[1m[90m[DEBUG][39m[0m:   	Checking for include file jpeglib.h in /root/build-animais/.buildozer/android/platform/build-arm64-v8a/build/other_builds/png/arm64-v8a__ndk_target_21/png
+[1m[90m[DEBUG][39m[0m:   	Checking for include file jpeglib.h in /root/build-animais/.buildozer/android/platform/build-arm64-v8a/build/other_builds/freetype/arm64-v8a__ndk_target_21/freetype/include
+[1m[90m[DEBUG][39m[0m:   	Checking for include file jpeglib.h in /root/build-animais/.buildozer/android/platform/build-arm64-v8a/build/other_builds/jpeg/arm64-v8a__ndk_target_21/jpeg
+[1m[90m[DEBUG][39m[0m:   	Found jpeglib.h
+[1m[90m[DEBUG][39m[0m:   	Found library jpeg at /root/build-animais/.buildozer/android/platform/build-arm64-v8a/build/other_builds/jpeg/arm64-v8a__ndk_target_21/jpeg/libjpeg.a
+[1m[90m[DEBUG][39m[0m:   	Looking for jpeg2000
+[1m[90m[DEBUG][39m[0m:   	Checking for openjpeg-#.# in /root/build-animais/.buildozer/android/platform/build-arm64-v8a/build/other_builds/python3/arm64-v8a__ndk_target_21/python3/Include
+[1m[90m[DEBUG][39m[0m:   	Checking for openjpeg-#.# in /root/build-animais/.buildozer/android/platform/build-arm64-v8a/build/other_builds/png/arm64-v8a__ndk_target_21/png
+[1m[90m[DEBUG][39m[0m:   	Checking for openjpeg-#.# in /root/build-animais/.buildozer/android/platform/build-arm64-v8a/build/other_builds/freetype/arm64-v8a__ndk_target_21/freetype/include
+[1m[90m[DEBUG][39m[0m:   	Checking for openjpeg-#.# in /root/build-animais/.buildozer/android/platform/build-arm64-v8a/build/other_builds/jpeg/arm64-v8a__ndk_target_21/jpeg
+[1m[90m[DEBUG][39m[0m:   	Checking for openjpeg-#.# in /root/android-sdk/ndk/25.1.8937393/toolchains/llvm/prebuilt/linux-x86_64/sysroot/usr/include
+[1m[90m[DEBUG][39m[0m:   	Checking for openjpeg-#.# in /root/build-animais/.buildozer/android/platform/build-arm64-v8a/build/other_builds/hostpython3/desktop/hostpython3/Include
+[1m[90m[DEBUG][39m[0m:   	Checking for openjpeg-#.# in /root/build-animais/.buildozer/android/platform/build-arm64-v8a/build/other_builds/hostpython3/desktop/hostpython3/native-build
+[1m[90m[DEBUG][39m[0m:   	Looking for imagequant
+[1m[90m[DEBUG][39m[0m:   	Checking for include file libimagequant.h in /root/build-animais/.buildozer/android/platform/build-arm64-v8a/build/other_builds/python3/arm64-v8a__ndk_target_21/python3/Include
+[1m[90m[DEBUG][39m[0m:   	Checking for include file libimagequant.h in /root/build-animais/.buildozer/android/platform/build-arm64-v8a/build/other_builds/png/arm64-v8a__ndk_target_21/png
+[1m[90m[DEBUG][39m[0m:   	Checking for include file libimagequant.h in /root/build-animais/.buildozer/android/platform/build-arm64-v8a/build/other_builds/freetype/arm64-v8a__ndk_target_21/freetype/include
+[1m[90m[DEBUG][39m[0m:   	Checking for include file libimagequant.h in /root/build-animais/.buildozer/android/platform/build-arm64-v8a/build/other_builds/jpeg/arm64-v8a__ndk_target_21/jpeg
+[1m[90m[DEBUG][39m[0m:   	Checking for include file libimagequant.h in /root/android-sdk/ndk/25.1.8937393/toolchains/llvm/prebuilt/linux-x86_64/sysroot/usr/include
+[1m[90m[DEBUG][39m[0m:   	Checking for include file libimagequant.h in /root/build-animais/.buildozer/android/platform/build-arm64-v8a/build/other_builds/hostpython3/desktop/hostpython3/Include
+[1m[90m[DEBUG][39m[0m:   	Checking for include file libimagequant.h in /root/build-animais/.buildozer/android/platform/build-arm64-v8a/build/other_builds/hostpython3/desktop/hostpython3/native-build
+[1m[90m[DEBUG][39m[0m:   	Looking for tiff
+[1m[90m[DEBUG][39m[0m:   	Checking for include file tiff.h in /root/build-animais/.buildozer/android/platform/build-arm64-v8a/build/other_builds/python3/arm64-v8a__ndk_target_21/python3/Include
+[1m[90m[DEBUG][39m[0m:   	Checking for include file tiff.h in /root/build-animais/.buildozer/android/platform/build-arm64-v8a/build/other_builds/png/arm64-v8a__ndk_target_21/png
+[1m[90m[DEBUG][39m[0m:   	Checking for include file tiff.h in /root/build-animais/.buildozer/android/platform/build-arm64-v8a/build/other_builds/freetype/arm64-v8a__ndk_target_21/freetype/include
+[1m[90m[DEBUG][39m[0m:   	Checking for include file tiff.h in /root/build-animais/.buildozer/android/platform/build-arm64-v8a/build/other_builds/jpeg/arm64-v8a__ndk_target_21/jpeg
+[1m[90m[DEBUG][39m[0m:   	Checking for include file tiff.h in /root/android-sdk/ndk/25.1.8937393/toolchains/llvm/prebuilt/linux-x86_64/sysroot/usr/include
+[1m[90m[DEBUG][39m[0m:   	Checking for include file tiff.h in /root/build-animais/.buildozer/android/platform/build-arm64-v8a/build/other_builds/hostpython3/desktop/hostpython3/Include
+[1m[90m[DEBUG][39m[0m:   	Checking for include file tiff.h in /root/build-animais/.buildozer/android/platform/build-arm64-v8a/build/other_builds/hostpython3/desktop/hostpython3/native-build
+[1m[90m[DEBUG][39m[0m:   	Looking for freetype
+[1m[90m[DEBUG][39m[0m:   	Found library freetype at /root/build-animais/.buildozer/android/platform/build-arm64-v8a/build/libs_collections/animaldetector/arm64-v8a/libfreetype.so
+[1m[90m[DEBUG][39m[0m:   	Checking for include file ft2build.h in /root/build-animais/.buildozer/android/platform/build-arm64-v8a/build/other_builds/python3/arm64-v8a__ndk_target_21/python3/Include
+[1m[90m[DEBUG][39m[0m:   	Checking for include file ft2build.h in /root/build-animais/.buildozer/android/platform/build-arm64-v8a/build/other_builds/python3/arm64-v8a__ndk_target_21/python3/Include/freetype2
+[1m[90m[DEBUG][39m[0m:   	Checking for include file ft2build.h in /root/build-animais/.buildozer/android/platform/build-arm64-v8a/build/other_builds/png/arm64-v8a__ndk_target_21/png
+[1m[90m[DEBUG][39m[0m:   	Checking for include file ft2build.h in /root/build-animais/.buildozer/android/platform/build-arm64-v8a/build/other_builds/png/arm64-v8a__ndk_target_21/png/freetype2
+[1m[90m[DEBUG][39m[0m:   	Checking for include file ft2build.h in /root/build-animais/.buildozer/android/platform/build-arm64-v8a/build/other_builds/freetype/arm64-v8a__ndk_target_21/freetype/include
+[1m[90m[DEBUG][39m[0m:   	Found ft2build.h in /root/build-animais/.buildozer/android/platform/build-arm64-v8a/build/other_builds/freetype/arm64-v8a__ndk_target_21/freetype/include
+[1m[90m[DEBUG][39m[0m:   	Looking for Raqm
+[1m[90m[DEBUG][39m[0m:   	Checking for include file raqm.h in /root/build-animais/.buildozer/android/platform/build-arm64-v8a/build/other_builds/python3/arm64-v8a__ndk_target_21/python3/Include
+[1m[90m[DEBUG][39m[0m:   	Checking for include file raqm.h in /root/build-animais/.buildozer/android/platform/build-arm64-v8a/build/other_builds/png/arm64-v8a__ndk_target_21/png
+[1m[90m[DEBUG][39m[0m:   	Checking for include file raqm.h in /root/build-animais/.buildozer/android/platform/build-arm64-v8a/build/other_builds/freetype/arm64-v8a__ndk_target_21/freetype/include
+[1m[90m[DEBUG][39m[0m:   	Checking for include file raqm.h in /root/build-animais/.buildozer/android/platform/build-arm64-v8a/build/other_builds/jpeg/arm64-v8a__ndk_target_21/jpeg
+[1m[90m[DEBUG][39m[0m:   	Checking for include file raqm.h in /root/android-sdk/ndk/25.1.8937393/toolchains/llvm/prebuilt/linux-x86_64/sysroot/usr/include
+[1m[90m[DEBUG][39m[0m:   	Checking for include file raqm.h in /root/build-animais/.buildozer/android/platform/build-arm64-v8a/build/other_builds/hostpython3/desktop/hostpython3/Include
+[1m[90m[DEBUG][39m[0m:   	Checking for include file raqm.h in /root/build-animais/.buildozer/android/platform/build-arm64-v8a/build/other_builds/hostpython3/desktop/hostpython3/native-build
+[1m[90m[DEBUG][39m[0m:   	Looking for lcms
+[1m[90m[DEBUG][39m[0m:   	Checking for include file lcms2.h in /root/build-animais/.buildozer/android/platform/build-arm64-v8a/build/other_builds/python3/arm64-v8a__ndk_target_21/python3/Include
+[1m[90m[DEBUG][39m[0m:   	Checking for include file lcms2.h in /root/build-animais/.buildozer/android/platform/build-arm64-v8a/build/other_builds/png/arm64-v8a__ndk_target_21/png
+[1m[90m[DEBUG][39m[0m:   	Checking for include file lcms2.h in /root/build-animais/.buildozer/android/platform/build-arm64-v8a/build/other_builds/freetype/arm64-v8a__ndk_target_21/freetype/include
+[1m[90m[DEBUG][39m[0m:   	Checking for include file lcms2.h in /root/build-animais/.buildozer/android/platform/build-arm64-v8a/build/other_builds/jpeg/arm64-v8a__ndk_target_21/jpeg
+[1m[90m[DEBUG][39m[0m:   	Checking for include file lcms2.h in /root/android-sdk/ndk/25.1.8937393/toolchains/llvm/prebuilt/linux-x86_64/sysroot/usr/include
+[1m[90m[DEBUG][39m[0m:   	Checking for include file lcms2.h in /root/build-animais/.buildozer/android/platform/build-arm64-v8a/build/other_builds/hostpython3/desktop/hostpython3/Include
+[1m[90m[DEBUG][39m[0m:   	Checking for include file lcms2.h in /root/build-animais/.buildozer/android/platform/build-arm64-v8a/build/other_builds/hostpython3/desktop/hostpython3/native-build
+[1m[90m[DEBUG][39m[0m:   	Looking for webp
+[1m[90m[DEBUG][39m[0m:   	Checking for include file webp/encode.h in /root/build-animais/.buildozer/android/platform/build-arm64-v8a/build/other_builds/python3/arm64-v8a__ndk_target_21/python3/Include
+[1m[90m[DEBUG][39m[0m:   	Checking for include file webp/encode.h in /root/build-animais/.buildozer/android/platform/build-arm64-v8a/build/other_builds/png/arm64-v8a__ndk_target_21/png
+[1m[90m[DEBUG][39m[0m:   	Checking for include file webp/encode.h in /root/build-animais/.buildozer/android/platform/build-arm64-v8a/build/other_builds/freetype/arm64-v8a__ndk_target_21/freetype/include
+[1m[90m[DEBUG][39m[0m:   	Checking for include file webp/encode.h in /root/build-animais/.buildozer/android/platform/build-arm64-v8a/build/other_builds/jpeg/arm64-v8a__ndk_target_21/jpeg
+[1m[90m[DEBUG][39m[0m:   	Checking for include file webp/encode.h in /root/android-sdk/ndk/25.1.8937393/toolchains/llvm/prebuilt/linux-x86_64/sysroot/usr/include
+[1m[90m[DEBUG][39m[0m:   	Checking for include file webp/encode.h in /root/build-animais/.buildozer/android/platform/build-arm64-v8a/build/other_builds/hostpython3/desktop/hostpython3/Include
+[1m[90m[DEBUG][39m[0m:   	Checking for include file webp/encode.h in /root/build-animais/.buildozer/android/platform/build-arm64-v8a/build/other_builds/hostpython3/desktop/hostpython3/native-build
+[1m[90m[DEBUG][39m[0m:   	Looking for webpmux
+[1m[90m[DEBUG][39m[0m:   	Checking for include file webp/mux.h in /root/build-animais/.buildozer/android/platform/build-arm64-v8a/build/other_builds/python3/arm64-v8a__ndk_target_21/python3/Include
+[1m[90m[DEBUG][39m[0m:   	Checking for include file webp/mux.h in /root/build-animais/.buildozer/android/platform/build-arm64-v8a/build/other_builds/png/arm64-v8a__ndk_target_21/png
+[1m[90m[DEBUG][39m[0m:   	Checking for include file webp/mux.h in /root/build-animais/.buildozer/android/platform/build-arm64-v8a/build/other_builds/freetype/arm64-v8a__ndk_target_21/freetype/include
+[1m[90m[DEBUG][39m[0m:   	Checking for include file webp/mux.h in /root/build-animais/.buildozer/android/platform/build-arm64-v8a/build/other_builds/jpeg/arm64-v8a__ndk_target_21/jpeg
+[1m[90m[DEBUG][39m[0m:   	Checking for include file webp/mux.h in /root/android-sdk/ndk/25.1.8937393/toolchains/llvm/prebuilt/linux-x86_64/sysroot/usr/include
+[1m[90m[DEBUG][39m[0m:   	Checking for include file webp/mux.h in /root/build-animais/.buildozer/android/platform/build-arm64-v8a/build/other_builds/hostpython3/desktop/hostpython3/Include
+[1m[90m[DEBUG][39m[0m:   	Checking for include file webp/mux.h in /root/build-animais/.buildozer/android/platform/build-arm64-v8a/build/other_builds/hostpython3/desktop/hostpython3/native-build
+[1m[90m[DEBUG][39m[0m:   	Looking for xcb
+[1m[90m[DEBUG][39m[0m:   	Checking for include file xcb/xcb.h in /root/build-animais/.buildozer/android/platform/build-arm64-v8a/build/other_builds/python3/arm64-v8a__ndk_target_21/python3/Include
+[1m[90m[DEBUG][39m[0m:   	Checking for include file xcb/xcb.h in /root/build-animais/.buildozer/android/platform/build-arm64-v8a/build/other_builds/png/arm64-v8a__ndk_target_21/png
+[1m[90m[DEBUG][39m[0m:   	Checking for include file xcb/xcb.h in /root/build-animais/.buildozer/android/platform/build-arm64-v8a/build/other_builds/freetype/arm64-v8a__ndk_target_21/freetype/include
+[1m[90m[DEBUG][39m[0m:   	Checking for include file xcb/xcb.h in /root/build-animais/.buildozer/android/platform/build-arm64-v8a/build/other_builds/jpeg/arm64-v8a__ndk_target_21/jpeg
+[1m[90m[DEBUG][39m[0m:   	Checking for include file xcb/xcb.h in /root/android-sdk/ndk/25.1.8937393/toolchains/llvm/prebuilt/linux-x86_64/sysroot/usr/include
+[1m[90m[DEBUG][39m[0m:   	Checking for include file xcb/xcb.h in /root/build-animais/.buildozer/android/platform/build-arm64-v8a/build/other_builds/hostpython3/desktop/hostpython3/Include
+[1m[90m[DEBUG][39m[0m:   	Checking for include file xcb/xcb.h in /root/build-animais/.buildozer/android/platform/build-arm64-v8a/build/other_builds/hostpython3/desktop/hostpython3/native-build
+[1m[90m[DEBUG][39m[0m:   	--------------------------------------------------------------------
+[1m[90m[DEBUG][39m[0m:   	PIL SETUP SUMMARY
+[1m[90m[DEBUG][39m[0m:   	--------------------------------------------------------------------
+[1m[90m[DEBUG][39m[0m:   	version      Pillow 8.4.0
+[1m[90m[DEBUG][39m[0m:   	platform     linux 3.11.5 (main, Apr 26 2026, 17:59:32)
+[1m[90m[DEBUG][39m[0m:   	             [GCC 13.3.0]
+[1m[90m[DEBUG][39m[0m:   	--------------------------------------------------------------------
+[1m[90m[DEBUG][39m[0m:   	--- JPEG support available
+[1m[90m[DEBUG][39m[0m:   	*** OPENJPEG (JPEG2000) support not available
+[1m[90m[DEBUG][39m[0m:   	--- ZLIB (PNG/ZIP) support available
+[1m[90m[DEBUG][39m[0m:   	*** LIBIMAGEQUANT support not available
+[1m[90m[DEBUG][39m[0m:   	*** LIBTIFF support not available
+[1m[90m[DEBUG][39m[0m:   	--- FREETYPE2 support available
+[1m[90m[DEBUG][39m[0m:   	*** RAQM (Text shaping) support not available
+[1m[90m[DEBUG][39m[0m:   	*** LITTLECMS2 support not available
+[1m[90m[DEBUG][39m[0m:   	*** WEBP support not available
+[1m[90m[DEBUG][39m[0m:   	*** WEBPMUX support not available
+[1m[90m[DEBUG][39m[0m:   	*** XCB (X protocol) support not available
+[1m[90m[DEBUG][39m[0m:   	--------------------------------------------------------------------
+[1m[90m[DEBUG][39m[0m:   	To add a missing option, make sure you have the required
+[1m[90m[DEBUG][39m[0m:   	library and headers.
+[1m[90m[DEBUG][39m[0m:   	See https://pillow.readthedocs.io/en/latest/installation.html#building-from-source
+[1m[90m[DEBUG][39m[0m:   	
+[1m[90m[DEBUG][39m[0m:   	To check the build, run the selftest.py script.
+[1m[90m[DEBUG][39m[0m:   	
+stty: 'standard input': Inappropriate ioctl for device
+[1m[90m[DEBUG][39m[0m:   [90m->[0m running find build/lib.linux-x86_64-3.11 -name "*.o" -exec /root/android-sdk/ndk/25.1.8937393/toolchains/llvm/prebuilt/linux-x86_64/bin/llvm-strip --strip-unneeded {} ;[0m
+[1m[INFO][0m:    [36m<- directory context /root/build-animais/.buildozer/android/platform/python-for-android[39m
+[1m[INFO][0m:    Installing Pillow into site-packages
+[1m[INFO][0m:    [36m-> directory context /root/build-animais/.buildozer/android/platform/build-arm64-v8a/build/other_builds/Pillow/arm64-v8a__ndk_target_21/Pillow[39m
+stty: 'standard input': Inappropriate ioctl for device
+[1m[90m[DEBUG][39m[0m:   [90m->[0m running python3 setup.py install -O2 --root=/root/build-animais/.buildozer/android/platform/build-arm64-v8a/build/python-installs/animaldetector/arm64-v8a --install-lib=.[0m
+[1m[90m[DEBUG][39m[0m:   	running install
+[1m[90m[DEBUG][39m[0m:   	running build
+[1m[90m[DEBUG][39m[0m:   	running build_py
+[1m[90m[DEBUG][39m[0m:   	running egg_info
+[1m[90m[DEBUG][39m[0m:   	writing src/Pillow.egg-info/PKG-INFO
+[1m[90m[DEBUG][39m[0m:   	writing dependency_links to src/Pillow.egg-info/dependency_links.txt
+[1m[90m[DEBUG][39m[0m:   	writing top-level names to src/Pillow.egg-info/top_level.txt
+[1m[90m[DEBUG][39m[0m:   	reading manifest file 'src/Pillow.egg-info/SOURCES.txt'
+[1m[90m[DEBUG][39m[0m:   	reading manifest template 'MANIFEST.in'
+[1m[90m[DEBUG][39m[0m:   	warning: no files found matching '*.c'
+[1m[90m[DEBUG][39m[0m:   	warning: no files found matching '*.h'
+[1m[90m[DEBUG][39m[0m:   	warning: no files found matching '*.sh'
+[1m[90m[DEBUG][39m[0m:   	warning: no previously-included files found matching '.appveyor.yml'
+[1m[90m[DEBUG][39m[0m:   	warning: no previously-included files found matching '.clang-format'
+[1m[90m[DEBUG][39m[0m:   	warning: no previously-included files found matching '.coveragerc'
+[1m[90m[DEBUG][39m[0m:   	warning: no previously-included files found matching '.editorconfig'
+[1m[90m[DEBUG][39m[0m:   	warning: no previously-included files found matching '.readthedocs.yml'
+[1m[90m[DEBUG][39m[0m:   	warning: no previously-included files found matching 'codecov.yml'
+[1m[90m[DEBUG][39m[0m:   	warning: no previously-included files matching '.git*' found anywhere in distribution
+[1m[90m[DEBUG][39m[0m:   	warning: no previously-included files matching '*.pyc' found anywhere in distribution
+[1m[90m[DEBUG][39m[0m:   	warning: no previously-included files matching '*.so' found anywhere in distribution
+[1m[90m[DEBUG][39m[0m:   	no previously-included directories found matching '.ci'
+[1m[90m[DEBUG][39m[0m:   	writing manifest file 'src/Pillow.egg-info/SOURCES.txt'
+[1m[90m[DEBUG][39m[0m:   	running build_ext
+[1m[90m[DEBUG][39m[0m:   	Appending path /root/build-animais/.buildozer/android/platform/build-arm64-v8a/build/other_builds/python3/arm64-v8a__ndk_target_21/python3/Include
+[1m[90m[DEBUG][39m[0m:   	Appending path /root/build-animais/.buildozer/android/platform/build-arm64-v8a/build/other_builds/png/arm64-v8a__ndk_target_21/png
+[1m[90m[DEBUG][39m[0m:   	Appending path /root/build-animais/.buildozer/android/platform/build-arm64-v8a/build/other_builds/freetype/arm64-v8a__ndk_target_21/freetype/include
+[1m[90m[DEBUG][39m[0m:   	Appending path /root/build-animais/.buildozer/android/platform/build-arm64-v8a/build/other_builds/jpeg/arm64-v8a__ndk_target_21/jpeg
+[1m[90m[DEBUG][39m[0m:   	Appending path /root/android-sdk/ndk/25.1.8937393/toolchains/llvm/prebuilt/linux-x86_64/sysroot/usr/include
+[1m[90m[DEBUG][39m[0m:   	Appending path /root/build-animais/.buildozer/android/platform/build-arm64-v8a/build/libs_collections/animaldetector/arm64-v8a
+[1m[90m[DEBUG][39m[0m:   	Appending path /root/build-animais/.buildozer/android/platform/build-arm64-v8a/build/other_builds/python3/arm64-v8a__ndk_target_21/python3/android-build
+[1m[90m[DEBUG][39m[0m:   	Appending path /root/build-animais/.buildozer/android/platform/build-arm64-v8a/build/other_builds/png/arm64-v8a__ndk_target_21/png/.libs
+[1m[90m[DEBUG][39m[0m:   	Appending path /root/build-animais/.buildozer/android/platform/build-arm64-v8a/build/other_builds/freetype/arm64-v8a__ndk_target_21/freetype/objs/.libs
+[1m[90m[DEBUG][39m[0m:   	Appending path /root/build-animais/.buildozer/android/platform/build-arm64-v8a/build/other_builds/jpeg/arm64-v8a__ndk_target_21/jpeg
+[1m[90m[DEBUG][39m[0m:   	Appending path /root/android-sdk/ndk/25.1.8937393/toolchains/llvm/prebuilt/linux-x86_64/sysroot/usr/lib/aarch64-linux-android/21
+[1m[90m[DEBUG][39m[0m:   	Looking for zlib
+[1m[90m[DEBUG][39m[0m:   	Checking for include file zlib.h in /root/build-animais/.buildozer/android/platform/build-arm64-v8a/build/other_builds/python3/arm64-v8a__ndk_target_21/python3/Include
+[1m[90m[DEBUG][39m[0m:   	Checking for include file zlib.h in /root/build-animais/.buildozer/android/platform/build-arm64-v8a/build/other_builds/png/arm64-v8a__ndk_target_21/png
+[1m[90m[DEBUG][39m[0m:   	Checking for include file zlib.h in /root/build-animais/.buildozer/android/platform/build-arm64-v8a/build/other_builds/freetype/arm64-v8a__ndk_target_21/freetype/include
+[1m[90m[DEBUG][39m[0m:   	Checking for include file zlib.h in /root/build-animais/.buildozer/android/platform/build-arm64-v8a/build/other_builds/jpeg/arm64-v8a__ndk_target_21/jpeg
+[1m[90m[DEBUG][39m[0m:   	Checking for include file zlib.h in /root/android-sdk/ndk/25.1.8937393/toolchains/llvm/prebuilt/linux-x86_64/sysroot/usr/include
+[1m[90m[DEBUG][39m[0m:   	Found zlib.h
+[1m[90m[DEBUG][39m[0m:   	Found library z at /root/android-sdk/ndk/25.1.8937393/toolchains/llvm/prebuilt/linux-x86_64/sysroot/usr/lib/aarch64-linux-android/21/libz.so
+[1m[90m[DEBUG][39m[0m:   	Looking for jpeg
+[1m[90m[DEBUG][39m[0m:   	Checking for include file jpeglib.h in /root/build-animais/.buildozer/android/platform/build-arm64-v8a/build/other_builds/python3/arm64-v8a__ndk_target_21/python3/Include
+[1m[90m[DEBUG][39m[0m:   	Checking for include file jpeglib.h in /root/build-animais/.buildozer/android/platform/build-arm64-v8a/build/other_builds/png/arm64-v8a__ndk_target_21/png
+[1m[90m[DEBUG][39m[0m:   	Checking for include file jpeglib.h in /root/build-animais/.buildozer/android/platform/build-arm64-v8a/build/other_builds/freetype/arm64-v8a__ndk_target_21/freetype/include
+[1m[90m[DEBUG][39m[0m:   	Checking for include file jpeglib.h in /root/build-animais/.buildozer/android/platform/build-arm64-v8a/build/other_builds/jpeg/arm64-v8a__ndk_target_21/jpeg
+[1m[90m[DEBUG][39m[0m:   	Found jpeglib.h
+[1m[90m[DEBUG][39m[0m:   	Found library jpeg at /root/build-animais/.buildozer/android/platform/build-arm64-v8a/build/other_builds/jpeg/arm64-v8a__ndk_target_21/jpeg/libjpeg.a
+[1m[90m[DEBUG][39m[0m:   	Looking for jpeg2000
+[1m[90m[DEBUG][39m[0m:   	Checking for openjpeg-#.# in /root/build-animais/.buildozer/android/platform/build-arm64-v8a/build/other_builds/python3/arm64-v8a__ndk_target_21/python3/Include
+[1m[90m[DEBUG][39m[0m:   	Checking for openjpeg-#.# in /root/build-animais/.buildozer/android/platform/build-arm64-v8a/build/other_builds/png/arm64-v8a__ndk_target_21/png
+[1m[90m[DEBUG][39m[0m:   	Checking for openjpeg-#.# in /root/build-animais/.buildozer/android/platform/build-arm64-v8a/build/other_builds/freetype/arm64-v8a__ndk_target_21/freetype/include
+[1m[90m[DEBUG][39m[0m:   	Checking for openjpeg-#.# in /root/build-animais/.buildozer/android/platform/build-arm64-v8a/build/other_builds/jpeg/arm64-v8a__ndk_target_21/jpeg
+[1m[90m[DEBUG][39m[0m:   	Checking for openjpeg-#.# in /root/android-sdk/ndk/25.1.8937393/toolchains/llvm/prebuilt/linux-x86_64/sysroot/usr/include
+[1m[90m[DEBUG][39m[0m:   	Checking for openjpeg-#.# in /root/build-animais/.buildozer/android/platform/build-arm64-v8a/build/other_builds/hostpython3/desktop/hostpython3/Include
+[1m[90m[DEBUG][39m[0m:   	Checking for openjpeg-#.# in /root/build-animais/.buildozer/android/platform/build-arm64-v8a/build/other_builds/hostpython3/desktop/hostpython3/native-build
+[1m[90m[DEBUG][39m[0m:   	Looking for imagequant
+[1m[90m[DEBUG][39m[0m:   	Checking for include file libimagequant.h in /root/build-animais/.buildozer/android/platform/build-arm64-v8a/build/other_builds/python3/arm64-v8a__ndk_target_21/python3/Include
+[1m[90m[DEBUG][39m[0m:   	Checking for include file libimagequant.h in /root/build-animais/.buildozer/android/platform/build-arm64-v8a/build/other_builds/png/arm64-v8a__ndk_target_21/png
+[1m[90m[DEBUG][39m[0m:   	Checking for include file libimagequant.h in /root/build-animais/.buildozer/android/platform/build-arm64-v8a/build/other_builds/freetype/arm64-v8a__ndk_target_21/freetype/include
+[1m[90m[DEBUG][39m[0m:   	Checking for include file libimagequant.h in /root/build-animais/.buildozer/android/platform/build-arm64-v8a/build/other_builds/jpeg/arm64-v8a__ndk_target_21/jpeg
+[1m[90m[DEBUG][39m[0m:   	Checking for include file libimagequant.h in /root/android-sdk/ndk/25.1.8937393/toolchains/llvm/prebuilt/linux-x86_64/sysroot/usr/include
+[1m[90m[DEBUG][39m[0m:   	Checking for include file libimagequant.h in /root/build-animais/.buildozer/android/platform/build-arm64-v8a/build/other_builds/hostpython3/desktop/hostpython3/Include
+[1m[90m[DEBUG][39m[0m:   	Checking for include file libimagequant.h in /root/build-animais/.buildozer/android/platform/build-arm64-v8a/build/other_builds/hostpython3/desktop/hostpython3/native-build
+[1m[90m[DEBUG][39m[0m:   	Looking for tiff
+[1m[90m[DEBUG][39m[0m:   	Checking for include file tiff.h in /root/build-animais/.buildozer/android/platform/build-arm64-v8a/build/other_builds/python3/arm64-v8a__ndk_target_21/python3/Include
+[1m[90m[DEBUG][39m[0m:   	Checking for include file tiff.h in /root/build-animais/.buildozer/android/platform/build-arm64-v8a/build/other_builds/png/arm64-v8a__ndk_target_21/png
+[1m[90m[DEBUG][39m[0m:   	Checking for include file tiff.h in /root/build-animais/.buildozer/android/platform/build-arm64-v8a/build/other_builds/freetype/arm64-v8a__ndk_target_21/freetype/include
+[1m[90m[DEBUG][39m[0m:   	Checking for include file tiff.h in /root/build-animais/.buildozer/android/platform/build-arm64-v8a/build/other_builds/jpeg/arm64-v8a__ndk_target_21/jpeg
+[1m[90m[DEBUG][39m[0m:   	Checking for include file tiff.h in /root/android-sdk/ndk/25.1.8937393/toolchains/llvm/prebuilt/linux-x86_64/sysroot/usr/include
+[1m[90m[DEBUG][39m[0m:   	Checking for include file tiff.h in /root/build-animais/.buildozer/android/platform/build-arm64-v8a/build/other_builds/hostpython3/desktop/hostpython3/Include
+[1m[90m[DEBUG][39m[0m:   	Checking for include file tiff.h in /root/build-animais/.buildozer/android/platform/build-arm64-v8a/build/other_builds/hostpython3/desktop/hostpython3/native-build
+[1m[90m[DEBUG][39m[0m:   	Looking for freetype
+[1m[90m[DEBUG][39m[0m:   	Found library freetype at /root/build-animais/.buildozer/android/platform/build-arm64-v8a/build/libs_collections/animaldetector/arm64-v8a/libfreetype.so
+[1m[90m[DEBUG][39m[0m:   	Checking for include file ft2build.h in /root/build-animais/.buildozer/android/platform/build-arm64-v8a/build/other_builds/python3/arm64-v8a__ndk_target_21/python3/Include
+[1m[90m[DEBUG][39m[0m:   	Checking for include file ft2build.h in /root/build-animais/.buildozer/android/platform/build-arm64-v8a/build/other_builds/python3/arm64-v8a__ndk_target_21/python3/Include/freetype2
+[1m[90m[DEBUG][39m[0m:   	Checking for include file ft2build.h in /root/build-animais/.buildozer/android/platform/build-arm64-v8a/build/other_builds/png/arm64-v8a__ndk_target_21/png
+[1m[90m[DEBUG][39m[0m:   	Checking for include file ft2build.h in /root/build-animais/.buildozer/android/platform/build-arm64-v8a/build/other_builds/png/arm64-v8a__ndk_target_21/png/freetype2
+[1m[90m[DEBUG][39m[0m:   	Checking for include file ft2build.h in /root/build-animais/.buildozer/android/platform/build-arm64-v8a/build/other_builds/freetype/arm64-v8a__ndk_target_21/freetype/include
+[1m[90m[DEBUG][39m[0m:   	Found ft2build.h in /root/build-animais/.buildozer/android/platform/build-arm64-v8a/build/other_builds/freetype/arm64-v8a__ndk_target_21/freetype/include
+[1m[90m[DEBUG][39m[0m:   	Looking for Raqm
+[1m[90m[DEBUG][39m[0m:   	Checking for include file raqm.h in /root/build-animais/.buildozer/android/platform/build-arm64-v8a/build/other_builds/python3/arm64-v8a__ndk_target_21/python3/Include
+[1m[90m[DEBUG][39m[0m:   	Checking for include file raqm.h in /root/build-animais/.buildozer/android/platform/build-arm64-v8a/build/other_builds/png/arm64-v8a__ndk_target_21/png
+[1m[90m[DEBUG][39m[0m:   	Checking for include file raqm.h in /root/build-animais/.buildozer/android/platform/build-arm64-v8a/build/other_builds/freetype/arm64-v8a__ndk_target_21/freetype/include
+[1m[90m[DEBUG][39m[0m:   	Checking for include file raqm.h in /root/build-animais/.buildozer/android/platform/build-arm64-v8a/build/other_builds/jpeg/arm64-v8a__ndk_target_21/jpeg
+[1m[90m[DEBUG][39m[0m:   	Checking for include file raqm.h in /root/android-sdk/ndk/25.1.8937393/toolchains/llvm/prebuilt/linux-x86_64/sysroot/usr/include
+[1m[90m[DEBUG][39m[0m:   	Checking for include file raqm.h in /root/build-animais/.buildozer/android/platform/build-arm64-v8a/build/other_builds/hostpython3/desktop/hostpython3/Include
+[1m[90m[DEBUG][39m[0m:   	Checking for include file raqm.h in /root/build-animais/.buildozer/android/platform/build-arm64-v8a/build/other_builds/hostpython3/desktop/hostpython3/native-build
+[1m[90m[DEBUG][39m[0m:   	Looking for lcms
+[1m[90m[DEBUG][39m[0m:   	Checking for include file lcms2.h in /root/build-animais/.buildozer/android/platform/build-arm64-v8a/build/other_builds/python3/arm64-v8a__ndk_target_21/python3/Include
+[1m[90m[DEBUG][39m[0m:   	Checking for include file lcms2.h in /root/build-animais/.buildozer/android/platform/build-arm64-v8a/build/other_builds/png/arm64-v8a__ndk_target_21/png
+[1m[90m[DEBUG][39m[0m:   	Checking for include file lcms2.h in /root/build-animais/.buildozer/android/platform/build-arm64-v8a/build/other_builds/freetype/arm64-v8a__ndk_target_21/freetype/include
+[1m[90m[DEBUG][39m[0m:   	Checking for include file lcms2.h in /root/build-animais/.buildozer/android/platform/build-arm64-v8a/build/other_builds/jpeg/arm64-v8a__ndk_target_21/jpeg
+[1m[90m[DEBUG][39m[0m:   	Checking for include file lcms2.h in /root/android-sdk/ndk/25.1.8937393/toolchains/llvm/prebuilt/linux-x86_64/sysroot/usr/include
+[1m[90m[DEBUG][39m[0m:   	Checking for include file lcms2.h in /root/build-animais/.buildozer/android/platform/build-arm64-v8a/build/other_builds/hostpython3/desktop/hostpython3/Include
+[1m[90m[DEBUG][39m[0m:   	Checking for include file lcms2.h in /root/build-animais/.buildozer/android/platform/build-arm64-v8a/build/other_builds/hostpython3/desktop/hostpython3/native-build
+[1m[90m[DEBUG][39m[0m:   	Looking for webp
+[1m[90m[DEBUG][39m[0m:   	Checking for include file webp/encode.h in /root/build-animais/.buildozer/android/platform/build-arm64-v8a/build/other_builds/python3/arm64-v8a__ndk_target_21/python3/Include
+[1m[90m[DEBUG][39m[0m:   	Checking for include file webp/encode.h in /root/build-animais/.buildozer/android/platform/build-arm64-v8a/build/other_builds/png/arm64-v8a__ndk_target_21/png
+[1m[90m[DEBUG][39m[0m:   	Checking for include file webp/encode.h in /root/build-animais/.buildozer/android/platform/build-arm64-v8a/build/other_builds/freetype/arm64-v8a__ndk_target_21/freetype/include
+[1m[90m[DEBUG][39m[0m:   	Checking for include file webp/encode.h in /root/build-animais/.buildozer/android/platform/build-arm64-v8a/build/other_builds/jpeg/arm64-v8a__ndk_target_21/jpeg
+[1m[90m[DEBUG][39m[0m:   	Checking for include file webp/encode.h in /root/android-sdk/ndk/25.1.8937393/toolchains/llvm/prebuilt/linux-x86_64/sysroot/usr/include
+[1m[90m[DEBUG][39m[0m:   	Checking for include file webp/encode.h in /root/build-animais/.buildozer/android/platform/build-arm64-v8a/build/other_builds/hostpython3/desktop/hostpython3/Include
+[1m[90m[DEBUG][39m[0m:   	Checking for include file webp/encode.h in /root/build-animais/.buildozer/android/platform/build-arm64-v8a/build/other_builds/hostpython3/desktop/hostpython3/native-build
+[1m[90m[DEBUG][39m[0m:   	Looking for webpmux
+[1m[90m[DEBUG][39m[0m:   	Checking for include file webp/mux.h in /root/build-animais/.buildozer/android/platform/build-arm64-v8a/build/other_builds/python3/arm64-v8a__ndk_target_21/python3/Include
+[1m[90m[DEBUG][39m[0m:   	Checking for include file webp/mux.h in /root/build-animais/.buildozer/android/platform/build-arm64-v8a/build/other_builds/png/arm64-v8a__ndk_target_21/png
+[1m[90m[DEBUG][39m[0m:   	Checking for include file webp/mux.h in /root/build-animais/.buildozer/android/platform/build-arm64-v8a/build/other_builds/freetype/arm64-v8a__ndk_target_21/freetype/include
+[1m[90m[DEBUG][39m[0m:   	Checking for include file webp/mux.h in /root/build-animais/.buildozer/android/platform/build-arm64-v8a/build/other_builds/jpeg/arm64-v8a__ndk_target_21/jpeg
+[1m[90m[DEBUG][39m[0m:   	Checking for include file webp/mux.h in /root/android-sdk/ndk/25.1.8937393/toolchains/llvm/prebuilt/linux-x86_64/sysroot/usr/include
+[1m[90m[DEBUG][39m[0m:   	Checking for include file webp/mux.h in /root/build-animais/.buildozer/android/platform/build-arm64-v8a/build/other_builds/hostpython3/desktop/hostpython3/Include
+[1m[90m[DEBUG][39m[0m:   	Checking for include file webp/mux.h in /root/build-animais/.buildozer/android/platform/build-arm64-v8a/build/other_builds/hostpython3/desktop/hostpython3/native-build
+[1m[90m[DEBUG][39m[0m:   	Looking for xcb
+[1m[90m[DEBUG][39m[0m:   	Checking for include file xcb/xcb.h in /root/build-animais/.buildozer/android/platform/build-arm64-v8a/build/other_builds/python3/arm64-v8a__ndk_target_21/python3/Include
+[1m[90m[DEBUG][39m[0m:   	Checking for include file xcb/xcb.h in /root/build-animais/.buildozer/android/platform/build-arm64-v8a/build/other_builds/png/arm64-v8a__ndk_target_21/png
+[1m[90m[DEBUG][39m[0m:   	Checking for include file xcb/xcb.h in /root/build-animais/.buildozer/android/platform/build-arm64-v8a/build/other_builds/freetype/arm64-v8a__ndk_target_21/freetype/include
+[1m[90m[DEBUG][39m[0m:   	Checking for include file xcb/xcb.h in /root/build-animais/.buildozer/android/platform/build-arm64-v8a/build/other_builds/jpeg/arm64-v8a__ndk_target_21/jpeg
+[1m[90m[DEBUG][39m[0m:   	Checking for include file xcb/xcb.h in /root/android-sdk/ndk/25.1.8937393/toolchains/llvm/prebuilt/linux-x86_64/sysroot/usr/include
+[1m[90m[DEBUG][39m[0m:   	Checking for include file xcb/xcb.h in /root/build-animais/.buildozer/android/platform/build-arm64-v8a/build/other_builds/hostpython3/desktop/hostpython3/Include
+[1m[90m[DEBUG][39m[0m:   	Checking for include file xcb/xcb.h in /root/build-animais/.buildozer/android/platform/build-arm64-v8a/build/other_builds/hostpython3/desktop/hostpython3/native-build
+[1m[90m[DEBUG][39m[0m:   	--------------------------------------------------------------------
+[1m[90m[DEBUG][39m[0m:   	PIL SETUP SUMMARY
+[1m[90m[DEBUG][39m[0m:   	--------------------------------------------------------------------
+[1m[90m[DEBUG][39m[0m:   	version      Pillow 8.4.0
+[1m[90m[DEBUG][39m[0m:   	platform     linux 3.11.5 (main, Apr 26 2026, 17:59:32)
+[1m[90m[DEBUG][39m[0m:   	             [GCC 13.3.0]
+[1m[90m[DEBUG][39m[0m:   	--------------------------------------------------------------------
+[1m[90m[DEBUG][39m[0m:   	--- JPEG support available
+[1m[90m[DEBUG][39m[0m:   	*** OPENJPEG (JPEG2000) support not available
+[1m[90m[DEBUG][39m[0m:   	--- ZLIB (PNG/ZIP) support available
+[1m[90m[DEBUG][39m[0m:   	*** LIBIMAGEQUANT support not available
+[1m[90m[DEBUG][39m[0m:   	*** LIBTIFF support not available
+[1m[90m[DEBUG][39m[0m:   	--- FREETYPE2 support available
+[1m[90m[DEBUG][39m[0m:   	*** RAQM (Text shaping) support not available
+[1m[90m[DEBUG][39m[0m:   	*** LITTLECMS2 support not available
+[1m[90m[DEBUG][39m[0m:   	*** WEBP support not available
+[1m[90m[DEBUG][39m[0m:   	*** WEBPMUX support not available
+[1m[90m[DEBUG][39m[0m:   	*** XCB (X protocol) support not available
+[1m[90m[DEBUG][39m[0m:   	--------------------------------------------------------------------
+[1m[90m[DEBUG][39m[0m:   	To add a missing option, make sure you have the required
+[1m[90m[DEBUG][39m[0m:   	library and headers.
+[1m[90m[DEBUG][39m[0m:   	See https://pillow.readthedocs.io/en/latest/installation.html#building-from-source
+[1m[90m[DEBUG][39m[0m:   	
+[1m[90m[DEBUG][39m[0m:   	To check the build, run the selftest.py script.
+[1m[90m[DEBUG][39m[0m:   	
+[1m[90m[DEBUG][39m[0m:   	running install_lib
+[1m[90m[DEBUG][39m[0m:   	writing byte-compilation script '/tmp/tmp407t7gys.py'
+[1m[90m[DEBUG][39m[0m:   	/root/build-animais/.buildozer/android/platform/build-arm64-v8a/build/other_builds/hostpython3/desktop/hostpython3/native-build/python3 -Wignore:The distutils package is deprecated and slated for removal in Python 3.12. Use setuptools or check PEP 632 for potential alternatives:DeprecationWarning /tmp/tmp407t7gys.py
+[1m[90m[DEBUG][39m[0m:   	removing /tmp/tmp407t7gys.py
+[1m[90m[DEBUG][39m[0m:   	running install_egg_info
+[1m[90m[DEBUG][39m[0m:   	removing '/root/build-animais/.buildozer/android/platform/build-arm64-v8a/build/python-installs/animaldetector/arm64-v8a/./Pillow-8.4.0-py3.11.egg-info' (and everything under it)
+[1m[90m[DEBUG][39m[0m:   	Copying src/Pillow.egg-info to /root/build-animais/.buildozer/android/platform/build-arm64-v8a/build/python-installs/animaldetector/arm64-v8a/./Pillow-8.4.0-py3.11.egg-info
+[1m[90m[DEBUG][39m[0m:   	running install_scripts
+[1m[INFO][0m:    [36m<- directory context /root/build-animais/.buildozer/android/platform/python-for-android[39m
+[1m[INFO][0m:    [1m[32mBuilding six for arm64-v8a[0m[39m
+[1m[INFO][0m:    Python package already exists in site-packages
+[1m[INFO][0m:    six said it is already built, skipping
+[1m[INFO][0m:    [1m[32mBuilding numpy for arm64-v8a[0m[39m
+[1m[INFO][0m:    numpy apparently isn't already in site-packages
+[1m[INFO][0m:    Building compiled components in numpy
+[1m[INFO][0m:    [36m-> directory context /root/build-animais/.buildozer/android/platform/build-arm64-v8a/build/other_builds/numpy/arm64-v8a__ndk_target_21/numpy[39m
+stty: 'standard input': Inappropriate ioctl for device
+[1m[90m[DEBUG][39m[0m:   [90m->[0m running python3 setup.py build_ext -v -j 8[0m
+[1m[90m[DEBUG][39m[0m:   	/root/build-animais/.buildozer/android/platform/build-arm64-v8a/build/other_builds/numpy/arm64-v8a__ndk_target_21/numpy/setup.py:17: DeprecationWarning: The distutils package is deprecated and slated for removal in Python 3.12. Use setuptools or check PEP 632 for potential alternatives
+[1m[90m[DEBUG][39m[0m:   	  from distutils.errors import CompileError
+[1m[90m[DEBUG][39m[0m:   	Running from numpy source directory.
+[1m[90m[DEBUG][39m[0m:   	/root/build-animais/.buildozer/android/platform/build-arm64-v8a/build/other_builds/numpy/arm64-v8a__ndk_target_21/numpy/setup.py:75: DeprecationWarning:
+[1m[90m[DEBUG][39m[0m:   	
+[1m[90m[DEBUG][39m[0m:   	  `numpy.distutils` is deprecated since NumPy 1.23.0, as a result
+[1m[90m[DEBUG][39m[0m:   	  of the deprecation of `distutils` itself. It will be removed for
+[1m[90m[DEBUG][39m[0m:   	  Python >= 3.12. For older Python versions it will remain present.
+[1m[90m[DEBUG][39m[0m:   	  It is recommended to use `setuptools < 60.0` for those Python versions.
+[1m[90m[DEBUG][39m[0m:   	  For more details, see:
+[1m[90m[DEBUG][39m[0m:   	    https://numpy.org/devdocs/reference/distutils_status_migration.html
+[1m[90m[DEBUG][39m[0m:   	
+[1m[90m[DEBUG][39m[0m:   	
+[1m[90m[DEBUG][39m[0m:   	  import numpy.distutils.command.sdist
+[1m[90m[DEBUG][39m[0m:   	Cythonizing sources
+[1m[90m[DEBUG][39m[0m:   	numpy/random/_bounded_integers.pxd.in has not changed
+[1m[90m[DEBUG][39m[0m:   	numpy/random/_philox.pyx has not changed
+[1m[90m[DEBUG][39m[0m:   	numpy/random/_bounded_integers.pyx.in has not changed
+[1m[90m[DEBUG][39m[0m:   	numpy/random/_pcg64.pyx has not changed
+[1m[90m[DEBUG][39m[0m:   	numpy/random/_sfc64.pyx has not changed
+[1m[90m[DEBUG][39m[0m:   	numpy/random/bit_generator.pyx has not changed
+[1m[90m[DEBUG][39m[0m:   	numpy/random/mtrand.pyx has not changed
+[1m[90m[DEBUG][39m[0m:   	numpy/random/_mt19937.pyx has not changed
+[1m[90m[DEBUG][39m[0m:   	numpy/random/_bounded_integers.pyx has not changed
+[1m[90m[DEBUG][39m[0m:   	numpy/random/_common.pyx has not changed
+[1m[90m[DEBUG][39m[0m:   	numpy/random/_generator.pyx has not changed
+[1m[90m[DEBUG][39m[0m:   	INFO: blas_opt_info:
+[1m[90m[DEBUG][39m[0m:   	INFO: blas_armpl_info:
+[1m[90m[DEBUG][39m[0m:   	INFO: customize UnixCCompiler
+[1m[90m[DEBUG][39m[0m:   	INFO:   libraries armpl_lp64_mp not found in ['']
+[1m[90m[DEBUG][39m[0m:   	INFO:   NOT AVAILABLE
+[1m[90m[DEBUG][39m[0m:   	INFO:
+[1m[90m[DEBUG][39m[0m:   	INFO: blas_mkl_info:
+[1m[90m[DEBUG][39m[0m:   	INFO:   libraries mkl_rt not found in ['']
+[1m[90m[DEBUG][39m[0m:   	INFO:   NOT AVAILABLE
+[1m[90m[DEBUG][39m[0m:   	INFO:
+[1m[90m[DEBUG][39m[0m:   	INFO: blas_ssl2_info:
+[1m[90m[DEBUG][39m[0m:   	INFO:   libraries fjlapackexsve not found in ['']
+[1m[90m[DEBUG][39m[0m:   	INFO:   NOT AVAILABLE
+[1m[90m[DEBUG][39m[0m:   	INFO:
+[1m[90m[DEBUG][39m[0m:   	INFO: blis_info:
+[1m[90m[DEBUG][39m[0m:   	INFO:   libraries blis not found in ['']
+[1m[90m[DEBUG][39m[0m:   	INFO:   NOT AVAILABLE
+[1m[90m[DEBUG][39m[0m:   	INFO:
+[1m[90m[DEBUG][39m[0m:   	INFO: openblas_info:
+[1m[90m[DEBUG][39m[0m:   	INFO:   libraries openblas not found in ['']
+[1m[90m[DEBUG][39m[0m:   	INFO:   NOT AVAILABLE
+[1m[90m[DEBUG][39m[0m:   	INFO:
+[1m[90m[DEBUG][39m[0m:   	INFO: accelerate_info:
+[1m[90m[DEBUG][39m[0m:   	INFO:   NOT AVAILABLE
+[1m[90m[DEBUG][39m[0m:   	INFO:
+[1m[90m[DEBUG][39m[0m:   	INFO: atlas_3_10_blas_threads_info:
+[1m[90m[DEBUG][39m[0m:   	INFO: Setting PTATLAS=ATLAS
+[1m[90m[DEBUG][39m[0m:   	INFO:   libraries tatlas not found in []
+[1m[90m[DEBUG][39m[0m:   	INFO:   NOT AVAILABLE
+[1m[90m[DEBUG][39m[0m:   	INFO:
+[1m[90m[DEBUG][39m[0m:   	INFO: atlas_3_10_blas_info:
+[1m[90m[DEBUG][39m[0m:   	INFO:   libraries satlas not found in []
+[1m[90m[DEBUG][39m[0m:   	INFO:   NOT AVAILABLE
+[1m[90m[DEBUG][39m[0m:   	INFO:
+[1m[90m[DEBUG][39m[0m:   	INFO: atlas_blas_threads_info:
+[1m[90m[DEBUG][39m[0m:   	INFO: Setting PTATLAS=ATLAS
+[1m[90m[DEBUG][39m[0m:   	INFO:   libraries ptf77blas,ptcblas,atlas not found in []
+[1m[90m[DEBUG][39m[0m:   	INFO:   NOT AVAILABLE
+[1m[90m[DEBUG][39m[0m:   	INFO:
+[1m[90m[DEBUG][39m[0m:   	INFO: atlas_blas_info:
+[1m[90m[DEBUG][39m[0m:   	INFO:   libraries f77blas,cblas,atlas not found in []
+[1m[90m[DEBUG][39m[0m:   	INFO:   NOT AVAILABLE
+[1m[90m[DEBUG][39m[0m:   	INFO:
+[1m[90m[DEBUG][39m[0m:   	/root/build-animais/.buildozer/android/platform/build-arm64-v8a/build/other_builds/numpy/arm64-v8a__ndk_target_21/numpy/numpy/distutils/system_info.py:2159: UserWarning:
+[1m[90m[DEBUG][39m[0m:   	    Optimized (vendor) Blas libraries are not found.
+[1m[90m[DEBUG][39m[0m:   	    Falls back to netlib Blas library which has worse performance.
+[1m[90m[DEBUG][39m[0m:   	    A better performance should be easily gained by switching
+[1m[90m[DEBUG][39m[0m:   	    Blas library.
+[1m[90m[DEBUG][39m[0m:   	  if self._calc_info(blas):
+[1m[90m[DEBUG][39m[0m:   	INFO: blas_info:
+[1m[90m[DEBUG][39m[0m:   	INFO:   libraries blas not found in ['']
+[1m[90m[DEBUG][39m[0m:   	INFO:   NOT AVAILABLE
+[1m[90m[DEBUG][39m[0m:   	INFO:
+[1m[90m[DEBUG][39m[0m:   	/root/build-animais/.buildozer/android/platform/build-arm64-v8a/build/other_builds/numpy/arm64-v8a__ndk_target_21/numpy/numpy/distutils/system_info.py:2159: UserWarning:
+[1m[90m[DEBUG][39m[0m:   	    Blas (http://www.netlib.org/blas/) libraries not found.
+[1m[90m[DEBUG][39m[0m:   	    Directories to search for the libraries can be specified in the
+[1m[90m[DEBUG][39m[0m:   	    numpy/distutils/site.cfg file (section [blas]) or by setting
+[1m[90m[DEBUG][39m[0m:   	    the BLAS environment variable.
+[1m[90m[DEBUG][39m[0m:   	  if self._calc_info(blas):
+[1m[90m[DEBUG][39m[0m:   	INFO: blas_src_info:
+[1m[90m[DEBUG][39m[0m:   	INFO:   NOT AVAILABLE
+[1m[90m[DEBUG][39m[0m:   	INFO:
+[1m[90m[DEBUG][39m[0m:   	/root/build-animais/.buildozer/android/platform/build-arm64-v8a/build/other_builds/numpy/arm64-v8a__ndk_target_21/numpy/numpy/distutils/system_info.py:2159: UserWarning:
+[1m[90m[DEBUG][39m[0m:   	    Blas (http://www.netlib.org/blas/) sources not found.
+[1m[90m[DEBUG][39m[0m:   	    Directories to search for the sources can be specified in the
+[1m[90m[DEBUG][39m[0m:   	    numpy/distutils/site.cfg file (section [blas_src]) or by setting
+[1m[90m[DEBUG][39m[0m:   	    the BLAS_SRC environment variable.
+[1m[90m[DEBUG][39m[0m:   	  if self._calc_info(blas):
+[1m[90m[DEBUG][39m[0m:   	INFO:   NOT AVAILABLE
+[1m[90m[DEBUG][39m[0m:   	INFO:
+[1m[90m[DEBUG][39m[0m:   	non-existing path in 'numpy/distutils': 'site.cfg'
+[1m[90m[DEBUG][39m[0m:   	INFO: lapack_opt_info:
+[1m[90m[DEBUG][39m[0m:   	INFO: lapack_armpl_info:
+[1m[90m[DEBUG][39m[0m:   	INFO:   libraries armpl_lp64_mp not found in ['']
+[1m[90m[DEBUG][39m[0m:   	INFO:   NOT AVAILABLE
+[1m[90m[DEBUG][39m[0m:   	INFO:
+[1m[90m[DEBUG][39m[0m:   	INFO: lapack_mkl_info:
+[1m[90m[DEBUG][39m[0m:   	INFO:   libraries mkl_rt not found in ['']
+[1m[90m[DEBUG][39m[0m:   	INFO:   NOT AVAILABLE
+[1m[90m[DEBUG][39m[0m:   	INFO:
+[1m[90m[DEBUG][39m[0m:   	INFO: lapack_ssl2_info:
+[1m[90m[DEBUG][39m[0m:   	INFO:   libraries fjlapackexsve not found in ['']
+[1m[90m[DEBUG][39m[0m:   	INFO:   NOT AVAILABLE
+[1m[90m[DEBUG][39m[0m:   	INFO:
+[1m[90m[DEBUG][39m[0m:   	INFO: openblas_lapack_info:
+[1m[90m[DEBUG][39m[0m:   	INFO:   libraries openblas not found in ['']
+[1m[90m[DEBUG][39m[0m:   	INFO:   NOT AVAILABLE
+[1m[90m[DEBUG][39m[0m:   	INFO:
+[1m[90m[DEBUG][39m[0m:   	INFO: openblas_clapack_info:
+[1m[90m[DEBUG][39m[0m:   	INFO:   libraries openblas,lapack not found in ['']
+[1m[90m[DEBUG][39m[0m:   	INFO:   NOT AVAILABLE
+[1m[90m[DEBUG][39m[0m:   	INFO:
+[1m[90m[DEBUG][39m[0m:   	INFO: flame_info:
+[1m[90m[DEBUG][39m[0m:   	INFO:   libraries flame not found in ['']
+[1m[90m[DEBUG][39m[0m:   	INFO:   NOT AVAILABLE
+[1m[90m[DEBUG][39m[0m:   	INFO:
+[1m[90m[DEBUG][39m[0m:   	INFO: atlas_3_10_threads_info:
+[1m[90m[DEBUG][39m[0m:   	INFO: Setting PTATLAS=ATLAS
+[1m[90m[DEBUG][39m[0m:   	INFO: <class 'numpy.distutils.system_info.atlas_3_10_threads_info'>
+[1m[90m[DEBUG][39m[0m:   	INFO:   NOT AVAILABLE
+[1m[90m[DEBUG][39m[0m:   	INFO:
+[1m[90m[DEBUG][39m[0m:   	INFO: atlas_3_10_info:
+[1m[90m[DEBUG][39m[0m:   	INFO: <class 'numpy.distutils.system_info.atlas_3_10_info'>
+[1m[90m[DEBUG][39m[0m:   	INFO:   NOT AVAILABLE
+[1m[90m[DEBUG][39m[0m:   	INFO:
+[1m[90m[DEBUG][39m[0m:   	INFO: atlas_threads_info:
+[1m[90m[DEBUG][39m[0m:   	INFO: Setting PTATLAS=ATLAS
+[1m[90m[DEBUG][39m[0m:   	INFO: <class 'numpy.distutils.system_info.atlas_threads_info'>
+[1m[90m[DEBUG][39m[0m:   	INFO:   NOT AVAILABLE
+[1m[90m[DEBUG][39m[0m:   	INFO:
+[1m[90m[DEBUG][39m[0m:   	INFO: atlas_info:
+[1m[90m[DEBUG][39m[0m:   	INFO: <class 'numpy.distutils.system_info.atlas_info'>
+[1m[90m[DEBUG][39m[0m:   	INFO:   NOT AVAILABLE
+[1m[90m[DEBUG][39m[0m:   	INFO:
+[1m[90m[DEBUG][39m[0m:   	INFO: lapack_info:
+[1m[90m[DEBUG][39m[0m:   	INFO:   libraries lapack not found in ['']
+[1m[90m[DEBUG][39m[0m:   	INFO:   NOT AVAILABLE
+[1m[90m[DEBUG][39m[0m:   	INFO:
+[1m[90m[DEBUG][39m[0m:   	/root/build-animais/.buildozer/android/platform/build-arm64-v8a/build/other_builds/numpy/arm64-v8a__ndk_target_21/numpy/numpy/distutils/system_info.py:1974: UserWarning:
+[1m[90m[DEBUG][39m[0m:   	    Lapack (http://www.netlib.org/lapack/) libraries not found.
+[1m[90m[DEBUG][39m[0m:   	    Directories to search for the libraries can be specified in the
+[1m[90m[DEBUG][39m[0m:   	    numpy/distutils/site.cfg file (section [lapack]) or by setting
+[1m[90m[DEBUG][39m[0m:   	    the LAPACK environment variable.
+[1m[90m[DEBUG][39m[0m:   	  return getattr(self, '_calc_info_{}'.format(name))()
+[1m[90m[DEBUG][39m[0m:   	INFO: lapack_src_info:
+[1m[90m[DEBUG][39m[0m:   	INFO:   NOT AVAILABLE
+[1m[90m[DEBUG][39m[0m:   	INFO:
+[1m[90m[DEBUG][39m[0m:   	/root/build-animais/.buildozer/android/platform/build-arm64-v8a/build/other_builds/numpy/arm64-v8a__ndk_target_21/numpy/numpy/distutils/system_info.py:1974: UserWarning:
+[1m[90m[DEBUG][39m[0m:   	    Lapack (http://www.netlib.org/lapack/) sources not found.
+[1m[90m[DEBUG][39m[0m:   	    Directories to search for the sources can be specified in the
+[1m[90m[DEBUG][39m[0m:   	    numpy/distutils/site.cfg file (section [lapack_src]) or by setting
+[1m[90m[DEBUG][39m[0m:   	    the LAPACK_SRC environment variable.
+[1m[90m[DEBUG][39m[0m:   	  return getattr(self, '_calc_info_{}'.format(name))()
+[1m[90m[DEBUG][39m[0m:   	INFO:   NOT AVAILABLE
+[1m[90m[DEBUG][39m[0m:   	INFO:
+[1m[90m[DEBUG][39m[0m:   	INFO: numpy_linalg_lapack_lite:
+[1m[90m[DEBUG][39m[0m:   	INFO:   FOUND:
+[1m[90m[DEBUG][39m[0m:   	INFO:     language = c
+[1m[90m[DEBUG][39m[0m:   	INFO:
+[1m[90m[DEBUG][39m[0m:   	/root/build-animais/.buildozer/android/platform/build-arm64-v8a/build/other_builds/hostpython3/desktop/hostpython3/Lib/distutils/dist.py:274: UserWarning: Unknown distribution option: 'define_macros'
+[1m[90m[DEBUG][39m[0m:   	  warnings.warn(msg)
+[1m[90m[DEBUG][39m[0m:   	running build_ext
+[1m[90m[DEBUG][39m[0m:   	running build_src
+[1m[90m[DEBUG][39m[0m:   	INFO: build_src
+[1m[90m[DEBUG][39m[0m:   	INFO: building py_modules sources
+[1m[90m[DEBUG][39m[0m:   	INFO: building library "npymath" sources
+[1m[90m[DEBUG][39m[0m:   	WARN: Could not locate executable armflang
+[1m[90m[DEBUG][39m[0m:   	WARN: Could not locate executable gfortran
+[1m[90m[DEBUG][39m[0m:   	WARN: Could not locate executable f95
+[1m[90m[DEBUG][39m[0m:   	WARN: Could not locate executable ifort
+[1m[90m[DEBUG][39m[0m:   	WARN: Could not locate executable ifc
+[1m[90m[DEBUG][39m[0m:   	WARN: Could not locate executable lf95
+[1m[90m[DEBUG][39m[0m:   	WARN: Could not locate executable pgfortran
+[1m[90m[DEBUG][39m[0m:   	WARN: Could not locate executable nvfortran
+[1m[90m[DEBUG][39m[0m:   	WARN: Could not locate executable f90
+[1m[90m[DEBUG][39m[0m:   	WARN: Could not locate executable f77
+[1m[90m[DEBUG][39m[0m:   	WARN: Could not locate executable fort
+[1m[90m[DEBUG][39m[0m:   	WARN: Could not locate executable efort
+[1m[90m[DEBUG][39m[0m:   	WARN: Could not locate executable efc
+[1m[90m[DEBUG][39m[0m:   	WARN: Could not locate executable g77
+[1m[90m[DEBUG][39m[0m:   	WARN: Could not locate executable g95
+[1m[90m[DEBUG][39m[0m:   	WARN: Could not locate executable pathf95
+[1m[90m[DEBUG][39m[0m:   	WARN: Could not locate executable nagfor
+[1m[90m[DEBUG][39m[0m:   	WARN: Could not locate executable frt
+[1m[90m[DEBUG][39m[0m:   	WARN: don't know how to compile Fortran code on platform 'posix'
+[1m[90m[DEBUG][39m[0m:   	INFO:   adding 'build/src.aarch64-linux-android-3.11/numpy/core/src/npymath' to include_dirs.
+[1m[90m[DEBUG][39m[0m:   	INFO: None - nothing done with h_files = ['build/src.aarch64-linux-android-3.11/numpy/core/src/npymath/npy_math_internal.h']
+[1m[90m[DEBUG][39m[0m:   	INFO: building library "npyrandom" sources
+[1m[90m[DEBUG][39m[0m:   	INFO: building extension "numpy.core._multiarray_tests" sources
+[1m[90m[DEBUG][39m[0m:   	INFO: building extension "numpy.core._multiarray_umath" sources
+[1m[90m[DEBUG][39m[0m:   	Traceback (most recent call last):
+[1m[90m[DEBUG][39m[0m:   	  File "/root/build-animais/.buildozer/android/platform/build-arm64-v8a/build/other_builds/numpy/arm64-v8a__ndk_target_21/numpy/setup.py", line 568, in <module>
+[1m[90m[DEBUG][39m[0m:   	    setup_package()
+[1m[90m[DEBUG][39m[0m:   	  File "/root/build-animais/.buildozer/android/platform/build-arm64-v8a/build/other_builds/numpy/arm64-v8a__ndk_target_21/numpy/setup.py", line 560, in setup_package
+[1m[90m[DEBUG][39m[0m:   	    setup(**metadata)
+[1m[90m[DEBUG][39m[0m:   	  File "/root/build-animais/.buildozer/android/platform/build-arm64-v8a/build/other_builds/numpy/arm64-v8a__ndk_target_21/numpy/numpy/distutils/core.py", line 170, in setup
+[1m[90m[DEBUG][39m[0m:   	    return old_setup(**new_attr)
+[1m[90m[DEBUG][39m[0m:   	           ^^^^^^^^^^^^^^^^^^^^^
+[1m[90m[DEBUG][39m[0m:   	  File "/root/build-animais/.buildozer/android/platform/build-arm64-v8a/build/other_builds/hostpython3/desktop/hostpython3/native-build/Lib/site-packages/setuptools/__init__.py", line 153, in setup
+[1m[90m[DEBUG][39m[0m:   	    return distutils.core.setup(**attrs)
+[1m[90m[DEBUG][39m[0m:   	           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[1m[90m[DEBUG][39m[0m:   	  File "/root/build-animais/.buildozer/android/platform/build-arm64-v8a/build/other_builds/hostpython3/desktop/hostpython3/Lib/distutils/core.py", line 148, in setup
+[1m[90m[DEBUG][39m[0m:   	    dist.run_commands()
+[1m[90m[DEBUG][39m[0m:   	  File "/root/build-animais/.buildozer/android/platform/build-arm64-v8a/build/other_builds/hostpython3/desktop/hostpython3/Lib/distutils/dist.py", line 966, in run_commands
+[1m[90m[DEBUG][39m[0m:   	    self.run_command(cmd)
+[1m[90m[DEBUG][39m[0m:   	  File "/root/build-animais/.buildozer/android/platform/build-arm64-v8a/build/other_builds/hostpython3/desktop/hostpython3/Lib/distutils/dist.py", line 985, in run_command
+[1m[90m[DEBUG][39m[0m:   	    cmd_obj.run()
+[1m[90m[DEBUG][39m[0m:   	  File "/root/build-animais/.buildozer/android/platform/build-arm64-v8a/build/other_builds/numpy/arm64-v8a__ndk_target_21/numpy/numpy/distutils/command/build_ext.py", line 101, in run
+[1m[90m[DEBUG][39m[0m:   	    self.run_command('build_src')
+[1m[90m[DEBUG][39m[0m:   	  File "/root/build-animais/.buildozer/android/platform/build-arm64-v8a/build/other_builds/hostpython3/desktop/hostpython3/Lib/distutils/cmd.py", line 313, in run_command
+[1m[90m[DEBUG][39m[0m:   	    self.distribution.run_command(command)
+[1m[90m[DEBUG][39m[0m:   	  File "/root/build-animais/.buildozer/android/platform/build-arm64-v8a/build/other_builds/hostpython3/desktop/hostpython3/Lib/distutils/dist.py", line 985, in run_command
+[1m[90m[DEBUG][39m[0m:   	    cmd_obj.run()
+[1m[90m[DEBUG][39m[0m:   	  File "/root/build-animais/.buildozer/android/platform/build-arm64-v8a/build/other_builds/numpy/arm64-v8a__ndk_target_21/numpy/numpy/distutils/command/build_src.py", line 144, in run
+[1m[90m[DEBUG][39m[0m:   	    self.build_sources()
+[1m[90m[DEBUG][39m[0m:   	  File "/root/build-animais/.buildozer/android/platform/build-arm64-v8a/build/other_builds/numpy/arm64-v8a__ndk_target_21/numpy/numpy/distutils/command/build_src.py", line 161, in build_sources
+[1m[90m[DEBUG][39m[0m:   	    self.build_extension_sources(ext)
+[1m[90m[DEBUG][39m[0m:   	  File "/root/build-animais/.buildozer/android/platform/build-arm64-v8a/build/other_builds/numpy/arm64-v8a__ndk_target_21/numpy/numpy/distutils/command/build_src.py", line 318, in build_extension_sources
+[1m[90m[DEBUG][39m[0m:   	    sources = self.generate_sources(sources, ext)
+[1m[90m[DEBUG][39m[0m:   	              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[1m[90m[DEBUG][39m[0m:   	  File "/root/build-animais/.buildozer/android/platform/build-arm64-v8a/build/other_builds/numpy/arm64-v8a__ndk_target_21/numpy/numpy/distutils/command/build_src.py", line 378, in generate_sources
+[1m[90m[DEBUG][39m[0m:   	    source = func(extension, build_dir)
+[1m[90m[DEBUG][39m[0m:   	             ^^^^^^^^^^^^^^^^^^^^^^^^^^
+[1m[90m[DEBUG][39m[0m:   	  File "/root/build-animais/.buildozer/android/platform/build-arm64-v8a/build/other_builds/numpy/arm64-v8a__ndk_target_21/numpy/numpy/core/setup.py", line 457, in generate_config_h
+[1m[90m[DEBUG][39m[0m:   	    check_math_capabilities(config_cmd, ext, moredefs, mathlibs)
+[1m[90m[DEBUG][39m[0m:   	  File "/root/build-animais/.buildozer/android/platform/build-arm64-v8a/build/other_builds/numpy/arm64-v8a__ndk_target_21/numpy/numpy/core/setup.py", line 190, in check_math_capabilities
+[1m[90m[DEBUG][39m[0m:   	    raise SystemError("One of the required function to build numpy is not"
+[1m[90m[DEBUG][39m[0m:   	SystemError: One of the required function to build numpy is not available (the list is ['sin', 'cos', 'tan', 'sinh', 'cosh', 'tanh', 'fabs', 'floor', 'ceil', 'sqrt', 'log10', 'log', 'exp', 'asin', 'acos', 'atan', 'fmod', 'modf', 'frexp', 'ldexp', 'expm1', 'log1p', 'acosh', 'asinh', 'atanh', 'rint', 'trunc', 'exp2', 'copysign', 'nextafter', 'strtoll', 'strtoull', 'cbrt', 'log2', 'pow', 'hypot', 'atan2', 'creal', 'cimag', 'conj']).
+Exception in thread background thread for pid 1343:
+Traceback (most recent call last):
+  File "/usr/lib/python3.11/threading.py", line 1045, in _bootstrap_inner
+    self.run()
+  File "/usr/lib/python3.11/threading.py", line 982, in run
+    self._target(*self._args, **self._kwargs)
+  File "/root/.local/lib/python3.11/site-packages/sh.py", line 1641, in wrap
+    fn(*rgs, **kwargs)
+  File "/root/.local/lib/python3.11/site-packages/sh.py", line 2569, in background_thread
+    handle_exit_code(exit_code)
+  File "/root/.local/lib/python3.11/site-packages/sh.py", line 2269, in fn
+    return self.command.handle_command_exit_code(exit_code)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/.local/lib/python3.11/site-packages/sh.py", line 869, in handle_command_exit_code
+    raise exc
+sh.ErrorReturnCode_1: 
+
+  RAN: /root/build-animais/.buildozer/android/platform/build-arm64-v8a/build/other_builds/hostpython3/desktop/hostpython3/native-build/python3 setup.py build_ext -v -j 8
+
+  STDOUT:
+/root/build-animais/.buildozer/android/platform/build-arm64-v8a/build/other_builds/numpy/arm64-v8a__ndk_target_21/numpy/setup.py:17: DeprecationWarning: The distutils package is deprecated and slated for removal in Python 3.12. Use setuptools or check PEP 632 for potential alternatives
+  from distutils.errors import CompileError
+Running from numpy source directory.
+/root/build-animais/.buildozer/android/platform/build-arm64-v8a/build/other_builds/numpy/arm64-v8a__ndk_target_21/numpy/setup.py:75: DeprecationWarning: 
+
+  `numpy.distutils` is deprecated since NumPy 1.23.0, as a result
+  of the deprecation of `distutils` itself. It will be removed for
+  Python >= 3.12. For older Python versions it will remain present.
+  It is recommended to use `setuptools < 60.0` for those Python versions.
+  For more details, see:
+    https://numpy.org/devdocs/reference/distutils_status_migration.html 
+
+
+  import numpy.distutils.command.sdist
+Cythonizing sources
+numpy/random/_bounded_integers.pxd.in has not changed
+numpy/random/_philox.pyx has not changed
+numpy/random/_bounded_integers.pyx.in has not changed
+numpy/random/_pcg64.pyx has not changed
+numpy/random/_sfc64.pyx has not changed
+numpy/random/bit_generator.pyx has not changed
+numpy/random/mtrand.pyx has not changed
+numpy/random/_mt19937.pyx has not changed
+numpy/random/_bounded_integers.pyx has not changed
+numpy/random/_common.pyx has not changed
+numpy/random/_generator.pyx has not changed
+INFO: blas_opt_info:
+INFO: blas_armpl_info:
+INFO: customize UnixCCompiler
+INFO:   libraries armpl_lp64_mp not found in ['']
+INFO:   NOT AVAILABLE
+INFO: 
+INFO: blas_mkl_info:
+INFO:   libraries mkl_rt not found in ['']
+INFO:   NOT AVAILABLE
+INFO: 
+INFO: blas_ssl2_info:
+INFO:   libraries fjlapackexsve not found in ['']
+INFO:   NOT AVAILABLE
+INFO: 
+INFO: blis_info:
+INFO:   libraries blis not found in ['']
+INFO:   NOT AVAILABLE
+INFO: 
+INFO: openblas_info:
+INFO:   libraries openblas not found in ['']
+INFO:   NOT AVAILABLE
+INFO: 
+INFO: accelerate_info:
+INFO:   NOT AVAILABLE
+INFO: 
+INFO: atlas_3_10_blas_threads_info:
+INFO: Setting PTATLAS=ATLAS
+INFO:   libraries tatlas not found in []
+INFO:   NOT AVAILABLE
+INFO: 
+INFO: atlas_3_10_blas_info:
+INFO:   libraries satlas not found in []
+INFO:   NOT AVAILABLE
+INFO: 
+INFO: atlas_blas_threads_info:
+INFO: Setting PTATLAS=ATLAS
+INFO:   libraries ptf77blas,ptcblas,atlas not found in []
+INFO:   NOT AVAILABLE
+INFO: 
+INFO: atlas_blas_info:
+INFO:   libraries f77blas,cblas,atlas not found in []
+INFO:   NOT AVAILABLE
+INFO: 
+/root/build-animais/.buildozer/android/platform/build-arm64-v8a/build/other_builds/numpy/arm64-v8a__ndk_target_21/numpy/numpy/distutils/system_info.py:2159: UserWarning: 
+    Optimized (vendor) Blas libraries are not found.
+    Falls back to netlib Blas library which has worse performance.
+    A better performance should be easily gained by switching
+    Blas library.
+  if self._calc_info(blas):
+INFO: blas_info:
+INFO:   libraries blas not found in ['']
+INFO:   NOT AVAILABLE
+INFO: 
+/root/build-animais/.buildozer/android/platform/build-arm64-v8a/build/other_builds/numpy/arm64-v8a__ndk_target_21/numpy/numpy/distutils/system_info.py:2159: UserWarning: 
+    Blas (http://www.netlib.org/blas/) libraries not found.
+    Directories to search for the libraries can be specified in the
+    numpy/distutils/site.cfg file (section [blas]) or by setting
+    the BLAS environment variable.
+  if self._calc_info(blas):
+INFO: blas_src_info:
+INFO:   NOT AVAILABLE
+INFO: 
+/root/build-animais/.buildozer/android/platform/build-arm64-v8a/build/other_builds/numpy/arm64-v8a__ndk_target_21/numpy/numpy/distutils/system_info.py:2159: UserWarning: 
+    Blas (http://www.netlib.org/blas/) sources not found.
+    Directories to search for the sources can be specified in the
+    numpy/distutils/site.cfg file (section [blas_src]) or by setting
+    the BLAS_SRC environment variable.
+  if self._calc_info(blas):
+INFO:   NOT AVAILABLE
+INFO: 
+non-existing path in 'numpy/distutils': 'site.cfg'
+INFO: lapack_opt_info:
+INFO: lapack_armpl_info:
+INFO:   libraries armpl_lp64_mp not found in ['']
+INFO:   NOT AVAILABLE
+INFO: 
+INFO: lapack_mkl_info:
+INFO:   libraries mkl_rt not found in ['']
+INFO:   NOT AVAILABLE
+INFO: 
+INFO: lapack_ssl2_info:
+INFO:   libraries fjlapackexsve not found in ['']
+INFO:   NOT AVAILABLE
+INFO: 
+INFO: openblas_lapack_info:
+INFO:   libraries openblas not found in ['']
+INFO:   NOT AVAILABLE
+INFO: 
+INFO: openblas_clapack_info:
+INFO:   libraries openblas,lapack not found in ['']
+INFO:   NOT AVAILABLE
+INFO: 
+INFO: flame_info:
+INFO:   libraries flame not found in ['']
+INFO:   NOT AVAILABLE
+INFO: 
+INFO: atlas_3_10_threads_info:
+INFO: Setting PTATLAS=ATLAS
+INFO: <class 'numpy.distutils.system_info.atlas_3_10_threads_info'>
+INFO:   NOT AVAILABLE
+INFO: 
+INFO: atlas_3_10_info:
+INFO: <class 'numpy.distutils.system_info.atlas_3_10_info'>
+INFO:   NOT AVAILABLE
+INFO: 
+INFO: atlas_threads_info:
+INFO: Setting PTATLAS=ATLAS
+INFO: <class 'numpy.distutils.system_info.atlas_threads_info'>
+INFO:   NOT AVAILABLE
+INFO: 
+INFO: atlas_info:
+INFO: <class 'numpy.distutils.system_info.atlas_info'>
+INFO:   NOT AVAILABLE
+INFO: 
+INFO: lapack_info:
+INFO:   libraries lapack not found in ['']
+INFO:   NOT AVAILABLE
+INFO: 
+/root/build-animais/.buildozer/android/platform/build-arm64-v8a/build/other_builds/numpy/arm64-v8a__ndk_target_21/numpy/numpy/distutils/system_info.py:1974: UserWarning: 
+    Lapack (http://www.netlib.org/lapack/) libraries not found.
+    Directories to search for the libraries can be specified in the
+    numpy/distutils/site.cfg file (section [lapack]) or by setting
+    the LAPACK environment variable.
+  return getattr(self, '_calc_info_{}'.format(name))()
+INFO: lapack_src_info:
+INFO:   NOT AVAILABLE
+INFO: 
+/root/build-animais/.buildozer/android/platform/build-arm64-v8a/build/other_builds/numpy/arm64-v8a__ndk_target_21/numpy/numpy/distutils/system_info.py:1974: UserWarning: 
+    Lapack (http://www.netlib.org/lapack/) sources not found.
+    Directories to search for the sources can be specified in the
+    numpy/distutils/site.cfg file (section [lapack_src]) or by setting
+    the LAPACK_SRC environment variable.
+  return getattr(self, '_calc_info_{}'.format(name))()
+INFO:   NOT AVAILABLE
+INFO: 
+INFO: numpy_linalg_lapack_lite:
+INFO:   FOUND:
+INFO:     language = c
+INFO: 
+/root/build-animais/.buildozer/android/platform/build-arm64-v8a/build/other_builds/hostpython3/desktop/hostpython3/Lib/distutils/dist.py:274: UserWarning: Unknown distribution option: 'define_macros'
+  warnings.warn(msg)
+running build_ext
+running build_src
+INFO: build_src
+INFO: building py_modules sources
+INFO: building library "npymath" sources
+WARN: Could not locate executable armflang
+WARN: Could not locate executable gfortran
+WARN: Could not locate executable f95
+WARN: Could not locate executable ifort
+WARN: Could not locate executable ifc
+WARN: Could not locate executable lf95
+WARN: Could not locate executable pgfortran
+WARN: Could not locate executable nvfortran
+WARN: Could not locate executable f90
+WARN: Could not locate executable f77
+WARN: Could not locate executable fort
+WARN: Could not locate executable efort
+WARN: Could not locate executable efc
+WARN: Could not locate executable g77
+WARN: Could not locate executable g95
+WARN: Could not locate executable pathf95
+WARN: Could not locate executable nagfor
+WARN: Could not locate executable frt
+WARN: don't know how to compile Fortran code on platform 'posix'
+INFO:   adding 'build/src.aarch64-linux-android-3.11/numpy/core/src/npymath' to include_dirs.
+INFO: None - nothing done with h_files = ['build/src.aarch64-linux-android-3.11/numpy/core/src/npymath/npy_math_internal.h']
+INFO: building library "npyrandom" sources
+INFO: building extension "numpy.core._multiarray_tests" sources
+INFO: building extension "numpy.core._multiarray_umath" sources
+Traceback (most recent call last):
+  File "/root/build-animais/.buildozer/android/platform/build-arm64-v8a/build/other_builds/numpy/arm64-v8a__ndk_target_21/numpy/setup.py", line 568, in <module>
+    setup_package()
+  File "/root/build-animais/.buildozer/android/platform/build-arm64-v8a/build/other_builds/numpy/arm64-v8a__ndk_target_21/numpy/setup.py", line 560, in setup_package
+    setup(**metadata)
+  File "/root/build-animais/.buildozer/android/platform/build-arm64-v8a/build/other_builds/numpy/arm64-v8a__ndk_target_21/numpy/numpy/distutils/core.py", line 170, in setup
+    return old_setup(**new_attr)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/root/build-animais/.buildozer/android/platform/build-arm64-v8a/build/other_builds/hostpython3/desktop/hostpython3/native-build/Lib/site-packages/setuptools/__init__.py", line 153, in setup
+    return distutils.core.setup(**attrs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/build-animais/.buildozer/android/platform/build-arm64-v8a/build/other_builds/hostpython3/desktop/hostpython3/Lib/distutils/core.py", line 148, in setup
+    dist.run_commands()
+  File "/root/build-animais/.buildozer/android/platform/build-arm64-v8a/build/other_builds/hostpython3/desktop/hostpython3/Lib/distutils/dist.py", line 966, in run_commands
+    self.run_command(cmd)
+  File "/root/build-animais/.buildozer/android/platform/build-arm64-v8a/build/other_builds/hostpython3/desktop/hostpython3/Lib/distutils/dist.py", line 985, in run_command
+    cmd_obj.run()
+  File "/root/build-animais/.buildozer/android/platform/build-arm64-v8a/build/other_builds/numpy/arm64-v8a__ndk_target_21/numpy/numpy/distutils/command/build_ext.py", line 101, in run
+    self.run_command('build_src')
+  File "/root/build-animais/.buildozer/android/platform/build-arm64-v8a/build/other_builds/hostpython3/desktop/hostpython3/Lib/distutils/cmd.py", line 313, in run_command
+    self.distribution.run_command(command)
+  File "/root/build-animais/.buildozer/android/platform/build-arm64-v8a/build/other_builds/hostpython3/desktop/hostpython3/Lib/distutils/dist.py", line 985, in run_command
+    cmd_obj.run()
+  File "/root/build-animais/.buildozer/android/platform/build-arm64-v8a/build/other_builds/numpy/arm64-v8a__ndk_target_21/numpy/numpy/distutils/command/build_src.py", line 144, in run
+    self.build_sources()
+  File "/root/build-animais/.buildozer/android/platform/build-arm64-v8a/build/other_builds/numpy/arm64-v8a__ndk_target_21/numpy/numpy/distutils/command/build_src.py", line 161, in build_sources
+    self.build_extension_sources(ext)
+  File "/root/build-animais/.buildozer/android/platform/build-arm64-v8a/build/other_builds/numpy/arm64-v8a__ndk_target_21/numpy/numpy/distutils/command/build_src.py", line 318, in build_extension_sources
+    sources = self.generate_sources(sources, ext)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/build-animais/.buildozer/android/platform/build-arm64-v8a/build/other_builds/numpy/arm64-v8a__ndk_target_21/numpy/numpy/distutils/command/build_src.py", line 378, in generate_sources
+    source = func(extension, build_dir)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/build-animais/.buildozer/android/platform/build-arm64-v8a/build/other_builds/numpy/arm64-v8a__ndk_target_21/numpy/numpy/core/setup.py", line 457, in generate_config_h
+    check_math_capabilities(config_cmd, ext, moredefs, mathlibs)
+  File "/root/build-animais/.buildozer/android/platform/build-arm64-v8a/build/other_builds/numpy/arm64-v8a__ndk_target_21/numpy/numpy/core/setup.py", line 190, in check_math_capabilities
+    raise SystemError("One of the required function to build numpy is not"
+SystemError: One of the required function to build numpy is not available (the list is ['sin', 'cos', 'tan', 'sinh', 'cosh', 'tanh', 'fabs', 'floor', 'ceil', 'sqrt', 'log10', 'log', 'exp', 'asin', 'acos', 'atan', 'fmod', 'modf', 'frexp', 'ldexp', 'expm1', 'log1p', 'acosh', 'asinh', 'atanh', 'rint', 'trunc', 'exp2', 'copysign', 'nextafter', 'strtoll', 'strtoull', 'cbrt', 'log2', 'pow', 'hypot', 'atan2', 'creal', 'cimag', 'conj']).
+
+
+  STDERR:
+
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/root/build-animais/.buildozer/android/platform/python-for-android/pythonforandroid/toolchain.py", line 1256, in <module>
+    main()
+  File "/root/build-animais/.buildozer/android/platform/python-for-android/pythonforandroid/entrypoints.py", line 18, in main
+    ToolchainCL()
+  File "/root/build-animais/.buildozer/android/platform/python-for-android/pythonforandroid/toolchain.py", line 685, in __init__
+    getattr(self, command)(args)
+  File "/root/build-animais/.buildozer/android/platform/python-for-android/pythonforandroid/toolchain.py", line 104, in wrapper_func
+    build_dist_from_args(ctx, dist, args)
+  File "/root/build-animais/.buildozer/android/platform/python-for-android/pythonforandroid/toolchain.py", line 163, in build_dist_from_args
+    build_recipes(build_order, python_modules, ctx,
+  File "/root/build-animais/.buildozer/android/platform/python-for-android/pythonforandroid/build.py", line 504, in build_recipes
+    recipe.build_arch(arch)
+  File "/root/build-animais/.buildozer/android/platform/python-for-android/pythonforandroid/recipe.py", line 983, in build_arch
+    self.build_compiled_components(arch)
+  File "/root/build-animais/p4a-recipes/numpy/__init__.py", line 29, in build_compiled_components
+    super().build_compiled_components(arch)
+  File "/root/build-animais/.buildozer/android/platform/python-for-android/pythonforandroid/recipes/numpy/__init__.py", line 61, in build_compiled_components
+    self._build_compiled_components(arch)
+  File "/root/build-animais/.buildozer/android/platform/python-for-android/pythonforandroid/recipes/numpy/__init__.py", line 45, in _build_compiled_components
+    shprint(hostpython, 'setup.py', self.build_cmd, '-v',
+  File "/root/build-animais/.buildozer/android/platform/python-for-android/pythonforandroid/logger.py", line 167, in shprint
+    for line in output:
+  File "/root/.local/lib/python3.11/site-packages/sh.py", line 915, in next
+    self.wait()
+  File "/root/.local/lib/python3.11/site-packages/sh.py", line 845, in wait
+    self.handle_command_exit_code(exit_code)
+  File "/root/.local/lib/python3.11/site-packages/sh.py", line 869, in handle_command_exit_code
+    raise exc
+sh.ErrorReturnCode_1: 
+
+  RAN: /root/build-animais/.buildozer/android/platform/build-arm64-v8a/build/other_builds/hostpython3/desktop/hostpython3/native-build/python3 setup.py build_ext -v -j 8
+
+  STDOUT:
+/root/build-animais/.buildozer/android/platform/build-arm64-v8a/build/other_builds/numpy/arm64-v8a__ndk_target_21/numpy/setup.py:17: DeprecationWarning: The distutils package is deprecated and slated for removal in Python 3.12. Use setuptools or check PEP 632 for potential alternatives
+  from distutils.errors import CompileError
+Running from numpy source directory.
+/root/build-animais/.buildozer/android/platform/build-arm64-v8a/build/other_builds/numpy/arm64-v8a__ndk_target_21/numpy/setup.py:75: DeprecationWarning: 
+
+  `numpy.distutils` is deprecated since NumPy 1.23.0, as a result
+  of the deprecation of `distutils` itself. It will be removed for
+  Python >= 3.12. For older Python versions it will remain present.
+  It is recommended to use `setuptools < 60.0` for those Python versions.
+  For more details, see:
+    https://numpy.org/devdocs/reference/distutils_status_migration.html 
+
+
+  import numpy.distutils.command.sdist
+Cythonizing sources
+numpy/random/_bounded_integers.pxd.in has not changed
+numpy/random/_philox.pyx has not changed
+numpy/random/_bounded_integers.pyx.in has not changed
+numpy/random/_pcg64.pyx has not changed
+numpy/random/_sfc64.pyx has not changed
+numpy/random/bit_generator.pyx has not changed
+numpy/random/mtrand.pyx has not changed
+numpy/random/_mt19937.pyx has not changed
+numpy/random/_bounded_integers.pyx has not changed
+numpy/random/_common.pyx has not changed
+numpy/random/_generator.pyx has not changed
+INFO: blas_opt_info:
+INFO: blas_armpl_info:
+INFO: customize UnixCCompiler
+INFO:   libraries armpl_lp64_mp not found in ['']
+INFO:   NOT AVAILABLE
+INFO: 
+INFO: blas_mkl_info:
+INFO:   libraries mkl_rt not found in ['']
+INFO:   NOT AVAILABLE
+INFO: 
+INFO: blas_ssl2_info:
+INFO:   libraries fjlapackexsve not found in ['']
+INFO:   NOT AVAILABLE
+INFO: 
+INFO: blis_info:
+INFO:   libraries blis not found in ['']
+INFO:   NOT AVAILABLE
+INFO: 
+INFO: openblas_info:
+INFO:   libraries openblas not found in ['']
+INFO:   NOT AVAILABLE
+INFO: 
+INFO: accelerate_info:
+INFO:   NOT AVAILABLE
+INFO: 
+INFO: atlas_3_10_blas_threads_info:
+INFO: Setting PTATLAS=ATLAS
+INFO:   libraries tatlas not found in []
+INFO:   NOT AVAILABLE
+INFO: 
+INFO: atlas_3_10_blas_info:
+INFO:   libraries satlas not found in []
+INFO:   NOT AVAILABLE
+INFO: 
+INFO: atlas_blas_threads_info:
+INFO: Setting PTATLAS=ATLAS
+INFO:   libraries ptf77blas,ptcblas,atlas not found in []
+INFO:   NOT AVAILABLE
+INFO: 
+INFO: atlas_blas_info:
+INFO:   libraries f77blas,cblas,atlas not found in []
+INFO:   NOT AVAILABLE
+INFO: 
+/root/build-animais/.buildozer/android/platform/build-arm64-v8a/build/other_builds/numpy/arm64-v8a__ndk_target_21/numpy/numpy/distutils/system_info.py:2159: UserWarning: 
+    Optimized (vendor) Blas libraries are not found.
+    Falls back to netlib Blas library which has worse performance.
+    A better performance should be easily gained by switching
+    Blas library.
+  if self._calc_info(blas):
+INFO: blas_info:
+INFO:   libraries blas not found in ['']
+INFO:   NOT AVAILABLE
+INFO: 
+/root/build-animais/.buildozer/android/platform/build-arm64-v8a/build/other_builds/numpy/arm64-v8a__ndk_target_21/numpy/numpy/distutils/system_info.py:2159: UserWarning: 
+    Blas (http://www.netlib.org/blas/) libraries not found.
+    Directories to search for the libraries can be specified in the
+    numpy/distutils/site.cfg file (section [blas]) or by setting
+    the BLAS environment variable.
+  if self._calc_info(blas):
+INFO: blas_src_info:
+INFO:   NOT AVAILABLE
+INFO: 
+/root/build-animais/.buildozer/android/platform/build-arm64-v8a/build/other_builds/numpy/arm64-v8a__ndk_target_21/numpy/numpy/distutils/system_info.py:2159: UserWarning: 
+    Blas (http://www.netlib.org/blas/) sources not found.
+    Directories to search for the sources can be specified in the
+    numpy/distutils/site.cfg file (section [blas_src]) or by setting
+    the BLAS_SRC environment variable.
+  if self._calc_info(blas):
+INFO:   NOT AVAILABLE
+INFO: 
+non-existing path in 'numpy/distutils': 'site.cfg'
+INFO: lapack_opt_info:
+INFO: lapack_armpl_info:
+INFO:   libraries armpl_lp64_mp not found in ['']
+INFO:   NOT AVAILABLE
+INFO: 
+INFO: lapack_mkl_info:
+INFO:   libraries mkl_rt not found in ['']
+INFO:   NOT AVAILABLE
+INFO: 
+INFO: lapack_ssl2_info:
+INFO:   libraries fjlapackexsve not found in ['']
+INFO:   NOT AVAILABLE
+INFO: 
+INFO: openblas_lapack_info:
+INFO:   libraries openblas not found in ['']
+INFO:   NOT AVAILABLE
+INFO: 
+INFO: openblas_clapack_info:
+INFO:   libraries openblas,lapack not found in ['']
+INFO:   NOT AVAILABLE
+INFO: 
+INFO: flame_info:
+INFO:   libraries flame not found in ['']
+INFO:   NOT AVAILABLE
+INFO: 
+INFO: atlas_3_10_threads_info:
+INFO: Setting PTATLAS=ATLAS
+INFO: <class 'numpy.distutils.system_info.atlas_3_10_threads_info'>
+INFO:   NOT AVAILABLE
+INFO: 
+INFO: atlas_3_10_info:
+INFO: <class 'numpy.distutils.system_info.atlas_3_10_info'>
+INFO:   NOT AVAILABLE
+INFO: 
+INFO: atlas_threads_info:
+INFO: Setting PTATLAS=ATLAS
+INFO: <class 'numpy.distutils.system_info.atlas_threads_info'>
+INFO:   NOT AVAILABLE
+INFO: 
+INFO: atlas_info:
+INFO: <class 'numpy.distutils.system_info.atlas_info'>
+INFO:   NOT AVAILABLE
+INFO: 
+INFO: lapack_info:
+INFO:   libraries lapack not found in ['']
+INFO:   NOT AVAILABLE
+INFO: 
+/root/build-animais/.buildozer/android/platform/build-arm64-v8a/build/other_builds/numpy/arm64-v8a__ndk_target_21/numpy/numpy/distutils/system_info.py:1974: UserWarning: 
+    Lapack (http://www.netlib.org/lapack/) libraries not found.
+    Directories to search for the libraries can be specified in the
+    numpy/distutils/site.cfg file (section [lapack]) or by setting
+    the LAPACK environment variable.
+  return getattr(self, '_calc_info_{}'.format(name))()
+INFO: lapack_src_info:
+INFO:   NOT AVAILABLE
+INFO: 
+/root/build-animais/.buildozer/android/platform/build-arm64-v8a/build/other_builds/numpy/arm64-v8a__ndk_target_21/numpy/numpy/distutils/system_info.py:1974: UserWarning: 
+    Lapack (http://www.netlib.org/lapack/) sources not found.
+    Directories to search for the sources can be specified in the
+    numpy/distutils/site.cfg file (section [lapack_src]) or by setting
+    the LAPACK_SRC environment variable.
+  return getattr(self, '_calc_info_{}'.format(name))()
+INFO:   NOT AVAILABLE
+INFO: 
+INFO: numpy_linalg_lapack_lite:
+INFO:   FOUND:
+INFO:     language = c
+INFO: 
+/root/build-animais/.buildozer/android/platform/build-arm64-v8a/build/other_builds/hostpython3/desktop/hostpython3/Lib/distutils/dist.py:274: UserWarning: Unknown distribution option: 'define_macros'
+  warnings.warn(msg)
+running build_ext
+running build_src
+INFO: build_src
+INFO: building py_modules sources
+INFO: building library "npymath" sources
+WARN: Could not locate executable armflang
+WARN: Could not locate executable gfortran
+WARN: Could not locate executable f95
+WARN: Could not locate executable ifort
+WARN: Could not locate executable ifc
+WARN: Could not locate executable lf95
+WARN: Could not locate executable pgfortran
+WARN: Could not locate executable nvfortran
+WARN: Could not locate executable f90
+WARN: Could not locate executable f77
+WARN: Could not locate executable fort
+WARN: Could not locate executable efort
+WARN: Could not locate executable efc
+WARN: Could not locate executable g77
+WARN: Could not locate executable g95
+WARN: Could not locate executable pathf95
+WARN: Could not locate executable nagfor
+WARN: Could not locate executable frt
+WARN: don't know how to compile Fortran code on platform 'posix'
+INFO:   adding 'build/src.aarch64-linux-android-3.11/numpy/core/src/npymath' to include_dirs.
+INFO: None - nothing done with h_files = ['build/src.aarch64-linux-android-3.11/numpy/core/src/npymath/npy_math_internal.h']
+INFO: building library "npyrandom" sources
+INFO: building extension "numpy.core._multiarray_tests" sources
+INFO: building extension "numpy.core._multiarray_umath" sources
+Traceback (most recent call last):
+  File "/root/build-animais/.buildozer/android/platform/build-arm64-v8a/build/other_builds/numpy/arm64-v8a__ndk_target_21/numpy/setup.py", line 568, in <module>
+    setup_package()
+  File "/root/build-animais/.buildozer/android/platform/build-arm64-v8a/build/other_builds/numpy/arm64-v8a__ndk_target_21/numpy/setup.py", line 560, in setup_package
+    setup(**metadata)
+  File "/root/build-animais/.buildozer/android/platform/build-arm64-v8a/build/other_builds/numpy/arm64-v8a__ndk_target_21/numpy/numpy/distutils/core.py", line 170, in setup
+    return old_setup(**new_attr)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/root/build-animais/.buildozer/android/platform/build-arm64-v8a/build/other_builds/hostpython3/desktop/hostpython3/native-build/Lib/site-packages/setuptools/__init__.py", line 153, in setup
+    return distutils.core.setup(**attrs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/build-animais/.buildozer/android/platform/build-arm64-v8a/build/other_builds/hostpython3/desktop/hostpython3/Lib/distutils/core.py", line 148, in setup
+    dist.run_commands()
+  File "/root/build-animais/.buildozer/android/platform/build-arm64-v8a/build/other_builds/hostpython3/desktop/hostpython3/Lib/distutils/dist.py", line 966, in run_commands
+    self.run_command(cmd)
+  File "/root/build-animais/.buildozer/android/platform/build-arm64-v8a/build/other_builds/hostpython3/desktop/hostpython3/Lib/distutils/dist.py", line 985, in run_command
+    cmd_obj.run()
+  File "/root/build-animais/.buildozer/android/platform/build-arm64-v8a/build/other_builds/numpy/arm64-v8a__ndk_target_21/numpy/numpy/distutils/command/build_ext.py", line 101, in run
+    self.run_command('build_src')
+  File "/root/build-animais/.buildozer/android/platform/build-arm64-v8a/build/other_builds/hostpython3/desktop/hostpython3/Lib/distutils/cmd.py", line 313, in run_command
+    self.distribution.run_command(command)
+  File "/root/build-animais/.buildozer/android/platform/build-arm64-v8a/build/other_builds/hostpython3/desktop/hostpython3/Lib/distutils/dist.py", line 985, in run_command
+    cmd_obj.run()
+  File "/root/build-animais/.buildozer/android/platform/build-arm64-v8a/build/other_builds/numpy/arm64-v8a__ndk_target_21/numpy/numpy/distutils/command/build_src.py", line 144, in run
+    self.build_sources()
+  File "/root/build-animais/.buildozer/android/platform/build-arm64-v8a/build/other_builds/numpy/arm64-v8a__ndk_target_21/numpy/numpy/distutils/command/build_src.py", line 161, in build_sources
+    self.build_extension_sources(ext)
+  File "/root/build-animais/.buildozer/android/platform/build-arm64-v8a/build/other_builds/numpy/arm64-v8a__ndk_target_21/numpy/numpy/distutils/command/build_src.py", line 318, in build_extension_sources
+    sources = self.generate_sources(sources, ext)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/build-animais/.buildozer/android/platform/build-arm64-v8a/build/other_builds/numpy/arm64-v8a__ndk_target_21/numpy/numpy/distutils/command/build_src.py", line 378, in generate_sources
+    source = func(extension, build_dir)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/build-animais/.buildozer/android/platform/build-arm64-v8a/build/other_builds/numpy/arm64-v8a__ndk_target_21/numpy/numpy/core/setup.py", line 457, in generate_config_h
+    check_math_capabilities(config_cmd, ext, moredefs, mathlibs)
+  File "/root/build-animais/.buildozer/android/platform/build-arm64-v8a/build/other_builds/numpy/arm64-v8a__ndk_target_21/numpy/numpy/core/setup.py", line 190, in check_math_capabilities
+    raise SystemError("One of the required function to build numpy is not"
+SystemError: One of the required function to build numpy is not available (the list is ['sin', 'cos', 'tan', 'sinh', 'cosh', 'tanh', 'fabs', 'floor', 'ceil', 'sqrt', 'log10', 'log', 'exp', 'asin', 'acos', 'atan', 'fmod', 'modf', 'frexp', 'ldexp', 'expm1', 'log1p', 'acosh', 'asinh', 'atanh', 'rint', 'trunc', 'exp2', 'copysign', 'nextafter', 'strtoll', 'strtoull', 'cbrt', 'log2', 'pow', 'hypot', 'atan2', 'creal', 'cimag', 'conj']).
+
+
+  STDERR:
+
+# Command failed: ['/usr/bin/python3.11', '-m', 'pythonforandroid.toolchain', 'create', '--dist_name=animaldetector', '--bootstrap=sdl2', '--requirements=python3,kivy==2.3.0,opencv,numpy==1.26.4,pillow', '--arch=arm64-v8a', '--copy-libs', '--local-recipes', '/root/build-animais/p4a-recipes', '--color=always', '--storage-dir=/root/build-animais/.buildozer/android/platform/build-arm64-v8a', '--ndk-api=21', '--ignore-setup-py', '--debug']
+# ENVIRONMENT:
+#     SHELL = '/bin/bash'
+#     WSL2_GUI_APPS_ENABLED = '1'
+#     WSL_DISTRO_NAME = 'Ubuntu-24.04'
+#     JAVA_HOME = '/usr/lib/jvm/java-17-openjdk-amd64'
+#     NAME = 'Desk-Maicon'
+#     PWD = '/root/build-animais'
+#     LOGNAME = 'root'
+#     ANDROID_NDK_PATH = '/root/android-sdk/ndk/25.1.8937393'
+#     HOME = '/root'
+#     LANG = 'C.UTF-8'
+#     WSL_INTEROP = '/run/WSL/293_interop'
+#     WAYLAND_DISPLAY = 'wayland-0'
+#     ANDROID_HOME = '/root/android-sdk'
+#     TERM = 'xterm-256color'
+#     USER = 'root'
+#     DISPLAY = ':0'
+#     SHLVL = '1'
+#     XDG_RUNTIME_DIR = '/run/user/0/'
+#     WSLENV = ''
+#     ANDROID_SDK_PATH = '/root/android-sdk'
+#     PATH = ('/root/.buildozer/android/platform/apache-ant-1.9.4/bin:/root/android-sdk/cmdline-tools/latest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/usr/lib/wsl/lib:/mnt/c/Users/alves/bin:/mnt/c/Program '
+ 'Files/Git/mingw64/bin:/mnt/c/Program Files/Git/usr/local/bin:/mnt/c/Program '
+ 'Files/Git/usr/bin:/mnt/c/Program Files/Git/usr/bin:/mnt/c/Program '
+ 'Files/Git/mingw64/bin:/mnt/c/Program '
+ 'Files/Git/usr/bin:/mnt/c/Users/alves/bin:/mnt/c/Python314/Scripts:/mnt/c/Python314/Scripts:/mnt/c/Python314:/mnt/c/WINDOWS/system32:/mnt/c/WINDOWS:/mnt/c/WINDOWS/System32/Wbem:/mnt/c/WINDOWS/System32/WindowsPowerShell/v1.0:/mnt/c/WINDOWS/System32/OpenSSH:/mnt/c/Program '
+ 'Files/dotnet:/mnt/c/Program Files/NVIDIA Corporation/NVIDIA '
+ 'App/NvDLISR:/mnt/c/Program Files (x86)/NVIDIA '
+ 'Corporation/PhysX/Common:/mnt/c/ProgramData/chocolatey/bin:/mnt/c/Program '
+ 'Files/nodejs:/mnt/c/Program Files/Go/bin:/mnt/c/Program '
+ 'Files/CMake/bin:/mnt/c/Program Files/Git/cmd:/mnt/c/Program Files/GitHub '
+ 'CLI:/mnt/c/Users/alves/AppData/Local/Programs/Python/Python312/Scripts:/mnt/c/Users/alves/AppData/Local/Programs/Python/Python312:/mnt/c/Users/alves/AppData/Local/Microsoft/WindowsApps:/mnt/c/Users/alves/.dotnet/tools:/mnt/c/Users/alves/AppData/Local/Programs/Antigravity/bin:/mnt/c/Users/alves/AppData/Roaming/npm:/mnt/c/Users/alves/go/bin:/mnt/c/Users/alves/AppData/Local/Programs/Ollama:/mnt/c/Program '
+ 'Files/Git/usr/bin/vendor_perl:/mnt/c/Program Files/Git/usr/bin/core_perl')
+#     DBUS_SESSION_BUS_ADDRESS = 'unix:path=/run/user/0/bus'
+#     HOSTTYPE = 'x86_64'
+#     PULSE_SERVER = 'unix:/mnt/wslg/PulseServer'
+#     OLDPWD = '/mnt/c/Users/alves/Desktop/Projetos/Identificador de Animais'
+#     _ = '/usr/local/bin/buildozer'
+#     PACKAGES_PATH = '/root/.buildozer/android/packages'
+#     ANDROIDSDK = '/root/android-sdk'
+#     ANDROIDNDK = '/root/android-sdk/ndk/25.1.8937393'
+#     ANDROIDAPI = '33'
+#     ANDROIDMINAPI = '21'
+# 
+# Buildozer failed to execute the last command
+# The error might be hidden in the log above this error
+# Please read the full log, and search for it before
+# raising an issue with buildozer itself.
+# In case of a bug report, please add a full log with log_level = 2
+[18:25:05] 
+[18:25:05] ==========================================
+[18:25:05]  BUILD FALHOU — veja o log acima.
+[18:25:05] ==========================================
+cutable pathf95
+WARN: Could not locate executable nagfor
+WARN: Could not locate executable frt
+WARN: don't know how to compile Fortran code on platform 'posix'
+INFO:   adding 'build/src.aarch64-linux-android-3.11/numpy/core/src/npymath' to include_dirs.
+INFO: None - nothing done with h_files = ['build/src.aarch64-linux-android-3.11/numpy/core/src/npymath/npy_math_internal.h']
+INFO: building library "npyrandom" sources
+INFO: building extension "numpy.core._multiarray_tests" sources
+INFO: building extension "numpy.core._multiarray_umath" sources
+Traceback (most recent call last):
+  File "/root/build-animais/.buildozer/android/platform/build-arm64-v8a/build/other_builds/numpy/arm64-v8a__ndk_target_21/numpy/setup.py", line 568, in <module>
+    setup_package()
+  File "/root/build-animais/.buildozer/android/platform/build-arm64-v8a/build/other_builds/numpy/arm64-v8a__ndk_target_21/numpy/setup.py", line 560, in setup_package
+    setup(**metadata)
+  File "/root/build-animais/.buildozer/android/platform/build-arm64-v8a/build/other_builds/numpy/arm64-v8a__ndk_target_21/numpy/numpy/distutils/core.py", line 170, in setup
+    return old_setup(**new_attr)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/root/build-animais/.buildozer/android/platform/build-arm64-v8a/build/other_builds/hostpython3/desktop/hostpython3/native-build/Lib/site-packages/setuptools/__init__.py", line 153, in setup
+    return distutils.core.setup(**attrs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/build-animais/.buildozer/android/platform/build-arm64-v8a/build/other_builds/hostpython3/desktop/hostpython3/Lib/distutils/core.py", line 148, in setup
+    dist.run_commands()
+  File "/root/build-animais/.buildozer/android/platform/build-arm64-v8a/build/other_builds/hostpython3/desktop/hostpython3/Lib/distutils/dist.py", line 966, in run_commands
+    self.run_command(cmd)
+  File "/root/build-animais/.buildozer/android/platform/build-arm64-v8a/build/other_builds/hostpython3/desktop/hostpython3/Lib/distutils/dist.py", line 985, in run_command
+    cmd_obj.run()
+  File "/root/build-animais/.buildozer/android/platform/build-arm64-v8a/build/other_builds/numpy/arm64-v8a__ndk_target_21/numpy/numpy/distutils/command/build_ext.py", line 101, in run
+    self.run_command('build_src')
+  File "/root/build-animais/.buildozer/android/platform/build-arm64-v8a/build/other_builds/hostpython3/desktop/hostpython3/Lib/distutils/cmd.py", line 313, in run_command
+    self.distribution.run_command(command)
+  File "/root/build-animais/.buildozer/android/platform/build-arm64-v8a/build/other_builds/hostpython3/desktop/hostpython3/Lib/distutils/dist.py", line 985, in run_command
+    cmd_obj.run()
+  File "/root/build-animais/.buildozer/android/platform/build-arm64-v8a/build/other_builds/numpy/arm64-v8a__ndk_target_21/numpy/numpy/distutils/command/build_src.py", line 144, in run
+    self.build_sources()
+  File "/root/build-animais/.buildozer/android/platform/build-arm64-v8a/build/other_builds/numpy/arm64-v8a__ndk_target_21/numpy/numpy/distutils/command/build_src.py", line 161, in build_sources
+    self.build_extension_sources(ext)
+  File "/root/build-animais/.buildozer/android/platform/build-arm64-v8a/build/other_builds/numpy/arm64-v8a__ndk_target_21/numpy/numpy/distutils/command/build_src.py", line 318, in build_extension_sources
+    sources = self.generate_sources(sources, ext)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/build-animais/.buildozer/android/platform/build-arm64-v8a/build/other_builds/numpy/arm64-v8a__ndk_target_21/numpy/numpy/distutils/command/build_src.py", line 378, in generate_sources
+    source = func(extension, build_dir)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/build-animais/.buildozer/android/platform/build-arm64-v8a/build/other_builds/numpy/arm64-v8a__ndk_target_21/numpy/numpy/core/setup.py", line 457, in generate_config_h
+    check_math_capabilities(config_cmd, ext, moredefs, mathlibs)
+  File "/root/build-animais/.buildozer/android/platform/build-arm64-v8a/build/other_builds/numpy/arm64-v8a__ndk_target_21/numpy/numpy/core/setup.py", line 190, in check_math_capabilities
+    raise SystemError("One of the required function to build numpy is not"
+SystemError: One of the required function to build numpy is not available (the list is ['sin', 'cos', 'tan', 'sinh', 'cosh', 'tanh', 'fabs', 'floor', 'ceil', 'sqrt', 'log10', 'log', 'exp', 'asin', 'acos', 'atan', 'fmod', 'modf', 'frexp', 'ldexp', 'expm1', 'log1p', 'acosh', 'asinh', 'atanh', 'rint', 'trunc', 'exp2', 'copysign', 'nextafter', 'strtoll', 'strtoull', 'cbrt', 'log2', 'pow', 'hypot', 'atan2', 'creal', 'cimag', 'conj']).
+
+
+  STDERR:
+
+# Command failed: ['/usr/bin/python3.11', '-m', 'pythonforandroid.toolchain', 'create', '--dist_name=animaldetector', '--bootstrap=sdl2', '--requirements=python3,kivy==2.3.0,opencv,numpy==1.26.4,pillow', '--arch=arm64-v8a', '--copy-libs', '--local-recipes', '/root/build-animais/p4a-recipes', '--color=always', '--storage-dir=/root/build-animais/.buildozer/android/platform/build-arm64-v8a', '--ndk-api=21', '--ignore-setup-py', '--debug']
+# ENVIRONMENT:
+#     SHELL = '/bin/bash'
+#     WSL2_GUI_APPS_ENABLED = '1'
+#     WSL_DISTRO_NAME = 'Ubuntu-24.04'
+#     JAVA_HOME = '/usr/lib/jvm/java-17-openjdk-amd64'
+#     NAME = 'Desk-Maicon'
+#     PWD = '/root/build-animais'
+#     LOGNAME = 'root'
+#     ANDROID_NDK_PATH = '/root/android-sdk/ndk/25.1.8937393'
+#     HOME = '/root'
+#     LANG = 'C.UTF-8'
+#     WSL_INTEROP = '/run/WSL/293_interop'
+#     WAYLAND_DISPLAY = 'wayland-0'
+#     ANDROID_HOME = '/root/android-sdk'
+#     TERM = 'xterm-256color'
+#     USER = 'root'
+#     DISPLAY = ':0'
+#     SHLVL = '1'
+#     XDG_RUNTIME_DIR = '/run/user/0/'
+#     WSLENV = ''
+#     ANDROID_SDK_PATH = '/root/android-sdk'
+#     PATH = ('/root/.buildozer/android/platform/apache-ant-1.9.4/bin:/root/android-sdk/cmdline-tools/latest/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/usr/lib/wsl/lib:/mnt/c/Users/alves/bin:/mnt/c/Program '
+ 'Files/Git/mingw64/bin:/mnt/c/Program Files/Git/usr/local/bin:/mnt/c/Program '
+ 'Files/Git/usr/bin:/mnt/c/Program Files/Git/usr/bin:/mnt/c/Program '
+ 'Files/Git/mingw64/bin:/mnt/c/Program '
+ 'Files/Git/usr/bin:/mnt/c/Users/alves/bin:/mnt/c/Python314/Scripts:/mnt/c/Python314/Scripts:/mnt/c/Python314:/mnt/c/WINDOWS/system32:/mnt/c/WINDOWS:/mnt/c/WINDOWS/System32/Wbem:/mnt/c/WINDOWS/System32/WindowsPowerShell/v1.0:/mnt/c/WINDOWS/System32/OpenSSH:/mnt/c/Program '
+ 'Files/dotnet:/mnt/c/Program Files/NVIDIA Corporation/NVIDIA '
+ 'App/NvDLISR:/mnt/c/Program Files (x86)/NVIDIA '
+ 'Corporation/PhysX/Common:/mnt/c/ProgramData/chocolatey/bin:/mnt/c/Program '
+ 'Files/nodejs:/mnt/c/Program Files/Go/bin:/mnt/c/Program '
+ 'Files/CMake/bin:/mnt/c/Program Files/Git/cmd:/mnt/c/Program Files/GitHub '
+ 'CLI:/mnt/c/Users/alves/AppData/Local/Programs/Python/Python312/Scripts:/mnt/c/Users/alves/AppData/Local/Programs/Python/Python312:/mnt/c/Users/alves/AppData/Local/Microsoft/WindowsApps:/mnt/c/Users/alves/.dotnet/tools:/mnt/c/Users/alves/AppData/Local/Programs/Antigravity/bin:/mnt/c/Users/alves/AppData/Roaming/npm:/mnt/c/Users/alves/go/bin:/mnt/c/Users/alves/AppData/Local/Programs/Ollama:/mnt/c/Program '
+ 'Files/Git/usr/bin/vendor_perl:/mnt/c/Program Files/Git/usr/bin/core_perl')
+#     DBUS_SESSION_BUS_ADDRESS = 'unix:path=/run/user/0/bus'
+#     HOSTTYPE = 'x86_64'
+#     PULSE_SERVER = 'unix:/mnt/wslg/PulseServer'
+#     OLDPWD = '/mnt/c/Users/alves/Desktop/Projetos/Identificador de Animais'
+#     _ = '/usr/local/bin/buildozer'
+#     PACKAGES_PATH = '/root/.buildozer/android/packages'
+#     ANDROIDSDK = '/root/android-sdk'
+#     ANDROIDNDK = '/root/android-sdk/ndk/25.1.8937393'
+#     ANDROIDAPI = '33'
+#     ANDROIDMINAPI = '21'
+# 
+# Buildozer failed to execute the last command
+# The error might be hidden in the log above this error
+# Please read the full log, and search for it before
+# raising an issue with buildozer itself.
+# In case of a bug report, please add a full log with log_level = 2
+[18:25:05] 
+[18:25:05] ==========================================
+[18:25:05]  BUILD FALHOU — veja o log acima.
+[18:25:05] ==========================================

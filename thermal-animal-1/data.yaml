@@ -1,0 +1,12 @@
+names:
+- Wolf - v1 2024-01-03 3-25pm
+nc: 1
+roboflow:
+  license: CC BY 4.0
+  project: thermal-animal
+  url: https://universe.roboflow.com/object-detection-d3ovr/thermal-animal/dataset/1
+  version: 1
+  workspace: object-detection-d3ovr
+test: ../test/images
+train: C:\Users\alves\Desktop\Projetos\Identificador de Animais\thermal-animal-1\train\images
+val: C:\Users\alves\Desktop\Projetos\Identificador de Animais\thermal-animal-1\valid\images

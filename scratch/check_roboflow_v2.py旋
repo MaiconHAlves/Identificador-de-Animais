@@ -1,0 +1,14 @@
+import requests
+
+api_key = "Lc4vZgIj0qrwK2lWdtWp"
+url = f"https://api.roboflow.com/workspaces?api_key={api_key}"
+
+response = requests.get(url)
+if response.status_status_code == 200:
+    print("Workspaces:")
+    data = response.json()
+    for ws in data.get('workspaces', []):
+        print(f"ID: {ws.get('id')} - Name: {ws.get('name')}")
+else:
+    print(f"Erro: {response.status_code}")
+    print(response.text)

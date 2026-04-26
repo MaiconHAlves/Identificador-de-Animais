@@ -1,0 +1,9 @@
+names:
+- ONCA_PARDA
+- CAPIVARA
+- LOBO_GUARA
+- CERVO
+nc: 4
+train: C:/Users/alves/Desktop/Projetos/Identificador de Animais/fauna_br/train/images
+val: C:/Users/alves/Desktop/Projetos/Identificador de Animais/fauna_br/train/images
+test: C:/Users/alves/Desktop/Projetos/Identificador de Animais/fauna_br/train/images
