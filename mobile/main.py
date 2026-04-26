@@ -27,6 +27,15 @@ class AnimalDetectorApp(App):
         self.audio = AudioManager()
         self.ui_tactical = TacticalOverlay()
         
+        # Lógica de detecção de plataforma
+        from kivy.utils import platform
+        if platform == 'android':
+            print("--- AMBIENTE ANDROID DETECTADO: USANDO CAMERA REAL ---")
+            self.cap = cv2.VideoCapture(0)
+        else:
+            print("--- AMBIENTE DESKTOP: USANDO VIDEO DE SIMULACAO ---")
+            self.cap = cv2.VideoCapture("scripts/isolated_road.mp4")
+
         # 3. Gerenciamento de Sensores
         self.rgb_manager = SensorManager(sensor_id=0) # Câmera Principal
         self.thermal_manager = SensorManager(sensor_id=1) # Câmera Secundária / Térmica
