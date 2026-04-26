@@ -19,8 +19,8 @@ jobs:
 
       - name: Install dependencies
         run: |
-          sudo apt update
-          sudo apt install -y build-essential libffi-dev libssl-dev autoconf automake libtool pkg-config zlib1g-dev libncurses5-dev libncursesw5-dev libreadline-dev cmake openjdk-17-jdk unzip
+          sudo apt-get update
+          sudo apt-get install -y build-essential libltdl-dev libffi-dev libssl-dev autoconf automake libtool pkg-config zlib1g-dev libncurses5-dev libncursesw5-dev libreadline-dev cmake openjdk-17-jdk unzip
           pip install --upgrade pip
           pip install buildozer cython==0.29.33
 
