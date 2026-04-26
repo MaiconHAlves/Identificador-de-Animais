@@ -38,8 +38,11 @@ jobs:
 
       - name: Fix Android SDK structure for Buildozer
         run: |
-          sudo rm -rf $ANDROID_HOME/tools
-          sudo ln -s $ANDROID_HOME/cmdline-tools/16.0 $ANDROID_HOME/cmdline-tools/latest || true
+          sudo ln -sf $ANDROID_HOME/cmdline-tools/16.0 $ANDROID_HOME/cmdline-tools/latest || true
+          sudo mkdir -p $ANDROID_HOME/tools/bin
+          sudo ln -sf $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager $ANDROID_HOME/tools/bin/sdkmanager
+          sudo ln -sf $ANDROID_HOME/cmdline-tools/latest/bin/avdmanager $ANDROID_HOME/tools/bin/avdmanager
+          sudo chmod +x $ANDROID_HOME/tools/bin/sdkmanager
 
       - name: Install NDK and Tools
         run: |

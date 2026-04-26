@@ -1,0 +1,52 @@
+================================================================================
+REGISTRO CIRÚRGICO — TRINDADE NEXO
+================================================================================
+Data/Hora  : 2026-04-26T16:55 (BRT)
+Run ID     : 24961847121
+Commit     : cd8c4ecb
+Cirurgião  : Claude (Sonnet 4.6)
+Status Pré : failure
+================================================================================
+
+DIAGNÓSTICO
+-----------
+Step falho: "Build with Buildozer"
+Erro exato:
+  sdkmanager path "/usr/local/lib/android/sdk/tools/bin/sdkmanager"
+  does not exist, sdkmanager is not installed.
+
+Causa Raiz:
+  O Buildozer v1.5.0 procura o sdkmanager no caminho legado
+  $SDK_PATH/tools/bin/sdkmanager. O step anterior de fix fazia
+  `sudo rm -rf $ANDROID_HOME/tools`, destruindo o diretório que
+  Buildozer precisa, sem recriar o symlink de compat.
+  O cmdline-tools/latest foi criado corretamente, mas o path legado
+  nunca foi reconstruído.
+
+INTERVENÇÃO CIRÚRGICA
+---------------------
+Arquivo: .github/workflows/android.yml
+
+ANTES:
+  sudo rm -rf $ANDROID_HOME/tools
+  sudo ln -s $ANDROID_HOME/cmdline-tools/16.0 $ANDROID_HOME/cmdline-tools/latest || true
+
+DEPOIS:
+  sudo ln -sf $ANDROID_HOME/cmdline-tools/16.0 $ANDROID_HOME/cmdline-tools/latest || true
+  sudo mkdir -p $ANDROID_HOME/tools/bin
+  sudo ln -sf $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager $ANDROID_HOME/tools/bin/sdkmanager
+  sudo ln -sf $ANDROID_HOME/cmdline-tools/latest/bin/avdmanager $ANDROID_HOME/tools/bin/avdmanager
+  sudo chmod +x $ANDROID_HOME/tools/bin/sdkmanager
+
+Arquivo: buildozer.spec
+  Removido token depreciado: android.sdk = 33
+  (Gerava WARNING no log, ignorado pelo buildozer mas ruído desnecessário)
+
+PROGNÓSTICO
+-----------
+O Buildozer deverá encontrar sdkmanager em tools/bin/sdkmanager e
+prosseguir para a compilação dos pacotes (python3, kivy, opencv, numpy).
+Próximo ponto de falha provável: compilação nativa do OpenCV (tempo/memória).
+Monitorar próxima run.
+
+================================================================================
