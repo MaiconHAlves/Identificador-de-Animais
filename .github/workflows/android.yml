@@ -20,7 +20,6 @@ jobs:
       - name: Free disk space # Essencial para compilação do OpenCV
         run: |
           sudo rm -rf /usr/share/dotnet
-          sudo rm -rf /usr/local/lib/android
           sudo rm -rf /opt/ghc
 
       - name: Install dependencies
