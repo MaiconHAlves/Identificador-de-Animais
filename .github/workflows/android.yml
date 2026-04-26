@@ -30,8 +30,8 @@ jobs:
 
       - name: Set up Android NDK
         run: |
-          yes | /usr/local/lib/android/sdk/cmdline-tools/latest/bin/sdkmanager --licenses || true
-          /usr/local/lib/android/sdk/cmdline-tools/latest/bin/sdkmanager "ndk;25.1.8937393" "platforms;android-33" "build-tools;34.0.0"
+          yes | $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager --licenses || true
+          $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager "ndk;25.1.8937393" "platforms;android-33" "build-tools;34.0.0"
 
       - name: Cache Buildozer
         uses: actions/cache@v4
