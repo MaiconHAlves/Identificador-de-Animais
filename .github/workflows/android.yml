@@ -50,13 +50,14 @@ jobs:
 
       - name: Build with Buildozer
         run: |
-          export JAVA_HOME=/usr/lib/jvm/java-17-openjdk-amd64
-          export PATH=$PATH:/usr/local/lib/android/sdk/platform-tools
+          export JAVA_HOME=$JAVA_HOME_17_X64
+          export ANDROID_SDK_PATH=$ANDROID_HOME
+          export ANDROID_NDK_PATH=$ANDROID_HOME/ndk/25.1.8937393
           pip install --user buildozer cython==0.29.33
-          buildozer -v android debug
+          yes | buildozer -v android debug
         env:
-          ANDROID_SDK_HOME: /usr/local/lib/android/sdk
-          ANDROID_NDK_HOME: /usr/local/lib/android/sdk/ndk/25.1.8937393
+          ANDROID_SDK_HOME: ${{ env.ANDROID_HOME }}
+          ANDROID_NDK_HOME: ${{ env.ANDROID_HOME }}/ndk/25.1.8937393
 
       - name: Upload APK
         uses: actions/upload-artifact@v4

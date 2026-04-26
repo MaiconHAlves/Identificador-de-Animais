@@ -17,6 +17,8 @@ orientation = landscape
 android.permissions = CAMERA, WRITE_EXTERNAL_STORAGE, READ_EXTERNAL_STORAGE, INTERNET
 
 # Configurações de Compilação (Estabilidade Industrial)
+android.sdk_path = /usr/local/lib/android/sdk
+android.ndk_path = /usr/local/lib/android/sdk/ndk/25.1.8937393
 android.api = 33
 android.minapi = 21
 android.sdk = 33
