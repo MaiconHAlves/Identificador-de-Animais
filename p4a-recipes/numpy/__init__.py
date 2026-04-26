@@ -2,8 +2,9 @@ from pythonforandroid.recipes.numpy import NumpyRecipe as _NumpyRecipe
 
 
 class NumpyRecipe(_NumpyRecipe):
-    # pypi.python.org was decommissioned; packages from 2024+ only exist on pypi.org
-    url = 'https://pypi.org/packages/source/n/numpy/numpy-{version}.zip'
+    # pypi.python.org decommissioned; numpy 1.26.4 was never published as .zip
+    # GitHub archive is the most stable source for any tagged release
+    url = 'https://github.com/numpy/numpy/archive/v{version}.tar.gz'
 
 
 recipe = NumpyRecipe()
