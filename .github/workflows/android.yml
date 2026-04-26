@@ -36,6 +36,11 @@ jobs:
       - name: Setup Android SDK
         uses: android-actions/setup-android@v3
 
+      - name: Fix Android SDK structure for Buildozer
+        run: |
+          sudo rm -rf $ANDROID_HOME/tools
+          sudo ln -s $ANDROID_HOME/cmdline-tools/16.0 $ANDROID_HOME/cmdline-tools/latest || true
+
       - name: Install NDK and Tools
         run: |
           sdkmanager "ndk;25.1.8937393" "platforms;android-33" "build-tools;34.0.0"
