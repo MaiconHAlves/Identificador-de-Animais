@@ -50,3 +50,45 @@ Próximo ponto de falha provável: compilação nativa do OpenCV (tempo/memória
 Monitorar próxima run.
 
 ================================================================================
+
+================================================================================
+INTERVENÇÃO #2
+================================================================================
+Data/Hora  : 2026-04-26T17:05 (BRT)
+Run ID     : 24961937697
+Commit     : 8366fc4
+Cirurgião  : Claude (Sonnet 4.6)
+Status Pré : failure
+================================================================================
+
+DIAGNÓSTICO
+-----------
+Step falho: "Build with Buildozer" (mesmo step, nova causa raiz)
+Erro exato:
+  urllib.error.HTTPError: HTTP Error 404: Not Found
+  URL tentada: https://pypi.python.org/packages/source/n/numpy/numpy-1.26.4.zip
+
+Causa Raiz:
+  O domínio pypi.python.org foi descontinuado. Para packages antigos
+  existe redirect, mas numpy 1.26.4 (lançado Fev/2024) foi publicado
+  diretamente em files.pythonhosted.org — nunca existiu no domínio legado.
+  A recipe de numpy no p4a/master tem a URL hardcoded com o domínio morto.
+
+INTERVENÇÃO CIRÚRGICA
+---------------------
+Criado: p4a-recipes/numpy/__init__.py
+  Override local da NumpyRecipe — substitui URL para pypi.org que
+  redireciona corretamente para files.pythonhosted.org.
+  url = 'https://pypi.org/packages/source/n/numpy/numpy-{version}.zip'
+
+Arquivo: buildozer.spec
+  Adicionado: p4a.local_recipes = ./p4a-recipes
+  Instrui Buildozer a usar recipes locais com prioridade sobre p4a/master.
+
+PROGNÓSTICO
+-----------
+Numpy deverá baixar e compilar corretamente.
+Próximo ponto de risco: compilação nativa do OpenCV (recipe pesada em
+tempo/memória no runner gratuito). Se passar, APK será gerado.
+
+================================================================================
