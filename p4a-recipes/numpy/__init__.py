@@ -25,7 +25,7 @@ class NumpyRecipe(_NumpyRecipe):
                 content = f.read()
             if 'call=True' in content:
                 with open(setup_path, 'w') as f:
-                    f.write(content.replace(', call=True', ', call=False'))
+                    f.write(content.replace('call=True', 'call=False'))
         super().build_compiled_components(arch)
 
 
