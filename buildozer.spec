@@ -4,6 +4,7 @@ package.name = animaldetector
 package.domain = com.nexo
 source.dir = .
 source.include_exts = py,png,jpg,kv,atlas,onnx,wav
+source.exclude_dirs = datasets, fauna_br, thermal-animal-1, road-animals-2, runs, _agent, research, scratch
 version = 1.0.1
 
 # Requisitos de base estável para Android
