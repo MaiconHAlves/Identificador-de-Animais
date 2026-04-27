@@ -72,6 +72,15 @@ log "  Aceitando todas as licenças Android SDK..."
 yes | sdkmanager --sdk_root="$ANDROID_HOME" --licenses \
     2>&1 | grep -v "^$" | tail -5 | tee -a "$LOG" || true
 
+# Pre-accept licenses for buildozer's internal SDK dir too
+BUILDOZER_SDK="$HOME/.buildozer/android/platform/android-sdk"
+if [ -f "$BUILDOZER_SDK/cmdline-tools/latest/bin/sdkmanager" ]; then
+    log "  Aceitando licenças no SDK interno do buildozer..."
+    yes | "$BUILDOZER_SDK/cmdline-tools/latest/bin/sdkmanager" \
+        --sdk_root="$BUILDOZER_SDK" --licenses \
+        2>&1 | grep -v "^$" | tail -3 | tee -a "$LOG" || true
+fi
+
 mkdir -p "$ANDROID_HOME/tools/bin"
 ln -sf "$CMDLINE_TOOLS/bin/sdkmanager" "$ANDROID_HOME/tools/bin/sdkmanager"
 ln -sf "$CMDLINE_TOOLS/bin/avdmanager" "$ANDROID_HOME/tools/bin/avdmanager"

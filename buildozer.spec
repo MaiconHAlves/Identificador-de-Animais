@@ -24,6 +24,8 @@ android.ndk_api = 24
 android.build_tools = 34.0.0
 android.archs = arm64-v8a
 android.allow_backup = True
+android.sdk_path = /root/android-sdk
+android.ndk_path = /root/android-sdk/ndk/25.1.8937393
 
 # Performance Visual para Telas High-End (S24)
 android.meta_data = android.max_aspect=2.4, android.notch_support=True
