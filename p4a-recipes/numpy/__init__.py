@@ -23,9 +23,19 @@ class NumpyRecipe(_NumpyRecipe):
             setup_path = matches[0]
             with open(setup_path) as f:
                 content = f.read()
-            if 'call=True' in content:
+            # Disable runtime execution in two places:
+            # 1. check_func kwarg: call=True → call=False
+            # 2. check_funcs_once dict comprehension: (f, True) → (f, False)
+            #    This dict is passed as call= to config.check_funcs_once which
+            #    runs ARM64 binaries on the x86_64 host during cross-compilation.
+            patched = content.replace('call=True', 'call=False')
+            patched = patched.replace(
+                'call = dict([(f, True) for f in funcs_name])',
+                'call = dict([(f, False) for f in funcs_name])',
+            )
+            if patched != content:
                 with open(setup_path, 'w') as f:
-                    f.write(content.replace('call=True', 'call=False'))
+                    f.write(patched)
         super().build_compiled_components(arch)
 
 
