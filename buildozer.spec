@@ -16,23 +16,25 @@ orientation = landscape
 # Permissões Android
 android.permissions = CAMERA, RECORD_AUDIO, WRITE_EXTERNAL_STORAGE, READ_EXTERNAL_STORAGE, INTERNET
 
-# Configurações de Compilação para Android Moderno (14/15)
-android.api = 33
-android.minapi = 21
+# Configurações de Elite para S24 e Android Moderno (14/15/16)
+android.api = 34
+android.minapi = 24
 android.ndk = 25c
-android.ndk_api = 21
-android.build_tools = 33.0.1
-android.archs = arm64-v8a, armeabi-v7a
-android.allow_backup = False
+android.ndk_api = 24
+android.build_tools = 34.0.0
+android.archs = arm64-v8a
+android.allow_backup = True
 
-# Deixar o Buildozer gerenciar o SDK localmente para evitar erros de permissão no GitHub
-# android.sdk_path = /usr/local/lib/android/sdk
-# android.ndk_path = /usr/local/lib/android/sdk/ndk/25b
+# Performance Visual para Telas High-End (S24)
+android.meta_data = com.google.android.gms.vision.DEPENDENCIES=barcode,face
+android.meta_data = android.max_aspect=2.4
+android.meta_data = android.notch_support=True
 
-# Otimização de Build (Usando receitas oficiais do p4a)
-p4a.branch = master
-# p4a.local_recipes = ./p4a-recipes
+# Gráficos de Alta Performance
+# Requerido para dispositivos modernos com telas de alta taxa de atualização
+p4a.services = 
 p4a.bootstrap = sdl2
+p4a.extra_args = --use-opengl-es3
 
 [buildozer]
 log_level = 2
