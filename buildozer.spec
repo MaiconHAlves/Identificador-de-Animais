@@ -28,7 +28,7 @@ android.allow_backup = False
 
 # Otimização de Build (Usando receitas oficiais do p4a)
 p4a.branch = master
-# p4a.local_recipes = ./p4a-recipes
+p4a.local_recipes = ./p4a-recipes
 p4a.bootstrap = sdl2
 
 [buildozer]
