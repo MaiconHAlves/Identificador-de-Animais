@@ -16,11 +16,13 @@ orientation = landscape
 android.permissions = CAMERA, RECORD_AUDIO, WRITE_EXTERNAL_STORAGE, READ_EXTERNAL_STORAGE, INTERNET
 
 # Configurações de Compilação (Padrão para maior compatibilidade)
-android.api = 31
+android.api = 33
 android.minapi = 21
 android.ndk = 25b
 android.ndk_api = 21
-android.build_tools = 31.0.0
+android.build_tools = 34.0.0
+android.sdk_path = /root/android-sdk
+android.ndk_path = /root/android-sdk/ndk/25.1.8937393
 android.archs = arm64-v8a
 android.allow_backup = False
 

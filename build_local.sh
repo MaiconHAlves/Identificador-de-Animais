@@ -68,6 +68,10 @@ yes | sdkmanager --sdk_root="$ANDROID_HOME" \
     "platforms;android-33" "build-tools;34.0.0" "ndk;25.1.8937393" \
     2>&1 | grep -E "Install|Download|100%|Symlink" | tee -a "$LOG" || true
 
+log "  Aceitando todas as licenças Android SDK..."
+yes | sdkmanager --sdk_root="$ANDROID_HOME" --licenses \
+    2>&1 | grep -v "^$" | tail -5 | tee -a "$LOG" || true
+
 mkdir -p "$ANDROID_HOME/tools/bin"
 ln -sf "$CMDLINE_TOOLS/bin/sdkmanager" "$ANDROID_HOME/tools/bin/sdkmanager"
 ln -sf "$CMDLINE_TOOLS/bin/avdmanager" "$ANDROID_HOME/tools/bin/avdmanager"
@@ -101,7 +105,7 @@ if [ -d /tmp/buildozer-cache-backup ]; then
 fi
 cd "$BUILD_DIR"
 
-# Patch buildozer.spec: substitui caminhos de CI pelos caminhos locais
+# Patch buildozer.spec: garante caminhos locais do WSL
 sed -i "s|android.sdk_path = .*|android.sdk_path = $ANDROID_HOME|" buildozer.spec
 sed -i "s|android.ndk_path = .*|android.ndk_path = $ANDROID_HOME/ndk/25.1.8937393|" buildozer.spec
 log "  buildozer.spec patcheado: sdk=$ANDROID_HOME"
