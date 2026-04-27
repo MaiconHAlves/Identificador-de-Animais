@@ -20,7 +20,7 @@ log "=========================================="
 log "[1/6] Instalando dependências do sistema..."
 apt-get update -qq 2>&1 | tail -1 | tee -a "$LOG"
 apt-get install -y -qq \
-    build-essential git unzip wget \
+    build-essential git unzip zip wget \
     openjdk-17-jdk \
     libffi-dev libssl-dev autoconf automake libtool \
     pkg-config zlib1g-dev cmake ninja-build \
