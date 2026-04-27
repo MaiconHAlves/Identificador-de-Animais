@@ -1,4 +1,5 @@
 import glob
+import os
 from os.path import join
 from pythonforandroid.recipes.numpy import NumpyRecipe as _NumpyRecipe
 
@@ -36,6 +37,10 @@ class NumpyRecipe(_NumpyRecipe):
             if patched != content:
                 with open(setup_path, 'w') as f:
                     f.write(patched)
+        # Disable AVX-512 dispatch — WSL2 virtual CPU does not expose AVX-512
+        # and g++ fails to compile simd_qsort.dispatch.avx512_skx.cpp.
+        os.environ['CPU_BASELINE'] = 'min'
+        os.environ['CPU_DISPATCH'] = ''
         super().build_compiled_components(arch)
 
 
