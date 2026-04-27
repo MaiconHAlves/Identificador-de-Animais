@@ -22,7 +22,7 @@ android.minapi = 21
 android.ndk = 25c
 android.ndk_api = 21
 android.build_tools = 33.0.1
-android.archs = arm64-v8a
+android.archs = arm64-v8a, armeabi-v7a
 android.allow_backup = False
 
 # Deixar o Buildozer gerenciar o SDK localmente para evitar erros de permissão no GitHub
