@@ -32,9 +32,8 @@ android.meta_data = android.max_aspect=2.4, android.notch_support=True
 
 # Gráficos de Alta Performance
 # Requerido para dispositivos modernos com telas de alta taxa de atualização
-p4a.services = 
+p4a.services =
 p4a.bootstrap = sdl2
-p4a.extra_args = --use-opengl-es3
 
 [buildozer]
 log_level = 2
