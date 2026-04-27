@@ -100,6 +100,8 @@ if [ -d "$BUILD_DIR/.buildozer" ]; then
 fi
 rm -rf "$BUILD_DIR"
 cp -r "$WINDOWS_PROJECT" "$BUILD_DIR"
+# Remove old APKs from build dir — prevents false success if buildozer fails
+rm -f "$BUILD_DIR"/bin/*.apk
 if [ -d /tmp/buildozer-cache-backup ]; then
     mv /tmp/buildozer-cache-backup "$BUILD_DIR/.buildozer"
 fi

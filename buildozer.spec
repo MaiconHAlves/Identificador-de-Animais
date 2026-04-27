@@ -5,7 +5,7 @@ package.domain = com.nexo
 source.dir = .
 source.include_exts = py,png,jpg,kv,atlas,onnx,wav
 source.exclude_dirs = datasets, fauna_br, thermal-animal-1, road-animals-2, runs, _agent, research, scratch
-version = 1.0.1
+version = 1.0.2
 
 # Requisitos de base estável para Android
 requirements = python3, kivy, opencv, numpy, pillow
@@ -26,9 +26,7 @@ android.archs = arm64-v8a
 android.allow_backup = True
 
 # Performance Visual para Telas High-End (S24)
-android.meta_data = com.google.android.gms.vision.DEPENDENCIES=barcode,face
-android.meta_data = android.max_aspect=2.4
-android.meta_data = android.notch_support=True
+android.meta_data = android.max_aspect=2.4, android.notch_support=True
 
 # Gráficos de Alta Performance
 # Requerido para dispositivos modernos com telas de alta taxa de atualização
