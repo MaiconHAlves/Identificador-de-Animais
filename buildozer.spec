@@ -11,21 +11,18 @@ orientation = landscape
 # Requisitos Estabilizados (OpenCV DNN em vez de ONNX)
 requirements = python3, kivy, opencv, numpy, pillow
 
-# Android SDK/NDK (Caminhos automáticos)
-android.ndk_api = 24
-android.minapi = 24
-
-# Configurações para S24 e Android 16
+# Android SDK/NDK (Caminhos automáticos para evitar PermissionError no GitHub)
 android.api = 34
 android.minapi = 24
 android.ndk = 25c
+android.ndk_api = 24
 android.build_tools = 34.0.0
 android.enable_androidx = True
 android.archs = arm64-v8a
 android.allow_backup = True
 android.permissions = CAMERA, RECORD_AUDIO, WRITE_EXTERNAL_STORAGE, READ_EXTERNAL_STORAGE, INTERNET
 
-# Metadados: Estabilidade SDL2 + Performance S24 (Tudo em uma linha para evitar DuplicateOptionError)
+# Metadados: Estabilidade SDL2 + Performance S24 (Tudo em uma linha)
 android.meta_data = SDL_ANDROID_TRAP_SIG_CRITICALS=1, SDL_RENDER_DRIVER=opengles2, android.max_aspect=2.4, android.notch_support=True
 
 # Recipes locais (Comentado para garantir build limpa do core)
