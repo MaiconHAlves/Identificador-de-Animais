@@ -116,18 +116,28 @@ if [ -d /tmp/buildozer-cache-backup ]; then
 fi
 cd "$BUILD_DIR"
 
+# Atualizar p4a para versão com correções Android 15/16 (SDL2 threading fix)
+P4A_DIR="$BUILD_DIR/.buildozer/android/platform/python-for-android"
+if [ -d "$P4A_DIR/.git" ]; then
+    log "  Atualizando p4a para versão mais recente..."
+    cd "$P4A_DIR"
+    git fetch --quiet origin develop 2>/dev/null || git fetch --quiet origin master 2>/dev/null || true
+    git reset --hard origin/develop 2>/dev/null || git reset --hard origin/master 2>/dev/null || true
+    P4A_VER=$(grep '__version__' pythonforandroid/__init__.py 2>/dev/null | head -1)
+    log "  p4a: $P4A_VER"
+    cd "$BUILD_DIR"
+    # Forçar rebuild do dist (bootstrap Java) mantendo .so compilados
+    rm -rf "$BUILD_DIR/.buildozer/android/platform/build-arm64-v8a/dists/animaldetector"
+    log "  Dist removida — será regeada com p4a atualizado (bootstrap ~5min)"
+fi
+
 # Patch: Desativar HWUI para corrigir crash SDL2/hwuiTask0 no Android 14/15/16
-# SDL2 usa EGL/OpenGL diretamente — HWUI não é necessário e causa race condition
-log "  Patcheando AndroidManifest: hardwareAccelerated=false (fix SDL2/Android16)..."
-for TMPL in \
-    "$BUILD_DIR/.buildozer/android/platform/python-for-android/pythonforandroid/bootstraps/sdl2/build/templates/AndroidManifest.tmpl.xml" \
-    "$BUILD_DIR/.buildozer/android/platform/build-arm64-v8a/dists/animaldetector/templates/AndroidManifest.tmpl.xml" \
-    "$BUILD_DIR/.buildozer/android/platform/build-arm64-v8a/dists/animaldetector/AndroidManifest.xml"; do
-    if [ -f "$TMPL" ]; then
-        sed -i 's/android:hardwareAccelerated="true"/android:hardwareAccelerated="false"/' "$TMPL"
-        log "    Patched: $(basename $TMPL)"
-    fi
-done
+log "  Patcheando AndroidManifest template: hardwareAccelerated=false..."
+TMPL="$BUILD_DIR/.buildozer/android/platform/python-for-android/pythonforandroid/bootstraps/sdl2/build/templates/AndroidManifest.tmpl.xml"
+if [ -f "$TMPL" ]; then
+    sed -i 's/android:hardwareAccelerated="true"/android:hardwareAccelerated="false"/' "$TMPL"
+    log "    Patched: AndroidManifest.tmpl.xml"
+fi
 
 # Patch buildozer.spec: garante caminhos locais do WSL
 sed -i "s|android.sdk_path = .*|android.sdk_path = $ANDROID_HOME|" buildozer.spec
