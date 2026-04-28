@@ -5,24 +5,34 @@ package.domain = com.nexo
 source.dir = .
 source.include_exts = py,png,jpg,kv,atlas,onnx,wav
 source.exclude_dirs = datasets, fauna_br, thermal-animal-1, road-animals-2, runs, _agent, research, scratch
-version = 1.0.2
+version = 1.0.3
+orientation = landscape
 
 # Requisitos Estabilizados (OpenCV DNN em vez de ONNX)
 requirements = python3, kivy, opencv, numpy, pillow
 
-# Configurações de Elite para S24 e Android 16
+# Android SDK/NDK (caminhos no WSL — patcheados pelo build_local.sh se necessário)
+android.sdk_path = /root/android-sdk
+android.ndk_path = /root/android-sdk/ndk/25.1.8937393
+android.ndk_api = 24
+
+# Configurações para S24 e Android 16
 android.api = 34
 android.minapi = 24
 android.ndk = 25c
 android.build_tools = 34.0.0
 android.enable_androidx = True
 android.archs = arm64-v8a
+android.allow_backup = True
+android.permissions = CAMERA, RECORD_AUDIO, WRITE_EXTERNAL_STORAGE, READ_EXTERNAL_STORAGE, INTERNET
 
-# Prevenir SIGABRT no SDL2 (Hints para o motor de renderização)
-android.meta_data = SDL_ANDROID_TRAP_SIG_CRITICALS=1
-android.meta_data = SDL_RENDER_DRIVER=opengles2
+# Metadados: Estabilidade SDL2 + Performance S24 (Tudo em uma linha para evitar DuplicateOptionError)
+android.meta_data = SDL_ANDROID_TRAP_SIG_CRITICALS=1, SDL_RENDER_DRIVER=opengles2, android.max_aspect=2.4, android.notch_support=True
 
-# Otimização de Build
+# Recipes locais (numpy fix)
+p4a.local_recipes = ./p4a-recipes
+
+# Build
 p4a.branch = master
 p4a.bootstrap = sdl2
 warn_on_root = 0
