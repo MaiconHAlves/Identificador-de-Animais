@@ -116,6 +116,19 @@ if [ -d /tmp/buildozer-cache-backup ]; then
 fi
 cd "$BUILD_DIR"
 
+# Patch: Desativar HWUI para corrigir crash SDL2/hwuiTask0 no Android 14/15/16
+# SDL2 usa EGL/OpenGL diretamente — HWUI não é necessário e causa race condition
+log "  Patcheando AndroidManifest: hardwareAccelerated=false (fix SDL2/Android16)..."
+for TMPL in \
+    "$BUILD_DIR/.buildozer/android/platform/python-for-android/pythonforandroid/bootstraps/sdl2/build/templates/AndroidManifest.tmpl.xml" \
+    "$BUILD_DIR/.buildozer/android/platform/build-arm64-v8a/dists/animaldetector/templates/AndroidManifest.tmpl.xml" \
+    "$BUILD_DIR/.buildozer/android/platform/build-arm64-v8a/dists/animaldetector/AndroidManifest.xml"; do
+    if [ -f "$TMPL" ]; then
+        sed -i 's/android:hardwareAccelerated="true"/android:hardwareAccelerated="false"/' "$TMPL"
+        log "    Patched: $(basename $TMPL)"
+    fi
+done
+
 # Patch buildozer.spec: garante caminhos locais do WSL
 sed -i "s|android.sdk_path = .*|android.sdk_path = $ANDROID_HOME|" buildozer.spec
 sed -i "s|android.ndk_path = .*|android.ndk_path = $ANDROID_HOME/ndk/25.1.8937393|" buildozer.spec
