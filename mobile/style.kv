@@ -92,6 +92,10 @@ FloatLayout:
         size: ("50dp", "50dp")
         pos_hint: {'right': 0.98, 'top': 0.90}
         background_color: (0, 0, 0, 0)
+        text: "[b]⚙[/b]"
+        markup: True
+        font_size: '22sp'
+        color: (0, 0.9, 1, 1)
         on_release: app.menu_active = not app.menu_active
         canvas.before:
             Color:
@@ -104,12 +108,6 @@ FloatLayout:
             Line:
                 width: 1.2
                 circle: (self.center_x, self.center_y, self.width/2)
-        
-        Image:
-            source: 'C:/Users/alves/.gemini/antigravity/brain/dab58379-1302-48d2-89d0-8a38d15295f8/simple_gear_icon_1777241549433.png'
-            center: self.parent.center
-            size: self.parent.width * 0.65, self.parent.height * 0.65
-            allow_stretch: True
 
     # 4. PAINEL LATERAL RETRÁTIL (GLASSMORPHISM)
     BoxLayout:

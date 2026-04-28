@@ -32,10 +32,22 @@ class AnimalDetectorApp(App):
             self.engine.threshold = value
 
     def build(self):
+        from kivy.utils import platform
+
+        # Solicitar permissões em runtime no Android (exigido no Android 6+)
+        if platform == 'android':
+            from android.permissions import request_permissions, Permission
+            request_permissions([
+                Permission.CAMERA,
+                Permission.RECORD_AUDIO,
+                Permission.WRITE_EXTERNAL_STORAGE,
+                Permission.READ_EXTERNAL_STORAGE,
+            ])
+
         # Carregar o Design Tático
         self.root = Builder.load_file('mobile/style.kv')
 
-        # 1. Inicialização dos Motores (Sistema Híbrido Duplo)
+        # 1. Inicialização dos Motores
         self.detector = DetectionEngine(model_paths=[
             "models/global_animal_detector.onnx",
             "models/hybrid_animal_detector.onnx"
@@ -43,23 +55,14 @@ class AnimalDetectorApp(App):
         self.fusion = FusionEngine()
         self.audio = AudioManager()
         self.ui_tactical = TacticalOverlay()
-        
+
         self.is_thermal_active = False
         self.is_recording = False
-        
-        # Lógica de detecção de plataforma
-        from kivy.utils import platform
-        if platform == 'android':
-            print("--- AMBIENTE ANDROID DETECTADO: USANDO CAMERA REAL ---")
-            self.cap = cv2.VideoCapture(0)
-        else:
-            print("--- AMBIENTE DESKTOP: INICIALIZANDO SENSORES ---")
-            # Nao abrimos a camera aqui para evitar conflito com o SensorManager
 
-        # 3. Gerenciamento de Sensores
-        self.rgb_manager = SensorManager(sensor_id=0) # Câmera Principal
-        self.thermal_manager = SensorManager(sensor_id=1) # Câmera Secundária / Térmica
-        
+        # 2. Gerenciamento de Sensores
+        self.rgb_manager = SensorManager(sensor_id=0)
+        self.thermal_manager = SensorManager(sensor_id=1)
+
         self.rgb_manager.start()
         # self.thermal_manager.start() # Ativar quando o hardware estiver presente
         
