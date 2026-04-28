@@ -11,9 +11,8 @@ orientation = landscape
 # Requisitos Estabilizados (OpenCV DNN em vez de ONNX)
 requirements = python3, kivy, opencv, numpy, pillow
 
-# Android SDK/NDK (caminhos no WSL — patcheados pelo build_local.sh se necessário)
-android.sdk_path = /root/android-sdk
-android.ndk_path = /root/android-sdk/ndk/25.1.8937393
+# Android SDK/NDK (Caminhos automáticos para evitar PermissionError)
+# Deixar em branco para o Buildozer usar o diretório local do projeto
 android.ndk_api = 24
 
 # Configurações para S24 e Android 16
