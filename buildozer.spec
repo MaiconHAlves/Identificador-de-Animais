@@ -11,9 +11,9 @@ orientation = landscape
 # Requisitos Estabilizados (OpenCV DNN em vez de ONNX)
 requirements = python3, kivy, opencv, numpy, pillow
 
-# Android SDK/NDK (Caminhos automáticos para evitar PermissionError)
-# Deixar em branco para o Buildozer usar o diretório local do projeto
+# Android SDK/NDK (Caminhos automáticos)
 android.ndk_api = 24
+android.minapi = 24
 
 # Configurações para S24 e Android 16
 android.api = 34
@@ -28,8 +28,8 @@ android.permissions = CAMERA, RECORD_AUDIO, WRITE_EXTERNAL_STORAGE, READ_EXTERNA
 # Metadados: Estabilidade SDL2 + Performance S24 (Tudo em uma linha para evitar DuplicateOptionError)
 android.meta_data = SDL_ANDROID_TRAP_SIG_CRITICALS=1, SDL_RENDER_DRIVER=opengles2, android.max_aspect=2.4, android.notch_support=True
 
-# Recipes locais (numpy fix)
-p4a.local_recipes = ./p4a-recipes
+# Recipes locais (Comentado para garantir build limpa do core)
+# p4a.local_recipes = ./p4a-recipes
 
 # Build
 p4a.branch = master
