@@ -32,22 +32,10 @@ class AnimalDetectorApp(App):
             self.engine.threshold = value
 
     def build(self):
-        from kivy.utils import platform
-
-        # Solicitar permissões em runtime no Android (exigido no Android 6+)
-        if platform == 'android':
-            from android.permissions import request_permissions, Permission
-            request_permissions([
-                Permission.CAMERA,
-                Permission.RECORD_AUDIO,
-                Permission.WRITE_EXTERNAL_STORAGE,
-                Permission.READ_EXTERNAL_STORAGE,
-            ])
-
         # Carregar o Design Tático
         self.root = Builder.load_file('mobile/style.kv')
 
-        # 1. Inicialização dos Motores
+        # Inicialização dos Motores
         self.detector = DetectionEngine(model_paths=[
             "models/global_animal_detector.onnx",
             "models/hybrid_animal_detector.onnx"
@@ -58,27 +46,41 @@ class AnimalDetectorApp(App):
 
         self.is_thermal_active = False
         self.is_recording = False
-
-        # 2. Gerenciamento de Sensores
-        self.rgb_manager = SensorManager(sensor_id=0)
-        self.thermal_manager = SensorManager(sensor_id=1)
-
-        self.rgb_manager.start()
-        # self.thermal_manager.start() # Ativar quando o hardware estiver presente
-        
-        # 4. Estado do Sistema
         self.running = True
         self.last_detections = []
         self.current_risk = 0.0
-        
-        # 5. Agendamento da UI (30 FPS)
+
+        # Gerenciamento de Sensores (não iniciar câmera aqui — aguardar permissão no Android)
+        self.rgb_manager = SensorManager(sensor_id=0)
+        self.thermal_manager = SensorManager(sensor_id=1)
+
+        # UI e thread de IA (rodam com frames None até a câmera abrir)
         Clock.schedule_interval(self.update_ui, 1.0 / 30.0)
-        
-        # 6. Iniciar Thread de Inteligência (IA e Áudio)
         self.ia_thread = threading.Thread(target=self.ia_processing_loop, daemon=True)
         self.ia_thread.start()
-        
-        return self.root # O root agora é definido pelo style.kv
+
+        return self.root
+
+    def on_start(self):
+        from kivy.utils import platform
+        if platform == 'android':
+            from android.permissions import request_permissions, Permission
+            request_permissions(
+                [Permission.CAMERA, Permission.RECORD_AUDIO,
+                 Permission.WRITE_EXTERNAL_STORAGE, Permission.READ_EXTERNAL_STORAGE],
+                self._on_permissions_result,
+            )
+        else:
+            self._start_camera()
+
+    def _on_permissions_result(self, permissions, results):
+        if results and all(results):
+            self._start_camera()
+        else:
+            print("Permissões negadas — câmera não iniciada")
+
+    def _start_camera(self):
+        self.rgb_manager.start()
 
     def toggle_thermal(self):
         self.is_thermal_active = not self.is_thermal_active
