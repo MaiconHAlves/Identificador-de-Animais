@@ -50,14 +50,16 @@ class AnimalDetectorApp(App):
         self.last_detections = []
         self.current_risk = 0.0
 
-        # Gerenciamento de Sensores (não iniciar câmera aqui — aguardar permissão no Android)
+        # Gerenciamento de Sensores (Câmera será iniciada apenas via callback de permissão)
         self.rgb_manager = SensorManager(sensor_id=0)
         self.thermal_manager = SensorManager(sensor_id=1)
 
-        # UI e thread de IA (rodam com frames None até a câmera abrir)
-        Clock.schedule_interval(self.update_ui, 1.0 / 30.0)
+        # Thread de IA com controle de pausa (aguarda frame válido)
         self.ia_thread = threading.Thread(target=self.ia_processing_loop, daemon=True)
         self.ia_thread.start()
+
+        # Iniciar Update da UI a 30 FPS (Fix Erro Térmico S24)
+        Clock.schedule_interval(self.update_ui, 1.0 / 30.0)
 
         return self.root
 
@@ -65,11 +67,9 @@ class AnimalDetectorApp(App):
         from kivy.utils import platform
         if platform == 'android':
             from android.permissions import request_permissions, Permission
-            request_permissions(
-                [Permission.CAMERA, Permission.RECORD_AUDIO,
-                 Permission.WRITE_EXTERNAL_STORAGE, Permission.READ_EXTERNAL_STORAGE],
-                self._on_permissions_result,
-            )
+            # Android 14+ exige permissões específicas para mídia
+            permissions = [Permission.CAMERA, Permission.RECORD_AUDIO]
+            request_permissions(permissions, self._on_permissions_result)
         else:
             self._start_camera()
 
