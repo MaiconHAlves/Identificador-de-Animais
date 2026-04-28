@@ -75,7 +75,8 @@ class AnimalDetectorApp(App):
 
     def _on_permissions_result(self, permissions, results):
         if results and all(results):
-            self._start_camera()
+            # Usar Clock para agendar o início e dar fôlego ao sistema
+            Clock.schedule_once(lambda dt: self._start_camera(), 0.5)
         else:
             print("Permissões negadas — câmera não iniciada")
 

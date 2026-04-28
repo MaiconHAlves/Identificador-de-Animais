@@ -17,10 +17,23 @@ class SensorManager:
         self.lock = threading.Lock()
 
     def start(self):
-        self.cap = cv2.VideoCapture(self.sensor_id)
+        # Pequeno delay para garantir que a permissão do Android foi processada pelo sistema
+        time.sleep(0.5)
+        
+        # Tentar abrir com backend Android se disponível
+        self.cap = cv2.VideoCapture(self.sensor_id, cv2.CAP_ANDROID)
+        
+        # Se falhar o backend específico, tentar o automático
+        if not self.cap.isOpened():
+            self.cap = cv2.VideoCapture(self.sensor_id)
+            
         if not self.cap.isOpened():
             print(f"Erro: Não foi possível abrir o sensor {self.sensor_id}")
             return False
+            
+        # Forçar uma resolução estável para o primeiro handshake
+        self.cap.set(cv2.CAP_PROP_FRAME_WIDTH, 640)
+        self.cap.set(cv2.CAP_PROP_FRAME_HEIGHT, 480)
         
         self.running = True
         self.thread = threading.Thread(target=self._update, daemon=True)
