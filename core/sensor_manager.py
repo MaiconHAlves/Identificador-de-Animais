@@ -3,50 +3,93 @@ import threading
 import time
 from collections import deque
 
+
+def _tick_fps(buf: deque, now: float, window: float = 2.0) -> float:
+    """Adiciona timestamp e retorna FPS médio na janela dada."""
+    buf.append(now)
+    while buf and now - buf[0] > window:
+        buf.popleft()
+    return len(buf) / window
+
+
+def _is_android() -> bool:
+    try:
+        from kivy.utils import platform
+        return platform == 'android'
+    except Exception:
+        return False
+
+
 class SensorManager:
     """
-    Gerencia a captura assíncrona de frames de múltiplos sensores (RGB e Térmico).
-    Utiliza Ring Buffers para garantir que a IA sempre processe os quadros mais recentes.
+    Gerencia captura assíncrona de câmera.
+    Android 14+: usa Camera2 API via pyjnius (OpenCV VideoCapture falha no thread SDL).
+    Desktop: usa OpenCV VideoCapture diretamente.
     """
-    def __init__(self, sensor_id=0, buffer_size=5):
+    def __init__(self, sensor_id=0, buffer_size=5, width=640, height=480):
         self.sensor_id = sensor_id
         self.buffer_size = buffer_size
+        self.width = width
+        self.height = height
         self.buffer = deque(maxlen=buffer_size)
         self.running = False
-        self.cap = None
         self.lock = threading.Lock()
+        self._cam2 = None   # Camera2Capture (Android)
+        self.cap   = None   # cv2.VideoCapture (desktop)
+        self.cam_fps = 0.0
 
-    def start(self):
-        # Pequeno delay para garantir que a permissão do Android foi processada pelo sistema
-        time.sleep(0.5)
-        
-        # Tentar abrir com backend Android se disponível
-        self.cap = cv2.VideoCapture(self.sensor_id, cv2.CAP_ANDROID)
-        
-        # Se falhar o backend específico, tentar o automático
-        if not self.cap.isOpened():
-            self.cap = cv2.VideoCapture(self.sensor_id)
-            
+    def start(self) -> bool:
+        if _is_android():
+            return self._start_android()
+        return self._start_desktop()
+
+    def _start_android(self) -> bool:
+        from core.android_camera2 import Camera2Capture
+        time.sleep(1.5)  # aguarda Camera HAL estabilizar após permission grant
+        self._cam2 = Camera2Capture(self.sensor_id, width=self.width, height=self.height)
+        if self._cam2.start():
+            self.running = True
+            self.thread = threading.Thread(target=self._update_android, daemon=True)
+            self.thread.start()
+            return True
+        # Fallback: emulador ou dispositivo sem CameraHelper — tenta OpenCV
+        print(f"Camera2 falhou no sensor {self.sensor_id} — tentando OpenCV VideoCapture")
+        return self._start_desktop()
+
+    def _start_desktop(self) -> bool:
+        self.cap = cv2.VideoCapture(self.sensor_id)
         if not self.cap.isOpened():
             print(f"Erro: Não foi possível abrir o sensor {self.sensor_id}")
             return False
-            
-        # Forçar uma resolução estável para o primeiro handshake
-        self.cap.set(cv2.CAP_PROP_FRAME_WIDTH, 640)
-        self.cap.set(cv2.CAP_PROP_FRAME_HEIGHT, 480)
-        
+        self.cap.set(cv2.CAP_PROP_FRAME_WIDTH, self.width)
+        self.cap.set(cv2.CAP_PROP_FRAME_HEIGHT, self.height)
         self.running = True
-        self.thread = threading.Thread(target=self._update, daemon=True)
+        self.thread = threading.Thread(target=self._update_desktop, daemon=True)
         self.thread.start()
         return True
 
-    def _update(self):
+    def _update_android(self):
+        fps_buf = deque()
+        last_frame = None
+        while self.running:
+            frame = self._cam2.get_frame()
+            if frame is not None and frame is not last_frame:
+                last_frame = frame
+                ts = time.monotonic_ns()
+                with self.lock:
+                    self.buffer.append((ts, frame))
+                self.cam_fps = _tick_fps(fps_buf, time.monotonic())
+            time.sleep(0.033)
+
+    def _update_desktop(self):
+        fps_buf = deque()
         while self.running:
             ret, frame = self.cap.read()
             if ret:
-                timestamp = time.monotonic_ns()
+                ts = time.monotonic_ns()
                 with self.lock:
-                    self.buffer.append((timestamp, frame))
+                    self.buffer.append((ts, frame))
+                self.cam_fps = _tick_fps(fps_buf, time.monotonic())
             else:
                 time.sleep(0.01)
 
@@ -58,10 +101,25 @@ class SensorManager:
 
     def stop(self):
         self.running = False
+        if self._cam2:
+            self._cam2.stop()
         if self.cap:
             self.cap.release()
-        if self.thread:
-            self.thread.join()
+        if hasattr(self, 'thread'):
+            self.thread.join(timeout=2)
+
+    @staticmethod
+    def list_cameras(max_index: int = 5) -> list[int]:
+        if _is_android():
+            # Samsung S24: 0=traseira principal, 1=frontal
+            return [0, 1]
+        valid = []
+        for idx in range(max_index):
+            cap = cv2.VideoCapture(idx)
+            if cap.isOpened():
+                valid.append(idx)
+            cap.release()
+        return valid
 
 if __name__ == "__main__":
     # Teste simples do manager

@@ -65,7 +65,9 @@ export PATH="$CMDLINE_TOOLS/bin:$PATH"
 # ── 3. NDK e platforms ────────────────────────────────────────────────────────
 log "[3/6] Instalando NDK + platforms..."
 yes | sdkmanager --sdk_root="$ANDROID_HOME" \
-    "platforms;android-33" "build-tools;34.0.0" "ndk;25.1.8937393" \
+    "platforms;android-33" "platforms;android-36" \
+    "build-tools;34.0.0" "build-tools;35.0.0" \
+    "ndk;25.1.8937393" \
     2>&1 | grep -E "Install|Download|100%|Symlink" | tee -a "$LOG" || true
 
 log "  Aceitando todas as licenças Android SDK..."
@@ -131,19 +133,151 @@ if [ -d "$P4A_DIR/.git" ]; then
     log "  Dist removida — será regeada com p4a atualizado (bootstrap ~5min)"
 fi
 
-# Patch: Desativar HWUI para corrigir crash SDL2/hwuiTask0 no Android 14/15/16
-log "  Patcheando AndroidManifest template: hardwareAccelerated=false..."
+# Patch 1: Desativar HWUI no AndroidManifest (nível de Application)
+# O template p4a NÃO contém hardwareAccelerated por padrão — sem isso o sed de
+# substituição é um no-op e HWUI inicia normalmente, causando SIGABRT em hwuiTask0.
+# Solução: remover qualquer valor existente e INSERIR hardwareAccelerated="false"
+# no elemento <application>, que cobre todas as activities da app.
+log "  Patcheando AndroidManifest template: inserindo hardwareAccelerated=false..."
 TMPL="$BUILD_DIR/.buildozer/android/platform/python-for-android/pythonforandroid/bootstraps/sdl2/build/templates/AndroidManifest.tmpl.xml"
 if [ -f "$TMPL" ]; then
-    sed -i 's/android:hardwareAccelerated="true"/android:hardwareAccelerated="false"/' "$TMPL"
+    sed -i -E 's/ android:hardwareAccelerated="[^"]*"//g' "$TMPL"
+    sed -i -E 's/<application( |>)/<application android:hardwareAccelerated="false"\1/' "$TMPL"
     log "    Patched: AndroidManifest.tmpl.xml"
 fi
 
+# Patch 2: clearFlags(FLAG_HARDWARE_ACCELERATED) em PythonActivity.java
+# Samsung Android 16 ignora android:hardwareAccelerated="false" no manifest e ainda
+# inicializa HWUI (hwuiTask threads). O clearFlags programático antes de super.onCreate()
+# é mais robusto: o WindowManager recebe o window sem o flag e não inicializa RenderThread.
+#
+# CRÍTICO: patchear o TEMPLATE do p4a (não a dist), porque a dist é deletada e
+# recriada a cada build — patchear só a dist seria um no-op no próximo build.
+log "  Patcheando PythonActivity.java: System.loadLibrary(hwuifix) + clearFlags no template p4a..."
+P4A_ACT="$P4A_DIR/pythonforandroid/bootstraps/sdl2/build/src/main/java/org/kivy/android/PythonActivity.java"
+if [ -f "$P4A_ACT" ]; then
+    if ! grep -q "hwuifix" "$P4A_ACT"; then
+        sed -i 's/Log\.v(TAG, "About to do super onCreate");/System.loadLibrary("hwuifix");\n        getWindow().clearFlags(android.view.WindowManager.LayoutParams.FLAG_HARDWARE_ACCELERATED);\n        Log.v(TAG, "About to do super onCreate");/' "$P4A_ACT"
+        log "    Patched template: PythonActivity.java (hwuifix + clearFlags)"
+    else
+        log "    Já patcheado: PythonActivity.java (template)"
+    fi
+else
+    log "    AVISO: PythonActivity.java template não encontrado em $P4A_ACT"
+fi
+# Também patchar na dist se já existir (builds incrementais sem remoção da dist)
+while IFS= read -r -d '' ACT; do
+    if ! grep -q "hwuifix" "$ACT"; then
+        # Remove patch anterior (clearFlags sozinho) se presente, para não duplicar
+        sed -i '/getWindow()\.clearFlags(android\.view\.WindowManager\.LayoutParams\.FLAG_HARDWARE_ACCELERATED);/d' "$ACT"
+        sed -i 's/Log\.v(TAG, "About to do super onCreate");/System.loadLibrary("hwuifix");\n        getWindow().clearFlags(android.view.WindowManager.LayoutParams.FLAG_HARDWARE_ACCELERATED);\n        Log.v(TAG, "About to do super onCreate");/' "$ACT"
+        log "    Patched dist: $ACT"
+    else
+        log "    Já patcheado dist: $(basename $(dirname "$ACT"))/$(basename "$ACT")"
+    fi
+done < <(find \
+    "$BUILD_DIR/.buildozer/android/platform/build-arm64-v8a/dists" \
+    -name "PythonActivity.java" -print0 2>/dev/null)
+
+# Compilar libhwuifix.so para arm64-v8a (workaround SIGABRT Samsung HWUI CommonPool race)
+log "  Compilando libhwuifix.so para arm64-v8a (Samsung HWUI SIGABRT fix)..."
+NDK_CLANG="$ANDROID_HOME/ndk/25.1.8937393/toolchains/llvm/prebuilt/linux-x86_64/bin/aarch64-linux-android24-clang"
+HWUI_C="$BUILD_DIR/hwui_fix.c"
+HWUI_LIBS="$BUILD_DIR/libs/arm64-v8a"
+mkdir -p "$HWUI_LIBS"
+if [ -f "$NDK_CLANG" ] && [ -f "$HWUI_C" ]; then
+    "$NDK_CLANG" -shared -fPIC -O2 \
+        -Wl,-z,max-page-size=16384 \
+        -o "$HWUI_LIBS/libhwuifix.so" "$HWUI_C" \
+        -llog 2>&1 | tee -a "$LOG"
+    if [ -f "$HWUI_LIBS/libhwuifix.so" ]; then
+        log "    libhwuifix.so OK"
+    else
+        log "    ERRO: falha ao compilar libhwuifix.so — build continuará sem o fix"
+    fi
+else
+    [ ! -f "$NDK_CLANG" ] && log "    AVISO: NDK clang não encontrado: $NDK_CLANG"
+    [ ! -f "$HWUI_C" ]    && log "    AVISO: hwui_fix.c não encontrado: $HWUI_C"
+fi
+
+# libc++_shared.so — necessária para numpy e extensões C++ compiladas com NDK c++_shared
+NDK_LIBCXX="$ANDROID_HOME/ndk/25.1.8937393/toolchains/llvm/prebuilt/linux-x86_64/sysroot/usr/lib/aarch64-linux-android/libc++_shared.so"
+if [ -f "$NDK_LIBCXX" ]; then
+    cp "$NDK_LIBCXX" "$HWUI_LIBS/libc++_shared.so"
+    log "    libc++_shared.so copiado do NDK OK"
+else
+    log "    AVISO: libc++_shared.so não encontrado no NDK: $NDK_LIBCXX"
+fi
+
+log "  Patcheando SDLSurface.java: LAYER_TYPE_NONE (fix hwuiTask SIGABRT Android 14+)..."
+PATCH_SDL_COUNT=0
+# Busca nos dois locais reais: bootstrap_builds (fonte do SDL2 compilado) e dists (projeto Android)
+# Usa -print0 + read -d '' para lidar com espaços em nomes de diretório
+while IFS= read -r -d '' SURF; do
+    if ! grep -q "LAYER_TYPE_NONE" "$SURF"; then
+        if grep -q "setFocusableInTouchMode(true)" "$SURF"; then
+            sed -i 's/setFocusableInTouchMode(true);/setFocusableInTouchMode(true);\n        setLayerType(android.view.View.LAYER_TYPE_NONE, null);/' "$SURF"
+            log "    Patched: $SURF"
+            PATCH_SDL_COUNT=$((PATCH_SDL_COUNT + 1))
+        fi
+    else
+        log "    Já patcheado: $(basename $(dirname "$SURF"))/$(basename "$SURF")"
+        PATCH_SDL_COUNT=$((PATCH_SDL_COUNT + 1))
+    fi
+done < <(find \
+    "$BUILD_DIR/.buildozer/android/platform/build-arm64-v8a/build/bootstrap_builds" \
+    "$BUILD_DIR/.buildozer/android/platform/build-arm64-v8a/dists" \
+    -name "SDLSurface.java" -print0 2>/dev/null)
+if [ "$PATCH_SDL_COUNT" -eq 0 ]; then
+    log "    AVISO: SDLSurface.java não encontrado (será aplicado após o primeiro build completo)"
+fi
+
 # Patch buildozer.spec: garante caminhos locais do WSL
-sed -i "s|android.sdk_path = .*|android.sdk_path = $ANDROID_HOME|" buildozer.spec
-sed -i "s|android.ndk_path = .*|android.ndk_path = $ANDROID_HOME/ndk/25.1.8937393|" buildozer.spec
+# Garante que sdk_path e ndk_path existam no spec (substitui se existir, insere se não existir)
+if grep -q "android.sdk_path" buildozer.spec; then
+    sed -i "s|android.sdk_path = .*|android.sdk_path = $ANDROID_HOME|" buildozer.spec
+else
+    sed -i "/^\[app\]/a android.sdk_path = $ANDROID_HOME" buildozer.spec
+fi
+if grep -q "android.ndk_path" buildozer.spec; then
+    sed -i "s|android.ndk_path = .*|android.ndk_path = $ANDROID_HOME/ndk/25.1.8937393|" buildozer.spec
+else
+    sed -i "/^\[app\]/a android.ndk_path = $ANDROID_HOME/ndk/25.1.8937393" buildozer.spec
+fi
 log "  buildozer.spec patcheado: sdk=$ANDROID_HOME"
+
+# Pré-aceitar licenças Android SDK no cache GERENCIADO do buildozer
+# Razão: buildozer usa ~/.buildozer/android/platform/android-sdk/ como SDK próprio.
+# Sem os arquivos de licença pré-escritos, o sdkmanager bloqueia ao tentar
+# instalar build-tools (qualquer versão) e o build falha com "license not accepted".
+BLDZ_LICENSES="$HOME/.buildozer/android/platform/android-sdk/licenses"
+mkdir -p "$BLDZ_LICENSES"
+printf '\n8933bad161af4178b1185d1a37fbf41ea5269c55\nd56f5187479451eabf01fb78af6dfcb131a6481e\n24333f8a63b6825ea9c5514f83c2829b004d1fee' \
+    > "$BLDZ_LICENSES/android-sdk-license"
+printf '\n84831b9409646a918e30573bab4c9c91346d8abd' \
+    > "$BLDZ_LICENSES/android-sdk-preview-license"
+printf '\n33b6ad264315f22bfab11723a4bc443c09e65f03' \
+    > "$BLDZ_LICENSES/mips-android-sysimage-license"
+log "  Licenças buildozer SDK pré-aceitas em $BLDZ_LICENSES"
+
 log "  Cópia concluída."
+
+# CameraHelper.java — encapsula CameraDevice.StateCallback (abstract) para pyjnius
+# Copiado para o TEMPLATE p4a (mesma estratégia do patch PythonActivity) para que
+# o Gradle compile automaticamente quando a dist for (re)criada.
+CAMERA_HELPER_SRC="$BUILD_DIR/CameraHelper.java"
+CAMERA_HELPER_TMPL="$P4A_DIR/pythonforandroid/bootstraps/sdl2/build/src/main/java/org/kivy/android/CameraHelper.java"
+if [ -f "$CAMERA_HELPER_SRC" ]; then
+    cp "$CAMERA_HELPER_SRC" "$CAMERA_HELPER_TMPL"
+    log "  CameraHelper.java copiado para template p4a"
+fi
+# Também copia na dist se já existir (builds incrementais)
+while IFS= read -r -d '' DIR; do
+    cp "$CAMERA_HELPER_SRC" "$DIR/CameraHelper.java"
+    log "  CameraHelper.java copiado para dist: $DIR"
+done < <(find \
+    "$BUILD_DIR/.buildozer/android/platform/build-arm64-v8a/dists" \
+    -path "*/org/kivy/android" -type d -print0 2>/dev/null)
 
 # ── 6. Build ──────────────────────────────────────────────────────────────────
 log "[6/6] Rodando buildozer android debug..."
