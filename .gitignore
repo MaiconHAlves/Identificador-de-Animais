@@ -1,0 +1,37 @@
+# Builds e caches
+__pycache__/
+*.pyc
+.buildozer/
+bin/
+build/
+.gradle/
+
+# Logs grandes (já capturados em outros lugares)
+*.log
+!_agent/logs/*.log
+
+# Screenshots de debug
+emulator_*.png
+native_camera_check*.png
+s24_check.png
+
+# Modelos pesados (não versionar; uso local)
+models/*.onnx
+models/*.tflite
+*.pt
+*.pth
+
+# Datasets (referenciados, não versionados)
+datasets/
+fauna_br/
+road-animals-2/
+thermal-animal-1/
+
+# Sandbox / IDE
+.vscode/
+.idea/
+.claude/scheduled_tasks.lock
+
+# OS
+.DS_Store
+Thumbs.db
