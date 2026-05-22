@@ -2,7 +2,7 @@
 # Build APK x86_64 para emulador Android (Pixel6_API34)
 # Baseado em build_local.sh — mesma infraestrutura, arch diferente
 
-WINDOWS_PROJECT="/mnt/c/Users/alves/Desktop/Projetos/Identificador de Animais"
+WINDOWS_PROJECT="/mnt/c/Users/alves/E:/Projetos/Identificador de Animais"
 LOG="$WINDOWS_PROJECT/build_emulator.log"
 BUILD_DIR="$HOME/build-animais-emu"
 ANDROID_HOME="$HOME/android-sdk"

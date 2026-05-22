@@ -131,7 +131,7 @@ def check_disk():
         stop(f"Disco C: apenas {free_gb:.1f}GB livre — mínimo {DISK_MIN_GB}GB")
         if not CHECK_ONLY:
             # Limpar APKs antigos (manter só os 2 mais recentes de cada arch)
-            bin_dir = Path(r"c:\Users\alves\Desktop\Projetos\Identificador de Animais\bin")
+            bin_dir = Path(r"E:\Projetos\Identificador de Animais\bin")
             if bin_dir.exists():
                 apks = sorted(bin_dir.glob("*.apk"), key=lambda p: p.stat().st_mtime)
                 to_del = apks[:-2]  # manter os 2 mais novos

@@ -6,11 +6,11 @@ Uso: py -3.12 view_monitor.py
 """
 import os, re, time, sys
 
-REPORT      = r"c:\Users\alves\Desktop\Projetos\Identificador de Animais\training_monitor_report.md"
-SUCCESS     = r"c:\Users\alves\Desktop\Projetos\Identificador de Animais\SUCCESS.md"
-ESCALATE    = r"c:\Users\alves\Desktop\Projetos\Identificador de Animais\ESCALATE.md"
-LOG         = r"c:\Users\alves\Desktop\Projetos\Identificador de Animais\training_full.log"
-QWEN_LOG    = r"c:\Users\alves\Desktop\Projetos\Identificador de Animais\qwen_monitor.log"
+REPORT      = r"E:\Projetos\Identificador de Animais\training_monitor_report.md"
+SUCCESS     = r"E:\Projetos\Identificador de Animais\SUCCESS.md"
+ESCALATE    = r"E:\Projetos\Identificador de Animais\ESCALATE.md"
+LOG         = r"E:\Projetos\Identificador de Animais\training_full.log"
+QWEN_LOG    = r"E:\Projetos\Identificador de Animais\qwen_monitor.log"
 REFRESH     = 30  # segundos
 
 sys.stdout.reconfigure(encoding='utf-8')

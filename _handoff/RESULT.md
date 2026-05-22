@@ -473,7 +473,7 @@ O erro `expected reference of kind Local but found Global` é um **artefato do C
 
 **1. Rebuildar** (único arquivo Python mudou — build incremental ~10–30 min):
 ```bash
-cd '/mnt/c/Users/alves/Desktop/Projetos/Identificador de Animais'
+cd '/mnt/c/Users/alves/E:/Projetos/Identificador de Animais'
 bash build_local.sh
 ```
 

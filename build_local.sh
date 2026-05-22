@@ -2,7 +2,7 @@
 # Build local do APK — Identificador de Animais
 # Executa no WSL Ubuntu 24.04
 
-WINDOWS_PROJECT="/mnt/c/Users/alves/Desktop/Projetos/Identificador de Animais"
+WINDOWS_PROJECT="/mnt/c/Users/alves/E:/Projetos/Identificador de Animais"
 LOG="$WINDOWS_PROJECT/build_local.log"
 BUILD_DIR="$HOME/build-animais"
 ANDROID_HOME="$HOME/android-sdk"

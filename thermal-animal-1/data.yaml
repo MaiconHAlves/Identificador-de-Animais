@@ -8,5 +8,5 @@ roboflow:
   version: 1
   workspace: object-detection-d3ovr
 test: ../test/images
-train: C:\Users\alves\Desktop\Projetos\Identificador de Animais\thermal-animal-1\train\images
-val: C:\Users\alves\Desktop\Projetos\Identificador de Animais\thermal-animal-1\valid\images
+train: E:\Projetos\Identificador de Animais\thermal-animal-1\train\images
+val: E:\Projetos\Identificador de Animais\thermal-animal-1\valid\images

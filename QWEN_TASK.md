@@ -6,7 +6,7 @@ Gerar o APK `animaldetector-1.0.21-arm64-v8a_x86_64-debug.apk` rodando build_loc
 ## Passo 1 — Iniciar o build em background
 
 ```wsl
-nohup sudo bash /mnt/c/Users/alves/Desktop/Projetos/Identificador\ de\ Animais/build_local.sh > /tmp/build_1021.log 2>&1 &
+nohup sudo bash /mnt/c/Users/alves/E:/Projetos/Identificador\ de\ Animais/build_local.sh > /tmp/build_1021.log 2>&1 &
 echo "PID: $!"
 ```
 
@@ -28,7 +28,7 @@ ls /root/build-animais/bin/*.apk 2>/dev/null && echo APK_PRONTO || echo sem_apk
 
 ```wsl
 ls -la /root/build-animais/bin/
-cp /root/build-animais/bin/animaldetector-1.0.21-*.apk /mnt/c/Users/alves/Desktop/Projetos/Identificador\ de\ Animais/bin/ 2>/dev/null && echo COPIADO || echo "Falha ao copiar"
+cp /root/build-animais/bin/animaldetector-1.0.21-*.apk /mnt/c/Users/alves/E:/Projetos/Identificador\ de\ Animais/bin/ 2>/dev/null && echo COPIADO || echo "Falha ao copiar"
 ```
 
 ```powershell

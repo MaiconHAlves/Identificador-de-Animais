@@ -1,11 +1,11 @@
-﻿import re, time, os, sys, subprocess, psutil
+import re, time, os, sys, subprocess, psutil
 sys.stdout = open(sys.stdout.fileno(), mode='w', encoding='utf-8', buffering=1)
 sys.stderr = open(sys.stderr.fileno(), mode='w', encoding='utf-8', buffering=1)
 
-LOG          = r'c:\Users\alves\Desktop\Projetos\Identificador de Animais\training_full.log'
-PROJECT      = r'c:\Users\alves\Desktop\Projetos\Identificador de Animais'
-SCRIPT       = r'c:\Users\alves\Desktop\Projetos\Identificador de Animais\scripts\train_full.py'
-SPEC_FILE    = r'c:\Users\alves\Desktop\Projetos\Identificador de Animais\scripts\train_full.py'
+LOG          = r'E:\Projetos\Identificador de Animais\training_full.log'
+PROJECT      = r'E:\Projetos\Identificador de Animais'
+SCRIPT       = r'E:\Projetos\Identificador de Animais\scripts\train_full.py'
+SPEC_FILE    = r'E:\Projetos\Identificador de Animais\scripts\train_full.py'
 MAX_RESTARTS = 5
 CHECK_INTERVAL = 120   # segundos entre checks
 

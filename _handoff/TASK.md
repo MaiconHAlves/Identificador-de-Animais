@@ -124,7 +124,7 @@ Implementação proposta (Claude Code pode ajustar os detalhes desde que respeit
 
 ```bash
 # Workspace (WSL)
-cd "/mnt/c/Users/alves/Desktop/Projetos/Identificador de Animais"
+cd "/mnt/c/Users/alves/E:/Projetos/Identificador de Animais"
 
 # Pré-flight
 grep -E "Xmx22g|kotlin\.daemon|workers\.max|caching|configureondemand" gradle.properties  # esperado: 5 matches

@@ -5,7 +5,7 @@ from ultralytics import YOLO
 MODEL_VARIANT = "yolo11s.pt"
 EPOCHS = 50 
 IMG_SIZE = 640
-DATA_PATH = "C:/Users/alves/Desktop/Projetos/Identificador de Animais/fauna_br/data.yaml"
+DATA_PATH = "E:/Projetos/Identificador de Animais/fauna_br/data.yaml"
 
 def train():
     print(f"\n--- INICIANDO TREINAMENTO OFFLINE: ROAD SENTINEL (GPU: RTX 3090) ---")
