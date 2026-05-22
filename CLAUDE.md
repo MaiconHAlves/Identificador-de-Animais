@@ -84,34 +84,57 @@ Olhe o título da janela onde você está e obedeça estritamente:
 
 `_handoff/mode.txt` deste projeto: `manual` (default) ou `autonomo`. Switch via palavra-chave (`manual`/`para`/`espera` → manual; `autonomo`/`vai sozinho` → autonomo). Em manual, extension Cowork-supervisor insere `@RESULT.md` sem Enter; em autonomo, auto-submete e Maestro pausa em 80% quota (PAUSE.flag → WAKE.md). Pra abrir par de janelas: criar `cowork.code-workspace` + `code.code-workspace` (copiar do Mercado como template). Detalhes em [Equipe de Trabalho/CLAUDE.md](../Equipe%20de%20Trabalho/CLAUDE.md) § "Modos operacionais".
 
-## Delegar pro Qwen local (Code → Qwen, D22)
+## Delegação Qwen — gatilhos objetivos (D26)
 
-**Quando delegar:** sub-tarefa **mecânica + isolada (≤3 arquivos) + verificável em <2 min**.
-Bons exemplos: refactor padrão repetitivo, análise de log gigante, scaffold de
-boilerplate, ciclo build→test→fix iterativo.
+**Code (Sonnet): pre-flight obrigatório em TODO RESULT.md.** Abra o RESULT.md
+com um bloco `## Pre-flight Qwen` contendo 3 linhas: (1) gatilho exato da tabela,
+(2) tier escolhido (light/heavy/solo), (3) justificativa em 1 linha. Sem pre-flight = RESULT incompleto.
 
-**Quando NÃO delegar:** decisão arquitetural, output sem revisão, ou se
-**side-effect em filesystem** faz parte do critério — Qwen via Ollama é LLM puro,
-**não edita arquivos**, só responde texto. Confiar no Qwen pra "editar X" causa
-hallucination (ele descreve o trabalho como feito sem ter executado).
+### Tabela de gatilhos (escolha SEMPRE 1)
 
-**Como invocar:**
+| Caso | Tier |
+| ---- | ---- |
+| Smoke test / sanity check (JSON simples) | **light** |
+| Análise de log <500 linhas (grep/contagem/padrão) | **light** |
+| Boilerplate isolado (docstring, fixture, header de função) | **light** |
+| Refactor 1-2 arquivos com padrão repetitivo claro | **light** |
+| Resposta factual sobre conteúdo de 1 arquivo | **light** |
+| Análise de log >500 linhas (precisa context 32k) | **heavy** |
+| Refactor 3+ arquivos com padrão repetitivo | **heavy** |
+| Ciclo build→test→fix (qwen.py loopa até 12 iters) | **heavy** |
+| Geração de testes pra módulo >100 linhas | **heavy** |
+| Patch complexo de lógica isolada em 1-3 módulos | **heavy** |
+| **Decisão arquitetural ou trade-off de design** | **solo** |
+| **Execução de comando** (buildozer, adb, gradlew, git push) | **solo** |
+| **Treino YOLO ao vivo** (ocupa 3090 — protocolo D15) | **solo** |
+| **Tasks <5 linhas** (overhead QWEN_TASK > ganho) | **solo** |
+| **Edição de arquivos protegidos** (lista abaixo) | **solo** |
 
-1. Escreva `_handoff/QWEN_TASK.md` com **contexto curto + tarefa exata + formato esperado**.
-2. Rode: `py qwen.py --task _handoff/QWEN_TASK.md` (qwen.py vive na raiz deste projeto).
-3. Qwen escreve `_handoff/QWEN_RESULT.md`.
-4. Tier default = light (RTX 3080, ~5-15s). Pra tarefa maior, adicione `--heavy`
-   (RTX 3090 — checar GPU lock antes, protocolo D15 do meta).
+### Arquivos protegidos do Animais (delegação só com OK explícito do Cowork)
 
-**Como conferir (obrigatório):**
+- `core/detection_engine.py` — inferência principal
+- `core/android_camera2.py` — bridge Android Camera2
+- `buildozer.spec` — config build (regressão = APK quebra)
+- `_research/litert_poc/` — POC LiteRT/AICore em iteração ativa (T015.b)
+- `p4a-recipes/` — recipes customizadas python-for-android
+- `data/unified.yaml`, `data/*.yaml` — config de treino
 
-1. Leia `QWEN_RESULT.md`.
-2. Compare com critério de aceite da TASK.
-3. Se Qwen produziu código ou patch, **você (Code) aplica no filesystem** — não
-   confie na descrição, ele pode descrever sem executar.
-4. Se Qwen errou ou mentiu, refaça solo.
-5. Cite no `RESULT.md` final: "Delegado pro Qwen, validei X/Y critérios, output em
-   `_handoff/QWEN_RESULT.md`."
+### Invocação
+
+```powershell
+py -3.12 qwen.py --light --task _handoff\QWEN_TASK.md   # light tier (RTX 3080, ~3-8s)
+py -3.12 qwen.py --task _handoff\QWEN_TASK.md            # heavy tier (RTX 3090, ~15-60s; checar GPU lock D15 antes — treino YOLO ocupa)
+```
+
+Qwen escreve `_handoff/QWEN_RESULT.md` (resposta livre) ou `_handoff/SUCCESS.md`/`ESCALATE.md` (modo loop). **Code (você) aplica os patches no filesystem** — Qwen é LLM puro via Ollama, **não edita arquivos**, só responde texto.
+
+### Conferência (obrigatório quando delegou)
+
+1. Leia `QWEN_RESULT.md` integralmente.
+2. Compare item-por-item com o critério de aceite da TASK.
+3. Aplique patches no filesystem você mesmo — **nunca** confie no "feito" do Qwen sem inspecionar.
+4. Se Qwen errou >2 critérios, refazer solo e marcar `pre-flight invalidado` no RESULT.
+5. Cite explicitamente: `Delegado pro Qwen <tier>, validei X/Y critérios, output em _handoff/QWEN_RESULT.md.` (substitua `<tier>` por `light` ou `heavy`).
 
 ## Idioma
 
