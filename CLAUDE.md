@@ -48,11 +48,70 @@ Treino do **`full_detection_v3_nano`** (YOLOv8n, 95 classes — 80 COCO + 15 esp
 - **Treinos longos** vão pra `D:/training/runs/<run-name>/`; pesos em `weights/best.pt` e `last.pt` (resume automático).
 - **Mobile (Kivy):** modelo é selecionado em `mobile/main.py` (linha ~52). HUD em `mobile/style.kv` linha 84 já não tem mais valores hardcoded.
 
+## Compactar sessão Cowork (herda D16 do meta — 12/05/2026)
+
+Quando Maicon fala "compacta sessão" / "resume essa conversa" — ou Cowork detecta sessão pesada (>30 turnos, várias decisões D??, trabalho substancial) — Cowork escreve `_handoff/SESSAO_YYYY-MM-DD_resumo.md` com 6 seções: conversa em bullets, decisões D??, arquivos modificados, trabalho aplicado, pendências, como retomar. Em conversa nova, "retoma sessão de <data>" → Cowork lê o resumo e segue. Detalhes da convenção em `../Equipe de Trabalho/_agent/memories/Fluxos.md` § "Compactar sessão Cowork (D16)".
+
 ## Stack de IAs do Maicon (referência)
 
 - **Claude Code** — codificação principal.
-- **Qwen3 Coder local** (`qwen3-coder:8k`) na RTX 3090 via Ollama — `qwen.py` invoca via Open Interpreter.
+- **Qwen3 Coder local** (D13 multi-tier: `qwen3-coder:heavy` @ 11435 na RTX 3090, `qwen3-coder:light` @ 11434 na RTX 3080) — `qwen.py` invoca via REST.
 - **Gemini CLI** — pesquisa e brainstorming.
+
+## Regra de papel — [COWORK] vs [CODE] (D24 — obrigatório)
+
+Olhe o título da janela onde você está e obedeça estritamente:
+
+- **`[COWORK] Identificador de Animais …`** (role `cowork-supervisor`, Opus 4.7) — você **PLANEJA, DECIDE, ESCREVE TASK.md**. Não execute implementação direto.
+
+  **Você NÃO deve:**
+  - Editar código do app: `*.py` (Kivy/UI/inferência), `main.py`, `buildozer.spec`
+  - Editar dataset, modelo `*.onnx`, scripts de treino
+  - Rodar `buildozer android debug/release`, treinamento YOLOv8, scripts de inferência, build APK, `git commit` de código
+
+  **Você pode/deve:**
+  - Atualizar `_handoff/STATE.md`, `_agent/DECISION_LOG.md`, `_agent/memories/*.md`
+  - Escrever `_handoff/TASK.md` com `Status: pronto` no front-matter YAML
+  - Aguardar `_handoff/RESULT.md` do [CODE] com `Status: concluído`
+
+- **`[CODE] Identificador de Animais …`** (role `code-consumer`, Sonnet 4.6) — você **EXECUTA**: edita Python, roda `buildozer`, treina/infere, delega para Qwen via `qwen.py --task` quando aplicável. Lê TASK.md (dispatchada), escreve RESULT.md ao concluir.
+
+- **Janela sem prefixo `[…]`** — meta/coordenação geral. Sem restrição rígida.
+
+**Por quê:** [COWORK] tende a inerciar pra implementação quando ganha contexto de código — viola a separação de papéis, deixa [CODE] ocioso, queima quota Opus em trabalho de Sonnet. Se perceber que vai editar `.py` ou rodar `buildozer` como [COWORK], **PARE e escreva TASK.md**.
+
+## Modos operacionais (D24) — per-projeto
+
+`_handoff/mode.txt` deste projeto: `manual` (default) ou `autonomo`. Switch via palavra-chave (`manual`/`para`/`espera` → manual; `autonomo`/`vai sozinho` → autonomo). Em manual, extension Cowork-supervisor insere `@RESULT.md` sem Enter; em autonomo, auto-submete e Maestro pausa em 80% quota (PAUSE.flag → WAKE.md). Pra abrir par de janelas: criar `cowork.code-workspace` + `code.code-workspace` (copiar do Mercado como template). Detalhes em [Equipe de Trabalho/CLAUDE.md](../Equipe%20de%20Trabalho/CLAUDE.md) § "Modos operacionais".
+
+## Delegar pro Qwen local (Code → Qwen, D22)
+
+**Quando delegar:** sub-tarefa **mecânica + isolada (≤3 arquivos) + verificável em <2 min**.
+Bons exemplos: refactor padrão repetitivo, análise de log gigante, scaffold de
+boilerplate, ciclo build→test→fix iterativo.
+
+**Quando NÃO delegar:** decisão arquitetural, output sem revisão, ou se
+**side-effect em filesystem** faz parte do critério — Qwen via Ollama é LLM puro,
+**não edita arquivos**, só responde texto. Confiar no Qwen pra "editar X" causa
+hallucination (ele descreve o trabalho como feito sem ter executado).
+
+**Como invocar:**
+
+1. Escreva `_handoff/QWEN_TASK.md` com **contexto curto + tarefa exata + formato esperado**.
+2. Rode: `py qwen.py --task _handoff/QWEN_TASK.md` (qwen.py vive na raiz deste projeto).
+3. Qwen escreve `_handoff/QWEN_RESULT.md`.
+4. Tier default = light (RTX 3080, ~5-15s). Pra tarefa maior, adicione `--heavy`
+   (RTX 3090 — checar GPU lock antes, protocolo D15 do meta).
+
+**Como conferir (obrigatório):**
+
+1. Leia `QWEN_RESULT.md`.
+2. Compare com critério de aceite da TASK.
+3. Se Qwen produziu código ou patch, **você (Code) aplica no filesystem** — não
+   confie na descrição, ele pode descrever sem executar.
+4. Se Qwen errou ou mentiu, refaça solo.
+5. Cite no `RESULT.md` final: "Delegado pro Qwen, validei X/Y critérios, output em
+   `_handoff/QWEN_RESULT.md`."
 
 ## Idioma
 

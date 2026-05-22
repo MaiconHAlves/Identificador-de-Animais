@@ -1,0 +1,17 @@
+﻿{
+    "folders": [
+        {
+            "path": ".",
+            "name": "Identificador de Animais"
+        }
+    ],
+    "settings": {
+        "equipeHub.role": "code-consumer",
+        "equipeHub.windowTitleTag": "CODE",
+        "equipeHub.autoSubmit": true,
+        "equipeHub.watcherEnabled": true,
+        "equipeHub.debounceMs": 4000,
+        "window.title": "[CODE] Identificador de Animais — Antigravity"
+    }
+}
+

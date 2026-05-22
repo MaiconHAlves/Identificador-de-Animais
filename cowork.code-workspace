@@ -1,0 +1,16 @@
+﻿{
+    "folders": [
+        {
+            "path": ".",
+            "name": "Identificador de Animais"
+        }
+    ],
+    "settings": {
+        "equipeHub.role": "cowork-supervisor",
+        "equipeHub.windowTitleTag": "COWORK",
+        "equipeHub.watcherEnabled": true,
+        "equipeHub.debounceMs": 4000,
+        "window.title": "[COWORK] Identificador de Animais — Antigravity"
+    }
+}
+

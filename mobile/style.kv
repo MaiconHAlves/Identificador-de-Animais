@@ -51,63 +51,30 @@ FloatLayout:
         allow_stretch: True
         keep_ratio: False
 
-    # 2. HUD SUPERIOR
+    # 2. HUD SUPERIOR (Simplificado)
     BoxLayout:
         orientation: 'horizontal'
-        size_hint: (0.95, 0.06)
-        pos_hint: {'center_x': 0.5, 'top': 0.98}
-        padding: [15, 5]
-        spacing: 15
-        canvas.before:
-            Color:
-                rgba: (0, 0.05, 0.1, 0.3)
-            RoundedRectangle:
-                pos: self.pos
-                size: self.size
-                radius: [0, 0, 15, 15]
-
-        Label:
-            text: "IDENTIFICADOR [ACTIVE]"
-            size_hint_x: 0.25
-            color: (0, 0.9, 1, 1)
-            font_size: '11sp'
-            bold: True
-            halign: 'left'
-
-        RiskMeter:
-            id: risk_meter
-            risk_level: app.current_risk
-            size_hint_x: 0.5
-
+        size_hint: (0.95, 0.04)
+        pos_hint: {'center_x': 0.5, 'top': 0.99}
+        padding: [10, 0]
         Label:
             id: fps_label
-            text: "30 FPS | GPU: 3090"
-            size_hint_x: 0.25
-            color: (0.7, 0.7, 0.7, 1)
+            text: "CAM: -- | IA: -- FPS"
+            size_hint_x: 1
+            color: (0, 0.9, 1, 0.6)
             font_size: '10sp'
+            halign: 'right'
 
-    # 3. BOTÃO DE ENGRENAGEM (MASTER CONTROL)
+    # 3. BOTÃO DE CONFIGURAÇÃO (Minimalista)
     Button:
         size_hint: (None, None)
-        size: ("50dp", "50dp")
-        pos_hint: {'right': 0.98, 'top': 0.90}
+        size: ("40dp", "40dp")
+        pos_hint: {'right': 0.99, 'top': 0.95}
         background_color: (0, 0, 0, 0)
-        text: "[b]⚙[/b]"
-        markup: True
-        font_size: '22sp'
-        color: (0, 0.9, 1, 1)
+        text: "⚙"
+        font_size: '20sp'
+        color: (0, 0.9, 1, 0.4)
         on_release: app.menu_active = not app.menu_active
-        canvas.before:
-            Color:
-                rgba: (0, 0.1, 0.2, 0.4)
-            Ellipse:
-                pos: self.pos
-                size: self.size
-            Color:
-                rgba: (0, 0.9, 1, 0.5)
-            Line:
-                width: 1.2
-                circle: (self.center_x, self.center_y, self.width/2)
 
     # 4. PAINEL LATERAL RETRÁTIL (GLASSMORPHISM)
     BoxLayout:
@@ -131,6 +98,41 @@ FloatLayout:
             Line:
                 width: 1
                 rounded_rectangle: (self.x, self.y, self.width, self.height, 15, 0, 0, 15)
+
+        # SEÇÃO DE STATUS
+        Label:
+            text: "RISK LEVEL"
+            font_size: '10sp'
+            color: (0, 0.9, 1, 1)
+            bold: True
+            size_hint_y: None
+            height: '20dp'
+
+        RiskMeter:
+            id: risk_meter
+            risk_level: app.current_risk
+            size_hint_y: None
+            height: '10dp'
+
+        Widget:
+            size_hint_y: None
+            height: '15dp'
+
+        Spinner:
+            id: camera_spinner
+            text: str(app.active_camera_id)
+            values: app.available_cameras
+            font_size: '12sp'
+            bold: True
+            color: (1, 1, 1, 1)
+            background_color: (0, 0.1, 0.2, 0.8)
+            size_hint_y: None
+            height: '32dp'
+            on_text: app.set_camera(int(self.text)) if self.text.isdigit() else None
+
+        Widget:
+            size_hint_y: None
+            height: '8dp'
 
         # SEÇÃO DE CALIBRAÇÃO
         Label:
@@ -183,7 +185,7 @@ FloatLayout:
         padding: [20, 0]
         Label:
             id: status_footer
-            text: "SCANNING: BRAZIL-SOUTH-01 | DETECTIONS: 0 | SIG: NONE"
+            text: "SYSTEM INITIALIZING... | TARGETS: 0"
             color: (0, 0.9, 1, 0.6)
             font_size: '10sp'
             halign: 'left'

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">LiteRT PoC — T014</string>
+    <string name="poc_desc">Validação pipeline LiteRT + AICore\nVerifique logcat: adb logcat -s LiteRTPoC:*</string>
+    <string name="check_logcat">Resultados no logcat (tag LiteRTPoC)</string>
+</resources>

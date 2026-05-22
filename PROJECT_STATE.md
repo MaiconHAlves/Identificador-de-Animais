@@ -108,10 +108,10 @@ anta, cachorro_do_mato, capivara, cutia, gamba, jacare, jaguatirica, lobo_guara,
 
 ## Infraestrutura de IAs
 
-| IA | Modelo | Localização | Status |
-|----|--------|-------------|--------|
-| **Qwen Local** | `qwen3-coder:8k` | RTX 3090 VRAM (~21.5GB) | Ativo (Ollama) |
-| **Gemini CLI** | gemini | sistema | Autenticado |
+| IA              | Modelo                            | Localização             | Status              |
+|-----------------|-----------------------------------|-------------------------|---------------------|
+| **Qwen Local**  | `qwen3-coder:heavy` (porta 11435) | RTX 3090 VRAM (~21GB)   | Ativo (Ollama D13)  |
+| **Gemini CLI**  | gemini                            | sistema                 | Autenticado         |
 
 - Delegador local: `qwen.py` (via Open Interpreter)
 
@@ -184,7 +184,7 @@ py -3.12 qwen.py "tarefa aqui"
 | Componente | Detalhe |
 |------------|---------|
 | **CPU** | Intel i7-9700F (8c/8t, sem HT, 3.0 GHz, L3 12 MB) |
-| **RAM** | 32 GB DDR4-2400 (2× 16GB Kingston, mismatched: HyperX `KHX2400C15/16G` + FURY Beast `KF3200C16D4/16GX` — travado em 2400 porque o sistema sincroniza pela velocidade do mais lento; XMP não ativado) |
+| **RAM** | **64 GB DDR4-2400** (4× 16GB Kingston — 2 pentes HyperX `KHX2400C15/16G` + 2 pentes FURY Beast `KF3200C16D4/16GX`; upgrade 12/05/2026 adicionou os 2 últimos). Travado em 2400 porque o sistema sincroniza pela velocidade do mais lento; XMP não ativado. **Bate o teto da Z390** (64 GB max). |
 | **Motherboard** | Gigabyte Z390 M GAMING-CF (microATX), BIOS F9 (11/2021). 4 slots DIMM, máx 64 GB. PCIe 3.0 nativo. 2 slots PCIe utilizáveis (x16 CPU + x4 chipset). 2 slots M.2 NVMe (1 livre). |
 | **Gabinete** | Mid-tower ATX (marca não identificada). Comporta a placa Z390 microATX atual + 1 GPU dentro; 3080 #1 fica fora via riser cable. Comporta também placa ATX standard (suficiente pra plataforma futura X870E). |
 
@@ -212,7 +212,7 @@ Sincronização via **Add2PSU adapter** (PSU 2 liga junto com a 1 via sinal Powe
 
 **Implicações pro treino atual:**
 - Sem NVMe — I/O é o gargalo principal do data loading.
-- RAM apertada → `cache=True` proibido. Limite seguro com `cache='disk'`: 4 workers (vide histórico).
+- **RAM 64 GB DDR4-2400 (pós 12/05/2026):** `cache=True` agora viável + `workers=6` margem segura. Restrição anterior de `cache='disk' + 4 workers` (incidente OOM 08/05) **fica suspensa** — re-validar com 1 treino antes de declarar oficial.
 - Multi-GPU DDP não vale na plataforma atual (3080 em x4 + 3090 power-locked = comm gargalo).
 - 3ª GPU (3080 reserva) não tem onde encaixar — placa microATX só tem 2 slots PCIe utilizáveis.
 
@@ -220,24 +220,36 @@ Sincronização via **Add2PSU adapter** (PSU 2 liga junto com a 1 via sinal Powe
 
 ## Próximo upgrade — plano em 2 etapas
 
-### Etapa 1 (comprada 08/05/2026) — Samsung 970 Pro 2TB
-- **Investimento:** R$ 1200 (com seguro contra defeito/uso prévio).
-- **Justificativa:** ataca o gargalo real do dataloader YOLO — **IOPS de leitura aleatória 4K** (não throughput sequencial). MLC NAND + DRAM cache = ~500K IOPS, latência ~50µs, melhor que TLC dos Gen4 modernos pra esse workload específico.
-- **Por que 970 Pro 2TB MLC vs alternativas Gen4/Gen5:**
-  - Z390 limita qualquer drive a PCIe Gen3 (~3.5 GB/s) — Gen4/5 não aproveita.
-  - Workload do projeto (IA local + treino YOLO) usa leitura aleatória, não sequencial sustentada.
-  - MLC é mais durável e mais rápido em IOPS aleatório que TLC.
-  - Endurance 1200 TBW oficial; testes mostram aguenta 2-3× isso na prática.
-  - Bargain price (descontinuado em 2019, "última em estoque" mitigado por seguro).
-- **Uso planejado:** mover `C:\datasets\coco` (atualmente em Kingston A400 SATA) pra novo NVMe (provavelmente como `E:`). Cache `.npy` gera no NVMe. Speedup esperado: **10-25% no tempo de epoch** (não os 50%+ originalmente sugeridos — o gargalo principal do treino atual é CPU bound em workers=4, não I/O bruto).
-- **Migração de plataforma:** o 970 Pro segue funcionando em qualquer placa AM5 futura (slot M.2 universal aceita Gen3 x4).
-- **Verificação obrigatória ao receber:**
-  1. Inspecionar etiqueta — `MFD: YYYY/MM` (preferível ≥ 2019).
-  2. Rodar `CrystalDiskInfo` antes de uso pra ler SMART:
-     - Total Bytes Written < 100-200 TB.
-     - Power-On Hours < 5000h.
-     - Health % = 100%.
-  3. Se SMART vier ruim, acionar seguro.
+### Etapa 1 (atualizada 12/05/2026) — NVMe substituto a pesquisar
+
+**Histórico:** Samsung 970 Pro 2TB comprado 08/05/2026 (R$ 1200 com seguro) — **chegou FALSIFICADO. Devolvido 12/05/2026, seguro acionado.** Não compromete trabalho atual (Kingston A400 SATA SSD + HDD 2TB seguem); apenas adia o ataque ao gargalo de IOPS 4K aleatório do dataloader YOLO.
+
+**Restrição da plataforma atual:** Z390 limita qualquer drive a **PCIe Gen3 ×4 (~3.5 GB/s)** — Gen4/Gen5 são desperdiçados em throughput sequencial. Mas o gargalo é IOPS 4K aleatório, e drives modernos Gen4/Gen5 com DRAM full e controllers melhores ainda ganham em IOPS aleatório mesmo limitados a Gen3.
+
+**Alternativas pesquisadas em 12/05/2026 (WebSearch):**
+
+| Drive | Geração | IOPS 4K leitura | DRAM cache | TBW (2TB) | Comentário |
+|-------|---------|----------------|------------|-----------|------------|
+| **Samsung 990 Pro 2TB** | Gen4 | **1.400.000** (recorde Gen4) | Full | 1200 | Referência Gen4 em IOPS aleatório. Em produção, anti-falsificação melhor que 970 Pro. |
+| **WD Black SN850X 2TB** | Gen4 | 1.200.000 | Full | 1200 | Competidor direto do 990 Pro. Garantia 5 anos. Em produção. |
+| **Kingston KC3000 2TB** | Gen4 | 1.000.000 | Full | 1600 | Boa relação custo/benefício. TBW alto. |
+| **Samsung 9100 Pro 2TB** | Gen5 | **1.850.000** | Full | 1200 | Top tier 2026, mas desperdiçado na Z390 (Gen5 → Gen3 = corte ~70% throughput). Vale só se planejar usar na AM5 logo. |
+| **WD Black SN8100 2TB** | Gen5 | **2.300.000** | Full | 1200 | Atualmente o mais rápido consumer. Mesmo argumento de desperdício na Z390. |
+
+**Recomendação Cowork:** **Samsung 990 Pro 2TB** ou **WD Black SN850X 2TB** — ambos Gen4, ~1.2-1.4M IOPS aleatório, ainda em produção (anti-falsificação mais fácil), preço típico R$ 1.000-1.400. Reutilizáveis na AM5 fim de 2026 sem desperdício (Gen4 cabe em qualquer placa moderna).
+
+**Verificação obrigatória ao receber (mantida do plano original):**
+1. Inspecionar etiqueta e selo holográfico do fabricante.
+2. Conferir serial no site da Samsung/WD pra autenticidade.
+3. Rodar `CrystalDiskInfo` antes de uso pra ler SMART:
+   - Total Bytes Written < 50 TB (drive novo).
+   - Power-On Hours < 100h.
+   - Health % = 100%.
+4. Se SMART vier ruim ou serial não bater, acionar seguro/devolução imediato.
+
+**Uso planejado pós-instalação:** mover `D:\datasets\coco` (HDD) + `C:\datasetsr_detection` (SATA SSD) pra novo NVMe (provavelmente `E:`). Cache `.npy` no NVMe. Speedup esperado: **10-25% no tempo de epoch** (gargalo principal hoje é CPU bound, não I/O bruto; com RAM 64GB e `cache=True` o IOPS importa menos pra treinos pequenos).
+
+**Migração de plataforma:** Gen4 segue funcionando em AM5 com slot M.2 Gen4/Gen5 universal. Sem perda.
 
 ### Etapa 2 (fim de 2026) — Plataforma AM5 high-end
 - **Investimento estimado:** R$ 8-12k (sem GPUs, PSUs, NVMe, gabinete — todos aproveitáveis)
@@ -262,6 +274,114 @@ Sincronização via **Add2PSU adapter** (PSU 2 liga junto com a 1 via sinal Powe
 ---
 
 ## Histórico de mudanças
+
+### 12/05/2026 (tarde) — Hardware: RAM 32→64 GB (teto Z390) + SSD 970 Pro era falsificado
+
+**RAM upgrade ✅:** Maicon instalou 2 pentes adicionais Kingston FURY Beast `KF3200C16D4/16GX` 16GB, totalizando **4× 16GB = 64 GB DDR4-2400**. Bate o teto da plataforma Z390 (64 GB max). Próximo upgrade de RAM só com AM5 + DDR5 fim 2026.
+
+**Implicações imediatas pro treino:**
+- `cache=True` (RAM full) agora viável.
+- `workers=6` margem segura — restrição anterior (`cache='disk' + 4 workers` após OOM 08/05) **fica suspensa**.
+- Re-validação obrigatória: rodar 1 treino curto pra confirmar antes de atualizar TASKs futuras com configs novas.
+
+**SSD 970 Pro 2TB FALSIFICADO ❌:** o drive comprado 08/05/2026 por R$ 1200 chegou falso. Devolvido em 12/05/2026, seguro acionado, processo de reembolso em andamento. Não compromete trabalho atual.
+
+**Pesquisa de substituto (12/05/2026 via WebSearch — Cowork):** 5 alternativas mapeadas (Samsung 990 Pro, WD SN850X, Kingston KC3000, Samsung 9100 Pro Gen5, WD SN8100 Gen5). Recomendação: Samsung 990 Pro 2TB **ou** WD Black SN850X 2TB — Gen4, ~1.2-1.4M IOPS aleatório, ainda em produção (anti-falsificação melhor que 970 Pro descontinuado), R$ 1.000-1.400. Detalhes na seção "Próximo upgrade — Etapa 1".
+
+### 12/05/2026 — T015 fase 2 (D10/AAR) entregou smoke qualitativo no emulador; T015.b.ipc destrava o gate quantitativo via auto-trigger
+
+**T015 fase 2 executada (D10 — AAR pré-compilado):**
+
+Módulo Gradle `:detectionservice` criado dentro de `_research/litert_poc/`, AAR gerado (`detection_service.aar`), importado no APK principal via `android.add_aars` no `buildozer.spec` (com `android.add_gradle_repositories = flatDir { dirs 'libs' }`). APK `1.0.28-rc2` (universal arm64-v8a + x86_64, ~155 MB) instalado em AVD `google_apis` API 29 x86_64. App Kivy/Python/SDL2 sobe, Service Kotlin carrega no processo, PID 8612 vivo 35+ min com 245 MB RAM — **smoke qualitativo PASS**.
+
+**Bloqueio descoberto no gate quantitativo:** `test_ipc_roundtrip.py` usa Pyjnius pra `bindService` + Messenger, mas **Pyjnius exige o JVM context do processo Android embarcado**. Tentativa de rodar o script via `adb shell run-as <pkg> python test_ipc_roundtrip.py` falha porque o shell não tem JVM context (não é o processo do app — é processo separado do shell). Resultado: `frames_success = 0`, métricas P50/P95/P99 não calculáveis. O gate emulador ficou em SKIP no quantitativo, mesmo com qualitativo PASS.
+
+**Decisão Maicon (12/05/2026):** não pular pro S24. **Respeitar a política rigorosa "emulador antes do S24, sem exceção"** registrada no histórico do 11/05. Criar sub-task **T015.b.ipc** pra destravar o gate quantitativo no próprio emulador.
+
+**Solução T015.b.ipc — auto-trigger via flag file:**
+
+- Bloco condicional em `mobile/main.py` (em `on_start` do App ou fim do `__init__` do MainScreen) que checa `/sdcard/run_ipc_test`. Se a flag existe → thread interna invoca `run_benchmark(frames=100, report_path="/sdcard/ipc_emulator.json")`. Thread roda DENTRO do processo do app → Pyjnius tem JVM context válido → `bindService` funciona → roundtrip mensurável.
+- Flag é setada externamente via `adb shell touch /sdcard/run_ipc_test` antes de abrir o app, e removida pelo próprio thread ao terminar (sinal de conclusão pra pipeline shell).
+- Sem flag → app abre normal, sem disparar nada (zero impacto em produção, exceto bytes de código mortos).
+- `test_ipc_roundtrip.py` refatorado pra expor `run_benchmark(frames, report_path)` reutilizável (não só `__main__`/argparse).
+- APK alvo: `1.0.28-rc3`.
+
+**Critério emulador (relaxado vs S24 por virtualization overhead):** P95 < 30 ms (preferível < 20), P99 < 80 ms (preferível < 50), `frames_success ≥ 95`. Critério S24 segue rígido (P95 < 10 ms, P99 < 30 ms).
+
+**Tech debt rastreável:** bloco auto-trigger em `main.py` deve ser marcado com comentário "T015.b.ipc — REMOVER em produção final". Vira item de cleanup pra T016.
+
+**Lição registrada (mobile/Pyjnius):** **testes que usam Pyjnius pra falar com componentes Android (Service, Activity, ContentProvider) NÃO rodam via `adb shell` — precisam estar dentro do processo do app Android.** Padrão de solução: flag file em `/sdcard/` + thread interno disparado pelo `main.py` em condição. Vale registrar em `_agent/memories/` na próxima passada.
+
+**Origem:** Claude Code executou T015 fase 2 entre 11/05 noite e 12/05 manhã, identificou o bloqueio Pyjnius/JVM context, devolveu pro Cowork. Maicon decidiu pela continuação rigorosa (não pular pro S24).
+
+---
+
+### 11/05/2026 (tarde) — T015 fase 1 bloqueada no passo 0; decisão: **Opção C (AAR pré-compilado)** pra fase 2
+
+**Bloqueio identificado pelo Claude Code:** o template p4a/SDL2 que gera o `build.gradle` do APK final **não inclui o Kotlin Gradle plugin** — sem `classpath 'org.jetbrains.kotlin:kotlin-gradle-plugin'` e sem `apply plugin: 'kotlin-android'`. Resultado: `android.add_src` no `buildozer.spec` aceita só Java (precedente: `CameraHelper.java` já presente no projeto). Compilar `.kt` direto na pasta de fontes do APK falharia no Gradle.
+
+**Decisão Maicon:** ir com **Opção C — AAR pré-compilado**.
+
+**Alternativas comparadas:**
+
+| Opção | Custo extra | Risco | Alinhamento com PoC LiteRT (Kotlin) | Caminho pra T016 |
+|---|---|---|---|---|
+| A — Reescrever Service em Java | 0h | Baixo (precedente CameraHelper.java) | ❌ Divergência: Java no Service, Kotlin no PoC | Manter Java ou re-fazer em Kotlin (retrabalho) |
+| B — Patch template p4a (injetar Kotlin plugin via `build_local.sh`) | 2-4h | Médio (acoplado ao template; quebra em update de p4a) | ✅ Mantém Kotlin | Dívida técnica permanente |
+| **C — AAR pré-compilado** (compilar `.kt` no Android Studio, importar via `android.add_aars`) | **5-10h** | **Baixo** (fluxo independente do p4a) | ✅✅ Mesma stack do PoC | T016 já vai importar LiteRT como AAR — mesmo padrão |
+
+**Racional:**
+
+- T016 vai integrar **LiteRT real**, que **virá como AAR** de qualquer jeito (`com.google.ai.edge.litert:litert:1.4.0`). O PoC `_research/litert_poc/` já é Android Studio Kotlin.
+- O custo extra de C **não é gasto a mais** — é antecipação obrigatória pra T016. Você paga upfront e o setup AAR já estará pronto pra integração real.
+- Opção A criaria divergência lingüística no projeto (Java + Kotlin) e geraria retrabalho em T016.
+- Opção B combina o pior dos dois mundos: fragilidade do patch p4a + complexidade.
+
+**Plano operacional da fase 2 (T015 segue, não vira T015.b — mesmo ciclo):**
+
+1. **Expandir `_research/litert_poc/`** com um novo módulo Gradle Android Library `:detectionservice` (não confundir com `:app`, que é o app de teste do PoC). Esse módulo hospeda `DetectionService.kt` + `DetectionDTO.kt` + manifesto do Service.
+2. **Compilar:** `./gradlew :detectionservice:assembleRelease` → gera `_research/litert_poc/detectionservice/build/outputs/aar/detectionservice-release.aar`.
+3. **Importar no APK principal:** copiar AAR pra `mobile/libs/detectionservice.aar` e adicionar `android.add_aars = libs/detectionservice.aar` no `buildozer.spec`. Declarar o `<service>` via `android.manifest_placeholders` ou `<manifest-extra>` no spec.
+4. **Wrapper Python (`mobile/service_bridge.py`):** Pyjnius autoclass `com.maicon.animaldetector.DetectionService` + Messenger pra bind.
+5. **Build APK 1.0.28-rc1** → **gate emulador (AVD, 100 frames)** → **S24 (1000 frames, P50/P95/P99)**.
+
+**Caveat declarado:** durante esta T015, o AAR **NÃO inclui LiteRT** como dependency — só androidx.core mínimo. LiteRT entra no AAR (ou como AAR adicional) em T016.
+
+**Origem:** Claude Code identificou o bloqueio em 11/05/2026 (tarde) na investigação obrigatória do passo 0 da T015. Cowork apresentou as 3 opções com tabela comparativa + ROI; Maicon escolheu C.
+
+---
+
+### 11/05/2026 — T014 fechada ✅ (fase 1 + T014.b), T015 promovida; nova política de validação: emulador antes de teste físico
+
+**T014 concluída** em duas fases:
+
+| Fase | Item | Resultado |
+|---|---|---|
+| Fase 1 | Conversão TFLite INT8 (PTQ) `coco_v0` + `fulldet_v3` | ✅ ambos `full_integer_quant` |
+| Fase 1 | Pipeline `scripts/export_tflite_ptq.py` + `validate_tflite_quick.py` + `copy_models_to_poc.py` | ✅ |
+| Fase 1 | Projeto Android Studio `_research/litert_poc/` (Kotlin + LiteRT 1.4.0 + AICore delegate) | ✅ compila |
+| Fase 1 | mAP `coco_v0` INT8 vs FP32 (<3% perda) | ✅ 50.2% / perda 1.4% rel — **PASS** |
+| Fase 1 | mAP `fulldet_v3` INT8 vs FP32 (<3% perda) | ✗ 62.5% / perda 9.23% rel — causa-raiz: calibração com apenas 4 imgs (`coco8.yaml`) |
+| T014.b | Re-export `fulldet_v3` com 5.151 imgs (BR val completo) | ✅ INT8 **66.1%** (≥ 65.8% critério absoluto) — **PASS** |
+
+**Lição PTQ registrada:** representative dataset INT8 precisa de **≥ 300 imagens do domínio alvo**. Default do Ultralytics (`coco8.yaml` = 4 imgs) engana e custou uma iteração inteira. Vale documentar em `_agent/memories/` na próxima passada.
+
+**T015 promovida** de `_research/draft_task15_native_service.md` pra `_handoff/TASK.md` (status `pronto`). Escopo: Bound Service Kotlin + Messenger IPC + wrapper Python (Pyjnius), detecção mock, 1000 frames de roundtrip, critério P95 < 10 ms / P99 < 30 ms. **Não substitui cv2.dnn ainda** — APK gerado vira `1.0.28-rc1` (validação interna, 1.0.27 permanece em produção). Pesquisas pendentes 1 e 2 do draft (AAR LiteRT estável + AICore no Exynos 2400) resolvidas implicitamente pela T014 — PoC compila. Pesquisa pendente 3 (receita p4a/Buildozer pra módulo Kotlin custom) virou primeiro passo investigativo da própria T015, com plano B (AAR pré-buildado, ~5-10h) registrado.
+
+**Nova política — validação em emulador antes de teste físico no S24:**
+
+A partir desta entrada, **toda TASK que produzir APK ou módulo Android validado em runtime deve passar primeiro por teste em emulador** (AVD com imagem ARM64 ou x86_64 conforme o módulo) antes de ir pro Samsung S24 Ultra de campo. Racional: o S24 é o dispositivo de produção do Maicon — preservar evita ciclos de uninstall/reinstall por crash trivial, derrubar ANR no aparelho de trabalho, e poluir o logcat real com builds rc. Emulador serve de gate para crashes na inicialização, manifestos quebrados, smoke test do IPC, paridade visual mínima. Apenas builds que passam no emulador descem pro S24 pra medição final (latência, fps, AICore delegate real, validação em campo).
+
+Consequências práticas:
+- T014 teste físico no S24 (latência CPU vs AICore) — **segue pendente** e agora deve rodar em **AVD primeiro** (CPU baseline) e só depois no S24 (validação AICore real, que o emulador não cobre).
+- T015 critério de sucesso passa a exigir: 1000 frames em emulador zerados de crash **antes** de medir latência IPC no S24.
+- T016 (futura) idem: APK 1.0.28-rc1 → emulador → S24.
+
+**Teste físico no S24 da T014 continua em paralelo com T015** (não-bloqueante) — Maicon roda quando puder, agora seguindo a nova política (AVD primeiro).
+
+**Origem:** decisão Maicon, modo automático, sessão 11/05/2026 — após Cowork promover T015 e consultar sobre fluxo de teste.
+
+---
 
 ### 10/05/2026 (noite) — Decisão arquitetural: migrar runtime Android para Serviço Nativo Kotlin + LiteRT/AICore
 

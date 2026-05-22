@@ -3,7 +3,7 @@ import yaml
 from ultralytics import YOLO
 from roboflow import Roboflow
 
-# CONFIGURAÇÕES TÁTICAS (Hybrid Fusion Final - Time NEXO)
+# CONFIGURAÇÕES TÁTICAS (Hybrid Fusion Final)
 MODEL_VARIANT = "yolo11s.pt"
 API_KEY = "Lc4vZgIj0qrwK2lWdtWp"
 EPOCHS = 100

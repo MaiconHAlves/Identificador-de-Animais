@@ -1,0 +1,14 @@
+{
+  "project": "animais",
+  "updated_at": "2026-05-14T19:56:17.541710",
+  "counts": {
+    "inbox": 0,
+    "in_progress": 0,
+    "done": 1,
+    "failed": 0,
+    "code_review_needed": 1
+  },
+  "total_tasks": 2,
+  "supervisor_needed": false,
+  "last_event": "19:56:17 │ ANI-TEST-001 │ in_progress → done │ agent=qwen_heavy | 40.7s"
+}

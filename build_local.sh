@@ -157,8 +157,8 @@ log "  Patcheando PythonActivity.java: System.loadLibrary(hwuifix) + clearFlags 
 P4A_ACT="$P4A_DIR/pythonforandroid/bootstraps/sdl2/build/src/main/java/org/kivy/android/PythonActivity.java"
 if [ -f "$P4A_ACT" ]; then
     if ! grep -q "hwuifix" "$P4A_ACT"; then
-        sed -i 's/Log\.v(TAG, "About to do super onCreate");/System.loadLibrary("hwuifix");\n        getWindow().clearFlags(android.view.WindowManager.LayoutParams.FLAG_HARDWARE_ACCELERATED);\n        Log.v(TAG, "About to do super onCreate");/' "$P4A_ACT"
-        log "    Patched template: PythonActivity.java (hwuifix + clearFlags)"
+        sed -i 's/Log\.v(TAG, "About to do super onCreate");/try { System.loadLibrary("hwuifix"); } catch (UnsatisfiedLinkError e) { android.util.Log.w("hwuifix", "libhwuifix.so not found, HWUI workaround disabled"); }\n        getWindow().clearFlags(android.view.WindowManager.LayoutParams.FLAG_HARDWARE_ACCELERATED);\n        Log.v(TAG, "About to do super onCreate");/' "$P4A_ACT"
+        log "    Patched template: PythonActivity.java (hwuifix try-catch + clearFlags)"
     else
         log "    Já patcheado: PythonActivity.java (template)"
     fi
@@ -170,7 +170,7 @@ while IFS= read -r -d '' ACT; do
     if ! grep -q "hwuifix" "$ACT"; then
         # Remove patch anterior (clearFlags sozinho) se presente, para não duplicar
         sed -i '/getWindow()\.clearFlags(android\.view\.WindowManager\.LayoutParams\.FLAG_HARDWARE_ACCELERATED);/d' "$ACT"
-        sed -i 's/Log\.v(TAG, "About to do super onCreate");/System.loadLibrary("hwuifix");\n        getWindow().clearFlags(android.view.WindowManager.LayoutParams.FLAG_HARDWARE_ACCELERATED);\n        Log.v(TAG, "About to do super onCreate");/' "$ACT"
+        sed -i 's/Log\.v(TAG, "About to do super onCreate");/try { System.loadLibrary("hwuifix"); } catch (UnsatisfiedLinkError e) { android.util.Log.w("hwuifix", "libhwuifix.so not found, HWUI workaround disabled"); }\n        getWindow().clearFlags(android.view.WindowManager.LayoutParams.FLAG_HARDWARE_ACCELERATED);\n        Log.v(TAG, "About to do super onCreate");/' "$ACT"
         log "    Patched dist: $ACT"
     else
         log "    Já patcheado dist: $(basename $(dirname "$ACT"))/$(basename "$ACT")"
@@ -278,6 +278,37 @@ while IFS= read -r -d '' DIR; do
 done < <(find \
     "$BUILD_DIR/.buildozer/android/platform/build-arm64-v8a/dists" \
     -path "*/org/kivy/android" -type d -print0 2>/dev/null)
+
+# Patch 3: flatDir no build.gradle template (fix para android.add_aars)
+# p4a gera `implementation(name: 'detection_service', ext: 'aar')` mas NÃO adiciona
+# flatDir ao allprojects { repositories { } } — Gradle trata como módulo e falha com
+# "Could not find :detection_service:". Patch necessário no TEMPLATE para sobreviver
+# à deleção da dist durante p4a update.
+log "  Patcheando build.gradle template: adicionando flatDir para AAR local..."
+# Patch via buildozer.spec: android.add_gradle_repositories = flatDir { dirs 'libs' }
+# Belt-and-suspenders: patcha o Jinja2 template também, caso o spec seja sobrescrito
+GRADLE_TMPL="$P4A_DIR/pythonforandroid/bootstraps/common/build/templates/build.tmpl.gradle"
+if [ -f "$GRADLE_TMPL" ]; then
+    if ! grep -q "flatDir" "$GRADLE_TMPL"; then
+        sed -i "s/jcenter()/jcenter()\n        flatDir { dirs 'libs' }/" "$GRADLE_TMPL"
+        log "    Patched template: build.tmpl.gradle (flatDir AAR local)"
+    else
+        log "    build.tmpl.gradle já tem flatDir"
+    fi
+else
+    log "    AVISO: build.tmpl.gradle não encontrado: $GRADLE_TMPL"
+fi
+# Também patchar na dist se já existir (builds incrementais sem remoção da dist)
+while IFS= read -r -d '' BGRADLE; do
+    if ! grep -q "flatDir" "$BGRADLE"; then
+        sed -i "s/mavenCentral()/mavenCentral()\n        flatDir { dirs 'libs' }/" "$BGRADLE"
+        log "    Patched dist build.gradle: $(dirname "$BGRADLE" | xargs basename)"
+    else
+        log "    Dist build.gradle já tem flatDir"
+    fi
+done < <(find \
+    "$BUILD_DIR/.buildozer/android/platform/build-arm64-v8a/dists" \
+    -name "build.gradle" -maxdepth 3 -print0 2>/dev/null)
 
 # ── 6. Build ──────────────────────────────────────────────────────────────────
 log "[6/6] Rodando buildozer android debug..."

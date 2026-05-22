@@ -1,0 +1,10 @@
+path: ./data/unified_dataset
+train: images/train
+val: images/val
+
+nc: 4
+names:
+  0: animal_wild
+  1: animal_domestic
+  2: human
+  3: vehicle

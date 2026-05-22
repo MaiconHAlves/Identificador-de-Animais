@@ -15,6 +15,33 @@ except ImportError:
     _HAS_CV2 = False
 
 
+def _safe_extract(buf, expected_size: int, label: str = "") -> "np.ndarray":
+    """
+    Converte buffer (jnius ByteArray) em np.uint8 array de EXATAMENTE expected_size bytes.
+    - Pad com zeros se buffer veio curto (off-by-one no Camera2 do Samsung S24).
+    - Trunca se veio longo.
+    Loga 1x por label pra rastreabilidade. Sem o pad, reshape lança exception
+    silenciosa em pyjnius callback → tela branca.
+    """
+    raw = np.frombuffer(bytes(buf), dtype=np.uint8)
+    actual = len(raw)
+    if actual == expected_size:
+        return raw
+    if not hasattr(_safe_extract, "_warned"):
+        _safe_extract._warned = set()
+    key = f"{label}:{actual}->{expected_size}"
+    if key not in _safe_extract._warned:
+        delta = expected_size - actual
+        sign = "+" if delta > 0 else ""
+        print(f"[CV-PAD] Buffer {label}: {actual} bytes recebido, {expected_size} esperado (delta={sign}{delta})")
+        _safe_extract._warned.add(key)
+    if actual < expected_size:
+        out = np.zeros(expected_size, dtype=np.uint8)
+        out[:actual] = raw
+        return out
+    return raw[:expected_size]
+
+
 def _yuv_to_bgr(y_buf, u_buf, v_buf, w: int, h: int, 
                 y_ps: int, y_rs: int, u_ps: int, u_rs: int, v_ps: int, v_rs: int) -> np.ndarray | None:
     """
@@ -33,18 +60,21 @@ def _yuv_to_bgr(y_buf, u_buf, v_buf, w: int, h: int,
     start_t = time.perf_counter()
     
     try:
-        # 1. Preparar buffers NumPy rápidos (Convertendo ByteArray do jnius para bytes do Python)
-        # O erro 'a bytes-like object is required' ocorre porque np.frombuffer não aceita o wrapper do jnius diretamente.
-        y_raw = np.frombuffer(bytes(y_buf), dtype=np.uint8)
-        u_raw = np.frombuffer(bytes(u_buf), dtype=np.uint8)
-        v_raw = np.frombuffer(bytes(v_buf), dtype=np.uint8)
+        # 1. Calcular tamanhos esperados ANTES de converter
+        y_size_needed  = h * y_rs
+        uv_size_needed = (h // 2) * v_rs   # válido p/ NV21 (intercalado) e I420
 
-        # 2. Extração segura do Plano Y (Luminância)
-        # Garantir que não tentamos ler além do buffer disponível
-        y_size_needed = h * y_rs
+        # 2. Converter ByteArray do jnius com pad/trunc seguro.
+        # Samsung S24 tem off-by-one no buffer Y do Camera2 (153599 vs 153600 esperado).
+        # Sem pad, np.reshape lança exception silenciosa em callback pyjnius → tela branca.
+        y_raw = _safe_extract(y_buf, y_size_needed,  "Y")
+        u_raw = _safe_extract(u_buf, uv_size_needed, "U")
+        v_raw = _safe_extract(v_buf, uv_size_needed, "V")
+
+        # 3. Extração segura do Plano Y (Luminância)
         y_plane = y_raw[:y_size_needed].reshape(h, y_rs)[:, :w]
 
-        # 3. Reconstrução Cromática
+        # 4. Reconstrução Cromática
         if u_ps == 2:
             # NV21/NV12 (Intercalado)
             yuv_full = np.empty((h + h // 2, w), dtype=np.uint8)

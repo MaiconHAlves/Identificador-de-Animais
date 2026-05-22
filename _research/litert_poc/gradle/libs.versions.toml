@@ -1,0 +1,18 @@
+[versions]
+agp = "8.7.3"
+kotlin = "2.1.0"
+coreKtx = "1.15.0"
+appcompat = "1.7.0"
+litert = "1.4.0"
+
+[libraries]
+androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
+androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
+# LiteRT + AICore delegate (stack oficial Google para inferência on-device)
+litert = { group = "com.google.ai.edge.litert", name = "litert", version.ref = "litert" }
+litert-aicore = { group = "com.google.ai.edge.litert", name = "litert-aicore", version.ref = "litert" }
+
+[plugins]
+android-application = { id = "com.android.application", version.ref = "agp" }
+android-library = { id = "com.android.library", version.ref = "agp" }
+kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }

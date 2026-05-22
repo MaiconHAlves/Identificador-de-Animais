@@ -2,7 +2,7 @@ import os
 from ultralytics import YOLO
 from roboflow import Roboflow
 
-# CONFIGURAÇÕES TÁTICAS (Brasil Edition - Time NEXO Engine)
+# CONFIGURAÇÕES TÁTICAS (Brasil Edition)
 MODEL_VARIANT = "yolo11s.pt"
 DATASET_NAME = "brazilian-wildlife-animals-detection"
 EPOCHS = 100

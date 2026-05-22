@@ -1,7 +1,7 @@
 import os
 from ultralytics import YOLO
 
-# CONFIGURAÇÕES TÁTICAS (Time NEXO Engine)
+# CONFIGURAÇÕES TÁTICAS
 MODEL_VARIANT = "yolo11s.pt"  # s = Small (Equilíbrio ideal entre velocidade e precisão para RTX 3090)
 DATASET_CONFIG = "african-wildlife.yaml" # Dataset público oficial da Ultralytics
 EPOCHS = 50 # Reduzi para 50 para um teste rápido, mas completo.

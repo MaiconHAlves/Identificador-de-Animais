@@ -46,10 +46,14 @@ class AnimalDetectorApp(App):
         # Carregar o Design Tático
         self.root = Builder.load_file('mobile/style.kv')
 
-        # Emulador/debug: modelo BR 12MB para FPS > 7 e diagnóstico de scores=0
-        # Produção S24: trocar para full_detection_v2_nodfl.onnx (95 classes)
+        # Modelo dual i416 FP16: COCO 80 classes + Fauna BR 15 classes
+        # INT8 descartado: DynamicQuantizeLinear não suportado em cv2.dnn Android.
+        # FP16 confirmado funcional em cv2.dnn 4.13 desktop (deve funcionar em 4.5.1 Android).
+        # FP16 e INT8 rejeitados pelo cv2.dnn 4.5.1 Android — FP32 i416 é o único formato compatível.
+        # Speedup vem da resolução 640→416 (~2.4×), não da quantização.
         self.detector = DetectionEngine(model_paths=[
-            "models/animal_wild_br_nodfl.onnx",
+            "models/coco_yolov8n_nc80_v0_i320_nodfl.onnx",               # COCO 80 classes — i320 FP32
+            "models/fulldet_yolov8n_nc95_v3_m692_i320_nodfl.onnx",       # Fauna BR 15 classes — i320 FP32
         ], conf_threshold=0.25)
         self.fusion = FusionEngine()
         self.audio = AudioManager()
@@ -61,6 +65,8 @@ class AnimalDetectorApp(App):
         self._is_paused = False
         self.active_camera_id = 0
         self.last_detections = []
+        self.last_dets_by_model = [[], []]
+        self._frame_count_ia = 0
         self.current_risk = 0.0
         self._texture = None
         self._model_fps = 0.0
@@ -91,6 +97,7 @@ class AnimalDetectorApp(App):
                 request_permissions(perms, self._on_permissions_result)
         else:
             self._start_camera()
+        Clock.schedule_once(self._check_ipc_trigger, 5.0)
 
     def _on_permissions_result(self, permissions, results):
         if results and all(results):
@@ -98,6 +105,87 @@ class AnimalDetectorApp(App):
             Clock.schedule_once(lambda dt: self._start_camera(), 0.5)
         else:
             print("Permissões negadas — câmera não iniciada")
+
+    def _check_ipc_trigger(self, dt):
+        flag = "/sdcard/ipc_bench.flag"
+        if not os.path.exists(flag):
+            return
+        print("[IPC-TRIGGER] Flag detectada — bind_service() na main thread")
+        try:
+            from mobile.service_bridge import ServiceBridge
+            self._ipc_bridge = ServiceBridge()
+            # T015.b.ipc Fix #4 — REMOVER em produção final
+            # bind_service() só registra o ServiceConnection na main thread; Handler/Messenger
+            # de resposta vão ser criados na thread do benchmark via setup_reply_in_current_thread()
+            self._ipc_bridge.bind_service()
+        except Exception as exc:
+            print(f"[IPC-TRIGGER] bind_service() falhou: {exc}")
+            return
+        Clock.schedule_once(self._start_ipc_after_bind, 2.0)  # aguarda onServiceConnected
+
+    def _start_ipc_after_bind(self, dt):
+        import threading
+        threading.Thread(target=self._run_ipc_benchmark, daemon=True).start()
+
+    def _run_ipc_benchmark(self):
+        import json, time
+        import numpy as np
+        # T015.b.ipc Fix #4 — REMOVER em produção final
+        # detach() no finally garante cleanup do JNIEnv desta thread antes do GIL desistir
+        from jnius import detach  # type: ignore[import]
+        bridge = self._ipc_bridge
+        if bridge._messenger is None:
+            print("[IPC-TRIGGER] ERRO: service não conectou após 2s — messenger is None")
+            return
+        try:
+            # T015.b.ipc Fix #4 — REMOVER em produção final
+            # cria Handler/Messenger de resposta NESTA thread (isolamento Pyjnius por thread)
+            bridge.setup_reply_in_current_thread()
+            dummy = np.zeros((320, 320, 3), dtype=np.uint8).tobytes()
+            latencies, crashes = [], 0
+            print("[IPC benchmark] 100 frames → emulator")
+            for i in range(100):
+                t0 = time.perf_counter()
+                try:
+                    bridge.send_frame(dummy, engine_idx=0, width=320, height=320)
+                except Exception as exc:
+                    crashes += 1
+                    print(f"  [CRASH] frame {i}: {exc}")
+                    continue
+                latencies.append((time.perf_counter() - t0) * 1000)
+                if (i + 1) % 25 == 0:
+                    r = latencies[-25:]
+                    print(f"  frame {i+1}/100 — P50={np.percentile(r,50):.1f}ms P95={np.percentile(r,95):.1f}ms")
+            bridge.unbind()
+            if not latencies:
+                print("[IPC-TRIGGER] ERRO: zero frames completados")
+                return
+            arr = np.array(latencies)
+            p50 = float(np.percentile(arr, 50))
+            p95 = float(np.percentile(arr, 95))
+            p99 = float(np.percentile(arr, 99))
+            print(f"\nRESULTADO IPC — emulator ({len(latencies)} frames, {crashes} crashes)")
+            print(f"  P50 = {p50:.2f} ms")
+            print(f"  P95 = {p95:.2f} ms  {'✓' if p95 < 30 else '✗ (critério <30ms)'}")
+            print(f"  P99 = {p99:.2f} ms  {'✓' if p99 < 80 else '✗ (critério <80ms)'}")
+            result = {"target": "emulator", "frames_ok": len(latencies), "crashes": crashes,
+                      "frames_total": 100, "frames_success": len(latencies),
+                      "p50_ms": round(p50, 2), "p95_ms": round(p95, 2), "p99_ms": round(p99, 2),
+                      "pass_p95": p95 < 30, "pass_p99": p99 < 80}
+            report = "/data/data/com.maiconalves.animaldetector/files/ipc_emulator.json"
+            try:
+                os.makedirs(os.path.dirname(report), exist_ok=True)
+                with open(report, "w", encoding="utf-8") as f:
+                    json.dump(result, f, indent=2)
+                print(f"[IPC-TRIGGER] Relatório salvo: {report}")
+            except Exception as exc:
+                print(f"[IPC-TRIGGER] Falha ao salvar relatório: {exc}")
+        finally:
+            # T015.b.ipc Fix #4 — REMOVER em produção final
+            try:
+                detach()
+            except Exception as exc:
+                print(f"[IPC-TRIGGER] detach() falhou: {exc}")
 
     def _start_camera(self, cam_id=None):
         print(f"[IA-DEBUG] Iniciando _start_camera(id={cam_id})")
@@ -150,7 +238,7 @@ class AnimalDetectorApp(App):
             Clock.schedule_once(lambda dt: self._start_camera(self.active_camera_id), 0.5)
 
     def ia_processing_loop(self, *args):
-        """Loop de processamento pesado (IA + Cálculo de Risco)"""
+        """Loop de IA com frame skip alternado: par→COCO, ímpar→BR."""
         import time
         consecutive_errors = 0
         self._ia_thread_running = True
@@ -158,20 +246,27 @@ class AnimalDetectorApp(App):
             if self._is_paused:
                 time.sleep(0.5)
                 continue
-                
+
             try:
                 _, frame = self.rgb_manager.get_latest_frame()
                 if frame is None:
                     time.sleep(0.033)
                     continue
-                detections = self.detector.detect(frame)
+
+                engine_idx = self._frame_count_ia % 2
+                detections = self.detector.detect_one(frame, engine_idx)
+                self._frame_count_ia += 1
                 consecutive_errors = 0
+
                 if detections is not None:
-                    self.last_detections = detections
+                    self.last_dets_by_model[engine_idx] = detections
+                    self.last_detections = self.last_dets_by_model[0] + self.last_dets_by_model[1]
+
                     _now = time.time()
                     self._model_frame_times.append(_now)
                     self._model_frame_times = [t for t in self._model_frame_times if _now - t < 2.0]
                     self._model_fps = len(self._model_frame_times) / 2.0
+
                     if self.last_detections:
                         max_conf = max(d['confidence'] for d in self.last_detections)
                         self.current_risk = max_conf
