@@ -55,7 +55,7 @@ Quando Maicon fala "compacta sessão" / "resume essa conversa" — ou Cowork det
 ## Stack de IAs do Maicon (referência)
 
 - **Claude Code** — codificação principal.
-- **Qwen3 Coder local** (D13 multi-tier: `qwen3-coder:heavy` @ 11435 na RTX 3090, `qwen3-coder:light` @ 11434 na RTX 3080) — `qwen.py` invoca via REST.
+- **Qwen3 local** (D13 multi-tier, atualizado pela **D118/D119** em 19/08: `qwen3.8:27b` @ 11435 na RTX 3090, `qwen3-coder:light` @ 11434 na RTX 3080 — **as 2 quentes**, `keep_alive=-1`) — `qwen.py` invoca via REST.
 - **Gemini CLI** — pesquisa e brainstorming.
 
 ## Regra de papel — [COWORK] vs [CODE] (D24 — obrigatório)
