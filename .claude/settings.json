@@ -10,5 +10,6 @@
       "PowerShell(*)"
     ],
     "defaultMode": "acceptEdits"
-  }
+  },
+  "remoteControlAtStartup": false
 }
